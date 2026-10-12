@@ -156,7 +156,7 @@ wandb/
 # Neural Network weights -----------------------------------------------------------------------------------------------
 weights/
 *.weights
-*.pt
+#*.pt
 *.ts
 *.pb
 *.onnx
@@ -188,8 +188,8 @@ calibration_*.npy
 *.mov
 *.mkv
 *.webm
-*.jpg
-*.jpeg
+#*.jpg
+#*.jpeg
 *.png
 *.bmp
 *.tiff
