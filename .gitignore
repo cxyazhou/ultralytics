@@ -200,8 +200,9 @@ calibration_*.npy
 #*.ico
 *.raw
 
-# txt
+# other
 *.txt
+.cache
 
 # Training logs
 args.yaml
