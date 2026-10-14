@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{783871a7-9d61-4757-8e46-23c4bb593dd7}</ProjectGuid>
+    <RootNamespace>Main</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(SolutionDir)\app\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)\app\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)\app\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)\app\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\code\modules\CPPBase\inc;$(SolutionDir)..\..\code\modules\IvaTrack\inc;$(SolutionDir)..\..\code\modules\ConfigManager\inc;$(SolutionDir)..\..\code\modules\json\inc;$(SolutionDir)..\..\code\modules\MediaPlayer\inc;$(SolutionDir)..\..\code\modules\GuiMain\inc;$(SolutionDir)..\..\code\openbsd\qt\inc</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\code\modules\OnnxDet\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\GuiMain\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\ConfigManager\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\json\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\CPPBase\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\MediaPlayer\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\GetImage\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\GetAudio\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\IvaTrack\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\AudioProcess\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\openssl\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\portaudio\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\zlib\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\qt\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\vlc\lib\$(Platform)\Release\;$(SolutionDir)..\..\code\openbsd\ffmpeg\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\opencv\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\depend\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\onnxruntime\lib\$(Platform)\Release\</AdditionalLibraryDirectories>
+      <AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PostBuildEvent>
+      <Command>Copy /D "$(Solutiondir)..\..\code\openbsd\qt\lib\$(Platform)\$(Configuration)\*.dll"  "$(TargetDir)"
+mkdir "$(TargetDir)platforms\"
+Copy /D "$(Solutiondir)..\..\code\openbsd\qt\lib\$(Platform)\$(Configuration)\plugins\platforms\*.dll"  "$(TargetDir)platforms\"
+XCopy /D /i /e "$(Solutiondir)..\..\code\openbsd\qt\lib\$(Platform)\$(Configuration)\plugins\mediaservice"  "$(TargetDir)mediaservice"
+XCopy /D /i /e "$(Solutiondir)..\..\code\openbsd\qt\lib\$(Platform)\$(Configuration)\plugins\imageformats"  "$(TargetDir)imageformats"
+
+Copy /D "$(Solutiondir)..\..\code\modules\GuiMain\src\GuiMain.rcc"  "$(TargetDir)"
+XCopy /D /i /e "$(Solutiondir)..\..\code\modules\GuiMain\src\ico_qrc"  "$(TargetDir)ico_qrc"
+
+Copy /D "$(Solutiondir)..\..\code\openbsd\vlc\lib\$(Platform)\Release\*.dll"  "$(TargetDir)"
+XCopy /D /i /e "$(Solutiondir)..\..\code\openbsd\vlc\lib\$(Platform)\Release\plugins"  "$(TargetDir)plugins"
+
+Copy /D "$(Solutiondir)..\..\code\openbsd\opencv\lib\$(Platform)\Release\*.dll"  "$(TargetDir)"
+XCopy /D /i /e "$(Solutiondir)..\..\code\openbsd\LAV\lib\$(Platform)\Release"  "$(TargetDir)LAV"
+
+Copy /D "$(Solutiondir)..\..\code\modules\OnnxDet\src\*.onnx"  "$(TargetDir)"
+Copy /D "$(Solutiondir)..\..\code\modules\OnnxDet\src\*.onnx"  "$(ProjectDir)"
+
+Copy /D "$(Solutiondir)..\..\code\openbsd\onnxruntime\lib\$(Platform)\Release\*.dll"  "$(TargetDir)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\code\modules\CPPBase\inc;$(SolutionDir)..\..\code\modules\IvaTrack\inc;$(SolutionDir)..\..\code\modules\ConfigManager\inc;$(SolutionDir)..\..\code\modules\json\inc;$(SolutionDir)..\..\code\modules\MediaPlayer\inc;$(SolutionDir)..\..\code\modules\GuiMain\inc;$(SolutionDir)..\..\code\openbsd\qt\inc</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\code\modules\OnnxDet\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\GuiMain\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\ConfigManager\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\json\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\CPPBase\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\MediaPlayer\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\GetImage\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\GetAudio\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\IvaTrack\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\AudioProcess\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\openssl\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\portaudio\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\zlib\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\qt\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\vlc\lib\$(Platform)\Release\;$(SolutionDir)..\..\code\openbsd\ffmpeg\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\opencv\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\depend\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\onnxruntime\lib\$(Platform)\Release\</AdditionalLibraryDirectories>
+      <AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PostBuildEvent>
+      <Command>Copy /D "$(Solutiondir)..\..\code\openbsd\qt\lib\$(Platform)\$(Configuration)\*.dll"  "$(TargetDir)"
+mkdir "$(TargetDir)platforms\"
+Copy /D "$(Solutiondir)..\..\code\openbsd\qt\lib\$(Platform)\$(Configuration)\plugins\platforms\*.dll"  "$(TargetDir)platforms\"
+XCopy /D /i /e "$(Solutiondir)..\..\code\openbsd\qt\lib\$(Platform)\$(Configuration)\plugins\mediaservice"  "$(TargetDir)mediaservice"
+XCopy /D /i /e "$(Solutiondir)..\..\code\openbsd\qt\lib\$(Platform)\$(Configuration)\plugins\imageformats"  "$(TargetDir)imageformats"
+
+Copy /D "$(Solutiondir)..\..\code\modules\GuiMain\src\GuiMain.rcc"  "$(TargetDir)"
+XCopy /D /i /e "$(Solutiondir)..\..\code\modules\GuiMain\src\ico_qrc"  "$(TargetDir)ico_qrc"
+
+Copy /D "$(Solutiondir)..\..\code\openbsd\vlc\lib\$(Platform)\Release\*.dll"  "$(TargetDir)"
+XCopy /D /i /e "$(Solutiondir)..\..\code\openbsd\vlc\lib\$(Platform)\Release\plugins"  "$(TargetDir)plugins"
+
+Copy /D "$(Solutiondir)..\..\code\openbsd\opencv\lib\$(Platform)\Release\*.dll"  "$(TargetDir)"
+XCopy /D /i /e "$(Solutiondir)..\..\code\openbsd\LAV\lib\$(Platform)\Release"  "$(TargetDir)LAV"
+
+Copy /D "$(Solutiondir)..\..\code\modules\OnnxDet\src\*.onnx"  "$(TargetDir)"
+Copy /D "$(Solutiondir)..\..\code\modules\OnnxDet\src\*.onnx"  "$(ProjectDir)"
+
+Copy /D "$(Solutiondir)..\..\code\openbsd\onnxruntime\lib\$(Platform)\Release\*.dll"  "$(TargetDir)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\code\modules\CPPBase\inc;$(SolutionDir)..\..\code\modules\IvaTrack\inc;$(SolutionDir)..\..\code\modules\ConfigManager\inc;$(SolutionDir)..\..\code\modules\json\inc;$(SolutionDir)..\..\code\modules\MediaPlayer\inc;$(SolutionDir)..\..\code\modules\GuiMain\inc;$(SolutionDir)..\..\code\openbsd\qt\inc</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\code\modules\OnnxDet\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\GuiMain\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\ConfigManager\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\json\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\CPPBase\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\MediaPlayer\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\GetImage\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\GetAudio\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\IvaTrack\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\AudioProcess\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\openssl\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\portaudio\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\zlib\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\qt\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\vlc\lib\$(Platform)\Release\;$(SolutionDir)..\..\code\openbsd\ffmpeg\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\opencv\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\depend\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\onnxruntime\lib\$(Platform)\Release\</AdditionalLibraryDirectories>
+      <AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PostBuildEvent>
+      <Command>Copy /D "$(Solutiondir)..\..\code\openbsd\qt\lib\$(Platform)\$(Configuration)\*.dll"  "$(TargetDir)"
+mkdir "$(TargetDir)platforms\"
+Copy /D "$(Solutiondir)..\..\code\openbsd\qt\lib\$(Platform)\$(Configuration)\plugins\platforms\*.dll"  "$(TargetDir)platforms\"
+XCopy /D /i /e "$(Solutiondir)..\..\code\openbsd\qt\lib\$(Platform)\$(Configuration)\plugins\mediaservice"  "$(TargetDir)mediaservice"
+XCopy /D /i /e "$(Solutiondir)..\..\code\openbsd\qt\lib\$(Platform)\$(Configuration)\plugins\imageformats"  "$(TargetDir)imageformats"
+
+Copy /D "$(Solutiondir)..\..\code\modules\GuiMain\src\GuiMain.rcc"  "$(TargetDir)"
+XCopy /D /i /e "$(Solutiondir)..\..\code\modules\GuiMain\src\ico_qrc"  "$(TargetDir)ico_qrc"
+
+Copy /D "$(Solutiondir)..\..\code\openbsd\vlc\lib\$(Platform)\Release\*.dll"  "$(TargetDir)"
+XCopy /D /i /e "$(Solutiondir)..\..\code\openbsd\vlc\lib\$(Platform)\Release\plugins"  "$(TargetDir)plugins"
+
+Copy /D "$(Solutiondir)..\..\code\openbsd\opencv\lib\$(Platform)\Release\*.dll"  "$(TargetDir)"
+XCopy /D /i /e "$(Solutiondir)..\..\code\openbsd\LAV\lib\$(Platform)\Release"  "$(TargetDir)LAV"
+
+Copy /D "$(Solutiondir)..\..\code\modules\OnnxDet\src\*.onnx"  "$(TargetDir)"
+Copy /D "$(Solutiondir)..\..\code\modules\OnnxDet\src\*.onnx"  "$(ProjectDir)"
+
+Copy /D "$(Solutiondir)..\..\code\openbsd\onnxruntime\lib\$(Platform)\Release\*.dll"  "$(TargetDir)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\code\modules\CPPBase\inc;$(SolutionDir)..\..\code\modules\IvaTrack\inc;$(SolutionDir)..\..\code\modules\ConfigManager\inc;$(SolutionDir)..\..\code\modules\json\inc;$(SolutionDir)..\..\code\modules\MediaPlayer\inc;$(SolutionDir)..\..\code\modules\GuiMain\inc;$(SolutionDir)..\..\code\openbsd\qt\inc</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\code\modules\OnnxDet\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\GuiMain\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\ConfigManager\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\json\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\CPPBase\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\MediaPlayer\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\GetImage\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\GetAudio\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\IvaTrack\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\modules\AudioProcess\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\openssl\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\portaudio\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\zlib\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\qt\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\vlc\lib\$(Platform)\Release\;$(SolutionDir)..\..\code\openbsd\ffmpeg\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\opencv\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\depend\lib\$(Platform)\$(Configuration)\;$(SolutionDir)..\..\code\openbsd\onnxruntime\lib\$(Platform)\Release\</AdditionalLibraryDirectories>
+      <AdditionalOptions>/SAFESEH:NO %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+    <PostBuildEvent>
+      <Command>Copy /D "$(Solutiondir)..\..\code\openbsd\qt\lib\$(Platform)\$(Configuration)\*.dll"  "$(TargetDir)"
+mkdir "$(TargetDir)platforms\"
+Copy /D "$(Solutiondir)..\..\code\openbsd\qt\lib\$(Platform)\$(Configuration)\plugins\platforms\*.dll"  "$(TargetDir)platforms\"
+XCopy /D /i /e "$(Solutiondir)..\..\code\openbsd\qt\lib\$(Platform)\$(Configuration)\plugins\mediaservice"  "$(TargetDir)mediaservice"
+XCopy /D /i /e "$(Solutiondir)..\..\code\openbsd\qt\lib\$(Platform)\$(Configuration)\plugins\imageformats"  "$(TargetDir)imageformats"
+
+Copy /D "$(Solutiondir)..\..\code\modules\GuiMain\src\GuiMain.rcc"  "$(TargetDir)"
+XCopy /D /i /e "$(Solutiondir)..\..\code\modules\GuiMain\src\ico_qrc"  "$(TargetDir)ico_qrc"
+
+Copy /D "$(Solutiondir)..\..\code\openbsd\vlc\lib\$(Platform)\Release\*.dll"  "$(TargetDir)"
+XCopy /D /i /e "$(Solutiondir)..\..\code\openbsd\vlc\lib\$(Platform)\Release\plugins"  "$(TargetDir)plugins"
+
+Copy /D "$(Solutiondir)..\..\code\openbsd\opencv\lib\$(Platform)\Release\*.dll"  "$(TargetDir)"
+XCopy /D /i /e "$(Solutiondir)..\..\code\openbsd\LAV\lib\$(Platform)\Release"  "$(TargetDir)LAV"
+
+Copy /D "$(Solutiondir)..\..\code\modules\OnnxDet\src\*.onnx"  "$(TargetDir)"
+Copy /D "$(Solutiondir)..\..\code\modules\OnnxDet\src\*.onnx"  "$(ProjectDir)"
+
+Copy /D "$(Solutiondir)..\..\code\openbsd\onnxruntime\lib\$(Platform)\Release\*.dll"  "$(TargetDir)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ItemGroup>
+    <ResourceCompile Include="logo.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\code\Main\main.cpp" />
+  </ItemGroup>
+</Project>

@@ -8,5 +8,5 @@ results = model.train(
     data='coco8.yaml',   # 数据集配置文件
     epochs=100,          # 训练周期数
     imgsz=320,           # 输入图像大小
-    device=[0, 1]        # 
+    device='cpu'         #
 )

@@ -8,7 +8,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-build/
+#build/
 develop-eggs/
 dist/
 downloads/
@@ -188,8 +188,8 @@ calibration_*.npy
 *.mov
 *.mkv
 *.webm
-#*.jpg
-#*.jpeg
+*.jpg
+*.jpeg
 *.png
 *.bmp
 *.tiff
@@ -197,8 +197,11 @@ calibration_*.npy
 *.svg
 *.webp
 *.heic
-*.ico
+#*.ico
 *.raw
+
+# txt
+*.txt
 
 # Training logs
 args.yaml

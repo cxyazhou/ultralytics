@@ -9,10 +9,10 @@
 #     └── coco8 ← downloads here (1 MB)
 
 # Train/val/test sets as 1) dir: path/to/imgs, 2) file: path/to/imgs.txt, or 3) list: [path/to/imgs1, path/to/imgs2, ..]
-path: /home/cww/work/ultralytics/Light-HaGRID/Light-HaGRID-YoloTrainData # dataset root dir
-train: /home/cww/work/ultralytics/Light-HaGRID/Light-HaGRID-YoloTrainData/train/train.txt # train images (relative to 'path') 4 images
-val: /home/cww/work/ultralytics/Light-HaGRID/Light-HaGRID-YoloTrainData/val/val.txt # val images (relative to 'path') 4 images
-test: /home/cww/work/ultralytics/Light-HaGRID/Light-HaGRID-YoloTrainData/test/test.txt # test images (optional)
+path: D:\work\ultralytics\My-Work\GestureRecognition\Train\Light-HaGRID-YoloTrainData # dataset root dir
+train: D:\work\ultralytics\My-Work\GestureRecognition\Train\Light-HaGRID-YoloTrainData/train/train.txt # train images (relative to 'path') 4 images
+val: D:\work\ultralytics\My-Work\GestureRecognition\Train\Light-HaGRID-YoloTrainData/val/val.txt # val images (relative to 'path') 4 images
+test: D:\work\ultralytics\My-Work\GestureRecognition\Train\Light-HaGRID-YoloTrainData/test/test.txt # test images (optional)
 
 # Classes
 names:
