@@ -390,7 +390,7 @@ X509 *q_SSL_get_peer_certificate(SSL *a);
 long q_SSL_get_verify_result(const SSL *a);
 SSL *q_SSL_new(SSL_CTX *a);
 SSL_CTX *q_SSL_get_SSL_CTX(SSL *a);
-long q_SSL_ctrl(SSL *ssl,int cmd, long larg, void *parg);
+long q_SSL_ctrl(SSL *ssl,int cmd, long large, void *parg);
 int q_SSL_read(SSL *a, void *b, int c);
 void q_SSL_set_bio(SSL *a, BIO *b, BIO *c);
 void q_SSL_set_accept_state(SSL *a);

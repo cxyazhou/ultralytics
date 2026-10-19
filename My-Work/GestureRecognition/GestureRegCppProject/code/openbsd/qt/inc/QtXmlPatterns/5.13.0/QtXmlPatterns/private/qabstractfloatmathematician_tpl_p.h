@@ -90,7 +90,7 @@ Item AbstractFloatMathematician<isDouble>::calculate(const Item &o1,
 
             return Integer::fromValue(static_cast<xsInteger>(num1->toDouble() / num2->toDouble()));
         }
-        case Substract:
+        case Subtract:
             return toItem(AbstractFloat<isDouble>::fromValue(num1->toDouble() - num2->toDouble()));
         case Mod:
             return toItem(AbstractFloat<isDouble>::fromValue(::fmod(num1->toDouble(), num2->toDouble())));

@@ -74,7 +74,7 @@ public:
     void saveEvent(QMouseEvent *event);
     enum PropagateType{
         Click,
-        DoubleClick,
+        double-click,
         PressAndHold
     };
     void propagate(QQuickMouseEvent* event, PropagateType);

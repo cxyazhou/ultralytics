@@ -175,8 +175,8 @@ enum
     CV_CAP_PROP_XI_GPI_LEVEL                                    = 408, // Get general purpose level
     CV_CAP_PROP_XI_GPO_SELECTOR                                 = 409, // Selects general purpose output
     CV_CAP_PROP_XI_GPO_MODE                                     = 410, // Set general purpose output mode
-    CV_CAP_PROP_XI_LED_SELECTOR                                 = 411, // Selects camera signalling LED
-    CV_CAP_PROP_XI_LED_MODE                                     = 412, // Define camera signalling LED functionality
+    CV_CAP_PROP_XI_LED_SELECTOR                                 = 411, // Selects camera signaling LED
+    CV_CAP_PROP_XI_LED_MODE                                     = 412, // Define camera signaling LED functionality
     CV_CAP_PROP_XI_MANUAL_WB                                    = 413, // Calculates White Balance(must be called during acquisition)
     CV_CAP_PROP_XI_AUTO_WB                                      = 414, // Automatic white balance
     CV_CAP_PROP_XI_AEAG                                         = 415, // Automatic exposure/gain

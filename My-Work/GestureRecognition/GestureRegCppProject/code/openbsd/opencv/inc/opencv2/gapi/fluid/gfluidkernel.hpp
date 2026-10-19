@@ -360,13 +360,13 @@ struct FluidCallHelper<Impl, std::tuple<Ins...>, std::tuple<Outs...>, UseScratch
     static_assert(contains<GMat, Ins...>::value, "input must contain at least one GMat");
 
     // Execution dispatcher ////////////////////////////////////////////////////
-    template<int... IIs, int... OIs>
+    template<int... IIs, int... is>
     static void call_impl(const cv::GArgs &in_args,
                           const std::vector<gapi::fluid::Buffer*> &out_bufs,
                           detail::Seq<IIs...>,
-                          detail::Seq<OIs...>)
+                          detail::Seq<is...>)
     {
-        Impl::run(fluid_get_in<Ins>::get(in_args, IIs)..., *out_bufs[OIs]...);
+        Impl::run(fluid_get_in<Ins>::get(in_args, IIs)..., *out_bufs[is]...);
     }
 
     static void call(const cv::GArgs &in_args,

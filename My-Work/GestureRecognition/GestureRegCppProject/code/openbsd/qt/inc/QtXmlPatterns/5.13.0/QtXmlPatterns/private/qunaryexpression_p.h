@@ -64,10 +64,10 @@ namespace QPatternist
      * <tt>+3</tt> becomes <tt>0 + 3</tt>, and <tt>-nodetest</tt> becomes <tt>0 - nodetest</tt>.
      *
      * On top of that expression ArithmeticExpression does the usual type
-     * checking conversion. The only thing this class do, is to overide
+     * checking conversion. The only thing this class do, is to override
      * evaluateSingleton() and calls Numeric::toNegated(). The reason this
      * UnaryExpression is needed at all and that <tt>0 - [expr]</tt> is
-     * insufficent is that <tt>0 - xs:double(0)</tt> needs to return -0,
+     * insufficient is that <tt>0 - xs:double(0)</tt> needs to return -0,
      * instead of 0. I know no other difference.
      *
      * In most cases the constant propagation optimization rewrites UnaryExpression into

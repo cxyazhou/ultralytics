@@ -141,7 +141,7 @@ namespace QPatternist
          * @see SchemaType::wxsSuperType()
          * @see <a href="http://www.w3.org/TR/DOM-Level-3-Core/core.html#TypeInfo-DerivationMethods">Document
          * Object Model (DOM) Level 3 Core Specification, Definition group DerivationMethods</a>
-         * @returns a DerivationMethod enumerator signifiying how
+         * @returns a DerivationMethod enumerator signifying how
          * this SchemaType is derived from its base type
          */
         virtual DerivationMethod derivationMethod() const = 0;

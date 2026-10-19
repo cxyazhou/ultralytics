@@ -110,7 +110,7 @@ namespace QPatternist
             /**
              * Sets the @p content of the documentation.
              *
-             * The content can be of abritrary type.
+             * The content can be of arbitrary type.
              */
             void setContent(const QString &content);
 

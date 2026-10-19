@@ -91,7 +91,7 @@ public:
     bool hasFeature(Feature f) const;
 
     virtual ResourceFileWatcherBehaviour resourceFileWatcherBehaviour() const = 0;
-    virtual void setResourceFileWatcherBehaviour(ResourceFileWatcherBehaviour behaviour) = 0;
+    virtual void setResourceFileWatcherBehaviour(ResourceFileWatcherBehaviour behavior) = 0;
 
     virtual QString contextHelpId() const = 0;
 
@@ -144,7 +144,7 @@ public:
     virtual void setFeatures(Feature f);
 
     ResourceFileWatcherBehaviour resourceFileWatcherBehaviour() const;
-    void setResourceFileWatcherBehaviour(ResourceFileWatcherBehaviour behaviour);
+    void setResourceFileWatcherBehaviour(ResourceFileWatcherBehaviour behavior);
 
     virtual QWidget *containerWindow(QWidget *widget) const;
 

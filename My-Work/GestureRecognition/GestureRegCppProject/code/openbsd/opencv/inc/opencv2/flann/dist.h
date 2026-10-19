@@ -160,7 +160,7 @@ public:
  * This is a "zero iterator". It basically behaves like a zero filled
  * array to all algorithms that use arrays as iterators (STL style).
  * It's useful when there's a need to compute the distance between feature
- * and origin it and allows for better compiler optimisation than using a
+ * and origin it and allows for better compiler optimization than using a
  * zero-filled array.
  */
 template <typename T>
@@ -249,7 +249,7 @@ struct L2
     /**
      *  Compute the squared Euclidean distance between two vectors.
      *
-     *	This is highly optimised, with loop unrolling, as it is one
+     *	This is highly optimized, with loop unrolling, as it is one
      *	of the most expensive inner loops.
      *
      *	The computation of squared root at the end is omitted for
@@ -315,7 +315,7 @@ struct L1
     /**
      *  Compute the Manhattan (L_1) distance between two vectors.
      *
-     *	This is highly optimised, with loop unrolling, as it is one
+     *	This is highly optimized, with loop unrolling, as it is one
      *	of the most expensive inner loops.
      */
     template <typename Iterator1, typename Iterator2>
@@ -377,7 +377,7 @@ struct MinkowskiDistance
     /**
      *  Compute the Minkowsky (L_p) distance between two vectors.
      *
-     *	This is highly optimised, with loop unrolling, as it is one
+     *	This is highly optimized, with loop unrolling, as it is one
      *	of the most expensive inner loops.
      *
      *	The computation of squared root at the end is omitted for

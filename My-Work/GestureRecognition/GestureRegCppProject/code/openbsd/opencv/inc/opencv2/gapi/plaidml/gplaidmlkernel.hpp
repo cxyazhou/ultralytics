@@ -104,10 +104,10 @@ struct PlaidMLCallHelper;
 template<typename Impl, typename... Ins, typename... Outs>
 struct PlaidMLCallHelper<Impl, std::tuple<Ins...>, std::tuple<Outs...> >
 {
-    template<int... IIs, int... OIs>
-    static void call_impl(GPlaidMLContext &ctx, detail::Seq<IIs...>, detail::Seq<OIs...>)
+    template<int... IIs, int... is>
+    static void call_impl(GPlaidMLContext &ctx, detail::Seq<IIs...>, detail::Seq<is...>)
     {
-        Impl::run(plaidml_get_in<Ins>::get(ctx, IIs)..., plaidml_get_out<Outs>::get(ctx, OIs)...);
+        Impl::run(plaidml_get_in<Ins>::get(ctx, IIs)..., plaidml_get_out<Outs>::get(ctx, is)...);
     }
 
     static void call(GPlaidMLContext& ctx)

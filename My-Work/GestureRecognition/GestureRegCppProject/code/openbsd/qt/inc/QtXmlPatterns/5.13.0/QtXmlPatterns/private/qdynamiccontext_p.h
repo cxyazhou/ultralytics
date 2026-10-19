@@ -166,7 +166,7 @@ namespace QPatternist
         virtual void addNodeModel(const QAbstractXmlNodeModel::Ptr &nm) = 0;
 
         /**
-         * Same as itemCacheCell(), but is only used for global varibles. This
+         * Same as itemCacheCell(), but is only used for global variables. This
          * is needed because sometimes stack frames needs to be created for
          * other kinds of variables(such as in the case of user function
          * calls), while the global variable(s) needs to continue to use the

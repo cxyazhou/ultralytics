@@ -90,7 +90,7 @@ public:
     struct Flags {
         enum Types {
             OtherType            = 0,
-            FunctionType         = 1, // Is an invokable
+            FunctionType         = 1, // Is an invocable
             QObjectDerivedType   = 2, // Property type is a QObject* derived type
             EnumType             = 3, // Property type is an enum
             QListType            = 4, // Property type is a QML list

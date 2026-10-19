@@ -98,7 +98,7 @@ enum OBEXRequest {
 QT_END_NAMESPACE
 
 // OBEX Session, it's a "single-shot" operation as our QBluetoothTransferReply is
-// (it does not have an interface to re-send data or re-use the same transfer reply).
+// (it does not have an interface to re-send data or reuse the same transfer reply).
 // It either succeeds or fails and tries to cleanup in any case.
 @interface QT_MANGLE_NAMESPACE(OSXBTOBEXSession) : NSObject
 

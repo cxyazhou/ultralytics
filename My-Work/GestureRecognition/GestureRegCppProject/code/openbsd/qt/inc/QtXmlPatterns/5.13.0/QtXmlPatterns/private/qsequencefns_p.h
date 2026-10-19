@@ -61,7 +61,7 @@
  * <a href="http://www.w3.org/TR/xpath-functions/#general-seq-funcs">XQuery 1.0 and
  * XPath 2.0 Functions and Operators, 15.1 General Functions and Operators on Sequences</a>.
  *
- * @todo document that some functions have both eval funcs implented.
+ * @todo document that some functions have both eval funcs implemented.
  *
  * @ingroup Patternist_functions
  */

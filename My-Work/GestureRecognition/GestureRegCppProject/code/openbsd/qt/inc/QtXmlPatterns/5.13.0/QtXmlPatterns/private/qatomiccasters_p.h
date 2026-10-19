@@ -302,7 +302,7 @@ namespace QPatternist
      * Casting a value to the type of itself is defined to be a noop,
      * no operation. When it can be statically detected that will be done,
      * CastAs rewrites itself appropriately during compilation, but
-     * in some cases insufficent data is available at compile time and then
+     * in some cases insufficient data is available at compile time and then
      * is this class need on a case-per-case base at evaluation time.
      *
      * @ingroup Patternist_xdm

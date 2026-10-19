@@ -73,7 +73,7 @@ struct Q_QML_PRIVATE_EXPORT Value
     /*
         We use 8 bytes for a value and a different variant of NaN boxing. A Double
         NaN (actually -qNaN) is indicated by a number that has the top 13 bits set, and for a
-        signalling NaN it is the top 14 bits. The other values are usually set to 0 by the
+        signaling NaN it is the top 14 bits. The other values are usually set to 0 by the
         processor, and are thus free for us to store other data. We keep pointers in there for
         managed objects, and encode the other types using the free space given to use by the unused
         bits for NaN values. This also works for pointers on 64 bit systems, as they all currently
@@ -187,7 +187,7 @@ struct Q_QML_PRIVATE_EXPORT Value
         setTagValue(quint32(ValueTypeInternal::Empty), 0);
     }
 
-    // ### Fix for 32 bit (easiest solution is to set highest bit to 1 for mananged/undefined/integercompatible
+    // ### Fix for 32 bit (easiest solution is to set highest bit to 1 for managed/undefined/integercompatible
     // and use negative numbers here
     enum QuickType {
         QT_ManagedOrUndefined = 0,

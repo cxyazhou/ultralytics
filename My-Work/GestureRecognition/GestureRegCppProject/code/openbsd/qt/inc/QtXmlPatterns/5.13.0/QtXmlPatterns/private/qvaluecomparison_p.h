@@ -60,7 +60,7 @@ namespace QPatternist
 {
 
     /**
-     * @short Implements XPath 2.0 value comparions, such as the <tt>eq</tt> operator.
+     * @short Implements XPath 2.0 value comparisons, such as the <tt>eq</tt> operator.
      *
      * ComparisonPlatform is inherited with @c protected scope because ComparisonPlatform
      * must access members of ValueComparison.

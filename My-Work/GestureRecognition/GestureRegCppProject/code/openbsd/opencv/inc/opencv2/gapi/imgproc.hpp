@@ -634,7 +634,7 @@ The second case corresponds to a kernel of:
 
 \f[\vecthreethree{-1}{-2}{-1}{0}{0}{0}{1}{2}{1}\f]
 
-@note First returned matrix correspons to dx derivative while the second one to dy.
+@note First returned matrix corresponds to dx derivative while the second one to dy.
 
 @note Rounding to nearest even is procedeed if hardware supports it, if not - to nearest.
 

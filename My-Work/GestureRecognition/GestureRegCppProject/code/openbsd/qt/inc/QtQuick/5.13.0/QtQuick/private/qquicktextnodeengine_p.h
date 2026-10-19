@@ -65,7 +65,7 @@ QT_BEGIN_NAMESPACE
 
 // Engine that takes glyph runs as input, and produces a set of glyph nodes, clip nodes,
 // and rectangle nodes to represent the text, decorations and selection. Will try to minimize
-// number of nodes, and join decorations in neighbouring items
+// number of nodes, and join decorations in neighboring items
 
 class QQuickTextNodeEngine {
 public:

@@ -53,7 +53,7 @@ namespace detail {
 //! @{
 
 /** @brief Tries to estimate focal lengths from the given homography under the assumption that the camera
-undergoes rotations around its centre only.
+undergoes rotations around its center only.
 
 @param H Homography.
 @param f0 Estimated focal length along X axis.

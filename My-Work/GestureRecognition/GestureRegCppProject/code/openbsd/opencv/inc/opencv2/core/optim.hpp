@@ -213,7 +213,7 @@ systems of linear equations.
 
 It should be noted, that this method, although deterministic, is rather a heuristic method and
 therefore may converge to a local minima, not necessary a global one. What is even more disastrous,
-most of its behaviour is ruled by gradient, therefore it essentially cannot distinguish between
+most of its behavior is ruled by gradient, therefore it essentially cannot distinguish between
 local minima and maxima. Therefore, if it starts sufficiently near to the local maximum, it may
 converge to it. Another obvious restriction is that it should be possible to compute the gradient of
 a function at any point, thus it is preferable to have analytic expression for gradient and

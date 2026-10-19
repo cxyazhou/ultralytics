@@ -1,11 +1,11 @@
 import os
-import shutil
 import random
+import shutil
 
 
 def move_samples(source_dir, test_img_dir, test_labels_dir, sample_rate=0.1):
     """
-    从每个图片文件夹随机抽取样本及其标签
+    从每个图片文件夹随机抽取样本及其标签.
 
     :param source_dir: 包含图片文件夹和标签文件夹的根目录
     :param test_img_dir: 测试图片目标目录
@@ -31,7 +31,7 @@ def move_samples(source_dir, test_img_dir, test_labels_dir, sample_rate=0.1):
             continue
 
         # 获取所有JPG文件
-        jpg_files = [f for f in os.listdir(img_dir) if f.lower().endswith('.jpg')]
+        jpg_files = [f for f in os.listdir(img_dir) if f.lower().endswith(".jpg")]
         if not jpg_files:
             print(f"警告: 图片目录 {img_dir} 中没有JPG文件")
             continue

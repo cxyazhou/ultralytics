@@ -168,7 +168,7 @@ public:
                     };
     Q_ENUM(RenderType)
 
-    //Auxilliary functions needed to control the TextInput from QML
+    //Auxiliary functions needed to control the TextInput from QML
     Q_INVOKABLE void positionAt(QQmlV4Function *args) const;
     Q_INVOKABLE QRectF positionToRectangle(int pos) const;
     Q_INVOKABLE void moveCursorSelection(int pos);

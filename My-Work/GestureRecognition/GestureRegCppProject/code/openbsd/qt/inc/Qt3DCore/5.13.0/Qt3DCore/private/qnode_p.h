@@ -117,7 +117,7 @@ public:
     template<typename Caller, typename NodeType>
     void registerDestructionHelper(NodeType *node, DestructionFunctionPointer<Caller, NodeType> func, NodeType *&)
     {
-        // If the node is destoyed, we make sure not to keep a dangling pointer to it
+        // If the node is destroyed, we make sure not to keep a dangling pointer to it
         Q_Q(QNode);
         auto f = [q, func]() { (static_cast<Caller *>(q)->*func)(nullptr); };
         m_destructionConnections.insert(node, QObject::connect(node, &QNode::nodeDestroyed, f));
@@ -126,7 +126,7 @@ public:
     template<typename Caller, typename NodeType>
     void registerDestructionHelper(NodeType *node, DestructionFunctionPointer<Caller, NodeType> func, QVector<NodeType*> &)
     {
-        // If the node is destoyed, we make sure not to keep a dangling pointer to it
+        // If the node is destroyed, we make sure not to keep a dangling pointer to it
         Q_Q(QNode);
         auto f = [q, func, node]() { (static_cast<Caller *>(q)->*func)(node); };
         m_destructionConnections.insert(node, QObject::connect(node, &QNode::nodeDestroyed, f));
@@ -139,7 +139,7 @@ public:
     void registerDestructionHelper(NodeType *node, DestructionFunctionValue<Caller, ValueType> func, NodeType *&,
                                    const ValueType &resetValue)
     {
-        // If the node is destoyed, we make sure not to keep a dangling pointer to it
+        // If the node is destroyed, we make sure not to keep a dangling pointer to it
         Q_Q(QNode);
         auto f = [q, func, resetValue]() { (static_cast<Caller *>(q)->*func)(resetValue); };
         m_destructionConnections.insert(node, QObject::connect(node, &QNode::nodeDestroyed, f));

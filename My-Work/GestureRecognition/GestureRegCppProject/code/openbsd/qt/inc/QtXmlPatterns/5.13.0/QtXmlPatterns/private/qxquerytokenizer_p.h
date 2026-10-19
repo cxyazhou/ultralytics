@@ -271,7 +271,7 @@ namespace QPatternist
         Token nextToken();
         /**
          * Instead of recognizing and tokenizing embedded expressions in
-         * direct attriute constructors, this function is essentially a mini
+         * direct attribute constructors, this function is essentially a mini
          * recursive-descent parser that has the necessary logic to recognize
          * embedded expressions and their potentially interfering string literals, in
          * order to scan to the very end of the attribute value, and return the

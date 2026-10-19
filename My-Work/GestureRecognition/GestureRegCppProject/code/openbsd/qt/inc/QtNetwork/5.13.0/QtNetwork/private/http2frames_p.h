@@ -167,7 +167,7 @@ public:
     // Two types of frames we are sending are affected by frame size limits:
     // HEADERS and DATA. HEADERS' payload (hpacked HTTP headers, following a
     // frame header) is always in our 'buffer', we send the initial HEADERS
-    // frame first and then CONTINUTATION frame(s) if needed:
+    // frame first and then CONTINUATION frame(s) if needed:
     bool writeHEADERS(QAbstractSocket &socket, quint32 sizeLimit);
     // With DATA frames the actual payload is never in our 'buffer', it's a
     // 'readPointer' from QNonContiguousData. We split this payload as needed

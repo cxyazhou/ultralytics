@@ -181,7 +181,7 @@ namespace cv
 //! Flags for cv::namedWindow
 enum WindowFlags {
        WINDOW_NORMAL     = 0x00000000, //!< the user can resize the window (no constraint) / also use to switch a fullscreen window to a normal size.
-       WINDOW_AUTOSIZE   = 0x00000001, //!< the user cannot resize the window, the size is constrainted by the image displayed.
+       WINDOW_AUTOSIZE   = 0x00000001, //!< the user cannot resize the window, the size is constrained by the image displayed.
        WINDOW_OPENGL     = 0x00001000, //!< window with opengl support.
 
        WINDOW_FULLSCREEN = 1,          //!< change the window to fullscreen.
@@ -494,7 +494,7 @@ Controls: use `space` or `enter` to finish selection, use key `c` to cancel sele
 @param img image to select a ROI.
 @param showCrosshair if true crosshair of selection rectangle will be shown.
 @param fromCenter if true center of selection will match initial mouse position. In opposite case a corner of
-selection rectangle will correspont to the initial mouse position.
+selection rectangle will correspond to the initial mouse position.
 @return selected ROI or empty rect if selection canceled.
 
 @note The function sets it's own mouse callback for specified window using cv::setMouseCallback(windowName, ...).
@@ -516,7 +516,7 @@ use `esc` to terminate multiple ROI selection process.
 @param boundingBoxes selected ROIs.
 @param showCrosshair if true crosshair of selection rectangle will be shown.
 @param fromCenter if true center of selection will match initial mouse position. In opposite case a corner of
-selection rectangle will correspont to the initial mouse position.
+selection rectangle will correspond to the initial mouse position.
 
 @note The function sets it's own mouse callback for specified window using cv::setMouseCallback(windowName, ...).
 After finish of work an empty callback will be set for the used window.

@@ -96,7 +96,7 @@ namespace QPatternist
         }
 
         /**
-         * In the case of that we don't have a for-expression beloning us, but
+         * In the case of that we don't have a for-expression belonging us, but
          * only a let clause, this ReturnOrderBy breaks if it stays in the AST.
          * So, by default we assume that we should write ourselves away, unless
          * this function is called. The associated ForClause will call it

@@ -367,14 +367,14 @@ private:
 
 Q_DECLARE_OPERATORS_FOR_FLAGS(QAbstractItemModel::CheckIndexOptions)
 
-inline bool QAbstractItemModel::insertRow(int arow, const QModelIndex &aparent)
-{ return insertRows(arow, 1, aparent); }
-inline bool QAbstractItemModel::insertColumn(int acolumn, const QModelIndex &aparent)
-{ return insertColumns(acolumn, 1, aparent); }
-inline bool QAbstractItemModel::removeRow(int arow, const QModelIndex &aparent)
-{ return removeRows(arow, 1, aparent); }
-inline bool QAbstractItemModel::removeColumn(int acolumn, const QModelIndex &aparent)
-{ return removeColumns(acolumn, 1, aparent); }
+inline bool QAbstractItemModel::insertRow(int arow, const QModelIndex &apparent)
+{ return insertRows(arow, 1, apparent); }
+inline bool QAbstractItemModel::insertColumn(int acolumn, const QModelIndex &apparent)
+{ return insertColumns(acolumn, 1, apparent); }
+inline bool QAbstractItemModel::removeRow(int arow, const QModelIndex &apparent)
+{ return removeRows(arow, 1, apparent); }
+inline bool QAbstractItemModel::removeColumn(int acolumn, const QModelIndex &apparent)
+{ return removeColumns(acolumn, 1, apparent); }
 inline bool QAbstractItemModel::moveRow(const QModelIndex &sourceParent, int sourceRow,
                                         const QModelIndex &destinationParent, int destinationChild)
 { return moveRows(sourceParent, sourceRow, 1, destinationParent, destinationChild); }

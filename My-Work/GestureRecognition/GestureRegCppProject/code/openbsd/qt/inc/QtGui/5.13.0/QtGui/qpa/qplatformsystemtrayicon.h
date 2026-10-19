@@ -61,7 +61,7 @@ public:
     enum ActivationReason {
         Unknown,
         Context,
-        DoubleClick,
+        double-click,
         Trigger,
         MiddleClick
     };

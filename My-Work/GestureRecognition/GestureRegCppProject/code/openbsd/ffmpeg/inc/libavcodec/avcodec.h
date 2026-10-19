@@ -1264,7 +1264,7 @@ enum AVPacketSideDataType {
     AV_PKT_DATA_CPB_PROPERTIES,
 
     /**
-     * Recommmends skipping the specified number of samples
+     * Recommends skipping the specified number of samples
      * @code
      * u32le number of samples to skip from start of this packet
      * u32le number of samples to skip from end of this packet
@@ -3011,7 +3011,7 @@ typedef struct AVCodecContext {
      * Header containing style information for text subtitles.
      * For SUBTITLE_ASS subtitle type, it should contain the whole ASS
      * [Script Info] and [V4+ Styles] section, plus the [Events] line and
-     * the Format line following. It shouldn't include any Dialogue line.
+     * the Format line following. It shouldn't include any Dialog line.
      * - encoding: Set/allocated/freed by user (before avcodec_open2())
      * - decoding: Set/allocated/freed by libavcodec (by avcodec_open2())
      */
@@ -3039,7 +3039,7 @@ typedef struct AVCodecContext {
      * Some encoders need to output such packets, e.g. to update some stream
      * parameters at the end of encoding.
      *
-     * @deprecated this field disables the default behaviour and
+     * @deprecated this field disables the default behavior and
      *             it is kept only for compatibility.
      */
     attribute_deprecated
@@ -3137,7 +3137,7 @@ typedef struct AVCodecContext {
      * and recommended due to better video quality/compression)
      * the image will look as if alpha-blended onto a black background.
      * However for formats that do not use pre-multiplied alpha
-     * there might be serious artefacts (though e.g. libswscale currently
+     * there might be serious artifacts (though e.g. libswscale currently
      * assumes pre-multiplied alpha anyway).
      *
      * - decoding: set by user
@@ -3798,7 +3798,7 @@ typedef struct AVHWAccel {
  * streams in hardware - it will often succeed, because many streams marked
  * as baseline profile actually conform to constrained baseline profile.
  *
- * @warning If the stream is actually not supported then the behaviour is
+ * @warning If the stream is actually not supported then the behavior is
  *          undefined, and may include returning entirely incorrect output
  *          while indicating success.
  */
@@ -6033,7 +6033,7 @@ int av_bsf_get_null_filter(AVBSFContext **bsf);
 /* memory */
 
 /**
- * Same behaviour av_fast_malloc but the buffer has additional
+ * Same behavior av_fast_malloc but the buffer has additional
  * AV_INPUT_BUFFER_PADDING_SIZE at the end which will always be 0.
  *
  * In addition the whole buffer will initially and after resizes
@@ -6042,7 +6042,7 @@ int av_bsf_get_null_filter(AVBSFContext **bsf);
 void av_fast_padded_malloc(void *ptr, unsigned int *size, size_t min_size);
 
 /**
- * Same behaviour av_fast_padded_malloc except that buffer will always
+ * Same behavior av_fast_padded_malloc except that buffer will always
  * be 0-initialized after call.
  */
 void av_fast_padded_mallocz(void *ptr, unsigned int *size, size_t min_size);

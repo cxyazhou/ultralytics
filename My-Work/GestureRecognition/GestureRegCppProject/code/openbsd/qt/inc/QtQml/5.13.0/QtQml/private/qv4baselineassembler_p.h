@@ -120,7 +120,7 @@ public:
     void mod(int lhs);
     void sub(int lhs);
 
-    // comparissons
+    // comparisons
     void cmpeqNull();
     void cmpneNull();
     void cmpeqInt(int lhs);

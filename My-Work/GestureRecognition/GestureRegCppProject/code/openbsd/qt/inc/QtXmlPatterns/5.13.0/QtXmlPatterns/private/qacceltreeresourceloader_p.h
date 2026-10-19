@@ -77,7 +77,7 @@ namespace QPatternist
     {
     public:
         /**
-         * Describes the behaviour of the resource loader in case of an
+         * Describes the behavior of the resource loader in case of an
          * error.
          */
         enum ErrorHandling

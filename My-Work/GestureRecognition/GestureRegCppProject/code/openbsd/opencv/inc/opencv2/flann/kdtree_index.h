@@ -613,7 +613,7 @@ private:
 
 
     /**
-     * Array of k-d trees used to find neighbours.
+     * Array of k-d trees used to find neighbors.
      */
     NodePtr* tree_roots_;
 

@@ -59,7 +59,7 @@ namespace QPatternist
     /**
      * @short Corresponds to the expression <tt>parent::node()</tt>.
      *
-     * This AST node is now useless, due to refactorings. Prevously we had
+     * This AST node is now useless, due to refactorings. Previously we had
      * Item QAbstractXmlNodeModel::parent(), which didn't have the overhead of
      * allocating an iterator for a single node. However, in order to stream
      * line the API it is now gone and hence the node performs exactly the same

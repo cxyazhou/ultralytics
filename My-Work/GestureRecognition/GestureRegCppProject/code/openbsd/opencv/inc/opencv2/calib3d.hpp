@@ -85,13 +85,13 @@ and thus
 \f[s \vecthree{u}{v}{1} = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1} \vecthree{X_c}{Y_c}{Z_c}.\f]
 
 The matrix of intrinsic parameters does not depend on the scene viewed. So, once estimated, it can
-be re-used as long as the focal length is fixed (in case of a zoom lens). Thus, if an image from the
+be reused as long as the focal length is fixed (in case of a zoom lens). Thus, if an image from the
 camera is scaled by a factor, all of these parameters need to be scaled (multiplied/divided,
 respectively) by the same factor.
 
 The joint rotation-translation matrix \f$[R|t]\f$ is the matrix product of a projective
 transformation and a homogeneous transformation. The 3-by-4 projective transformation maps 3D points
-represented in camera coordinates to 2D poins in the image plane and represented in normalized
+represented in camera coordinates to 2D points in the image plane and represented in normalized
 camera coordinates \f$x' = X_c / Z_c\f$ and \f$y' = Y_c / Z_c\f$:
 
 \f[Z_c \begin{bmatrix}
@@ -111,7 +111,7 @@ Z_c \\
 \end{bmatrix}.\f]
 
 The homogeneous transformation is encoded by the extrinsic parameters \f$R\f$ and \f$t\f$ and
-represents the change of basis from world coordinate system \f$w\f$ to the camera coordinate sytem
+represents the change of basis from world coordinate system \f$w\f$ to the camera coordinate system
 \f$c\f$. Thus, given the representation of the point \f$P\f$ in world coordinates, \f$P_w\f$, we
 obtain \f$P\f$'s representation in the camera coordinate system, \f$P_c\f$, by
 
@@ -1506,7 +1506,7 @@ CV_EXPORTS_W bool checkChessboard(InputArray img, Size size);
 -   **CALIB_CB_LARGER** The detected pattern is allowed to be larger than patternSize (see description).
 -   **CALIB_CB_MARKER** The detected pattern must have a marker (see description).
 This should be used if an accurate camera calibration is required.
-@param meta Optional output arrray of detected corners (CV_8UC1 and size = cv::Size(columns,rows)).
+@param meta Optional output array of detected corners (CV_8UC1 and size = cv::Size(columns,rows)).
 Each entry stands for one corner of the pattern and can have one of the following values:
 -   0 = no meta data attached
 -   1 = left-top corner of a black cell
@@ -1556,7 +1556,7 @@ bool findChessboardCornersSB(InputArray image, Size patternSize, OutputArray cor
 
 Image sharpness, as well as brightness, are a critical parameter for accuracte
 camera calibration. For accessing these parameters for filtering out
-problematic calibraiton images, this method calculates edge profiles by traveling from
+problematic calibration images, this method calculates edge profiles by traveling from
 black to white chessboard cell centers. Based on this, the number of pixels is
 calculated required to transit from black to white. This width of the
 transition area is a good indication of how sharp the chessboard is imaged
@@ -1727,7 +1727,7 @@ a change of basis from object coordinate space to camera coordinate space. Due t
 tuple is equivalent to the position of the calibration pattern with respect to the camera coordinate
 space.
 @param tvecs Output vector of translation vectors estimated for each pattern view, see parameter
-describtion above.
+description above.
 @param stdDeviationsIntrinsics Output vector of standard deviations estimated for intrinsic
 parameters. Order of deviations values:
 \f$(f_x, f_y, c_x, c_y, k_1, k_2, p_1, p_2, k_3, k_4, k_5, k_6 , s_1, s_2, s_3,

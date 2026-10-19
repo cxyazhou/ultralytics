@@ -247,17 +247,17 @@ public:
     //Convenience functions for working backwards, because parameters are from the start of particle life
     //If setting multiple parameters at once, doing the conversion yourself will be faster.
 
-    //sets the x accleration without affecting the instantaneous x velocity or position
+    //sets the x acceleration without affecting the instantaneous x velocity or position
     void setInstantaneousAX(float ax, QQuickParticleSystem *particleSystem);
-    //sets the x velocity without affecting the instantaneous x postion
+    //sets the x velocity without affecting the instantaneous x position
     void setInstantaneousVX(float vx, QQuickParticleSystem *particleSystem);
-    //sets the instantaneous x postion
+    //sets the instantaneous x position
     void setInstantaneousX(float x, QQuickParticleSystem *particleSystem);
-    //sets the y accleration without affecting the instantaneous y velocity or position
+    //sets the y acceleration without affecting the instantaneous y velocity or position
     void setInstantaneousAY(float ay, QQuickParticleSystem *particleSystem);
-    //sets the y velocity without affecting the instantaneous y postion
+    //sets the y velocity without affecting the instantaneous y position
     void setInstantaneousVY(float vy, QQuickParticleSystem *particleSystem);
-    //sets the instantaneous Y postion
+    //sets the instantaneous Y position
     void setInstantaneousY(float y, QQuickParticleSystem *particleSystem);
 
     //TODO: Slight caching?

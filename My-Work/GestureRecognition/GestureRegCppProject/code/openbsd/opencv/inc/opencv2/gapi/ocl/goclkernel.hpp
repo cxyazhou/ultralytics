@@ -188,7 +188,7 @@ template<typename U> struct ocl_get_out<cv::GOpaque<U> >
 template<typename, typename, typename>
 struct OCLCallHelper;
 
-// FIXME: probably can be simplified with std::apply or analogue.
+// FIXME: probably can be simplified with std::apply or analog.
 template<typename Impl, typename... Ins, typename... Outs>
 struct OCLCallHelper<Impl, std::tuple<Ins...>, std::tuple<Outs...> >
 {
@@ -206,14 +206,14 @@ struct OCLCallHelper<Impl, std::tuple<Ins...>, std::tuple<Outs...> >
         }
     };
 
-    template<int... IIs, int... OIs>
-    static void call_impl(GOCLContext &ctx, detail::Seq<IIs...>, detail::Seq<OIs...>)
+    template<int... IIs, int... is>
+    static void call_impl(GOCLContext &ctx, detail::Seq<IIs...>, detail::Seq<is...>)
     {
         //TODO: Make sure that OpenCV kernels do not reallocate memory for output parameters
         //by comparing it's state (data ptr) before and after the call.
         //Convert own::Scalar to cv::Scalar before call kernel and run kernel
         //convert cv::Scalar to own::Scalar after call kernel and write back results
-        call_and_postprocess<decltype(ocl_get_in<Ins>::get(ctx, IIs))...>::call(ocl_get_in<Ins>::get(ctx, IIs)..., ocl_get_out<Outs>::get(ctx, OIs)...);
+        call_and_postprocess<decltype(ocl_get_in<Ins>::get(ctx, IIs))...>::call(ocl_get_in<Ins>::get(ctx, IIs)..., ocl_get_out<Outs>::get(ctx, is)...);
     }
 
     static void call(GOCLContext &ctx)

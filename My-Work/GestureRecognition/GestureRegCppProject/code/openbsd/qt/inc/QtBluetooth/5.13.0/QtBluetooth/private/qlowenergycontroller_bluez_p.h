@@ -214,7 +214,7 @@ private:
 
       Once timeout has been triggered we gracefully continue with the next request.
       Depending on the type of the timed out ATT command we either ignore it
-      or artifically trigger an error response to ensure the API gives the
+      or artificially trigger an error response to ensure the API gives the
       appropriate response. Potentially this can cause problems when the
       response for the dropped requests arrives very late. That's why a big warning
       is printed about the compromised state when a timeout is triggered.

@@ -75,7 +75,7 @@ class Q_QUICK_PRIVATE_EXPORT QQuickStochasticState : public QObject //Currently 
     Q_OBJECT
     Q_PROPERTY(int duration READ duration WRITE setDuration NOTIFY durationChanged)
     Q_PROPERTY(int durationVariation READ durationVariation WRITE setDurationVariation NOTIFY durationVariationChanged)
-    //Note that manually advanced sprites need to query this variable and implement own behaviour for it
+    //Note that manually advanced sprites need to query this variable and implement own behavior for it
     Q_PROPERTY(bool randomStart READ randomStart WRITE setRandomStart NOTIFY randomStartChanged)
     Q_PROPERTY(QVariantMap to READ to WRITE setTo NOTIFY toChanged)
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)

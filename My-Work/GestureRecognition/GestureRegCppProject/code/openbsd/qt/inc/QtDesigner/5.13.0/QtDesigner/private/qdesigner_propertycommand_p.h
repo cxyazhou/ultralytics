@@ -169,7 +169,7 @@ protected:
     // update designer
     void update(unsigned updateMask);
 
-    // check if lists are aequivalent for command merging (same widgets and props)
+    // check if lists are equivalent for command merging (same widgets and props)
     bool canMergeLists(const PropertyHelperList& other) const;
 
     PropertyHelperList& propertyHelperList() { return m_propertyHelperList; }

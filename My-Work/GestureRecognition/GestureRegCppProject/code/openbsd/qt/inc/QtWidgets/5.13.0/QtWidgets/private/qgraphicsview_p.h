@@ -186,7 +186,7 @@ public:
     {
 #if 0 // Used to be included in Qt4 for Q_WS_MAC
         // QWidget::update() works slightly different on the Mac without the raster engine;
-        // it's not part of our backing store so it needs special threatment.
+        // it's not part of our backing store so it needs special treatment.
         if (QApplicationPrivate::graphics_system_name != QLatin1String("raster")) {
             // At this point either HIViewSetNeedsDisplay (Carbon) or setNeedsDisplay: YES (Cocoa)
             // is called, which means there's a pending update request. We want to dispatch it

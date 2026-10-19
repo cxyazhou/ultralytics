@@ -85,7 +85,7 @@ namespace QPatternist
          */
         union
         {
-            void *ptr; // Do not use ptr directy, use pointer() instead.
+            void *ptr; // Do not use ptr directly, use pointer() instead.
             Data data;
         };
         void *pointer() const

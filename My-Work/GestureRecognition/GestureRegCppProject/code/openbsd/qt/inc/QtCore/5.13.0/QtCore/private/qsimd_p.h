@@ -99,7 +99,7 @@
  *   given sub-architecture in this translation unit, even if it is not doing
  *   that now (it might be). Individual functions may be tagged with
  *   QT_FUNCTION_TARGET(XXX) to cause the compiler to generate code for that
- *   sub-arch. Only inside such functions is the use of the intrisics
+ *   sub-arch. Only inside such functions is the use of the intrinsics
  *   guaranteed to work. This is useful with runtime detection (see below).
  *
  * Runtime detection of a CPU sub-architecture can be done with the
@@ -319,7 +319,7 @@ enum CPUFeatures {
     CpuFeatureDSPR2         = 4,
 #endif
 
-    // used only to indicate that the CPU detection was initialised
+    // used only to indicate that the CPU detection was initialized
     QSimdInitialized        = 1
 };
 

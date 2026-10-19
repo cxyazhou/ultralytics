@@ -1380,7 +1380,7 @@ typedef struct AVFormatContext {
 
     /* stream info */
     /**
-     * Flags signalling stream properties. A combination of AVFMTCTX_*.
+     * Flags signaling stream properties. A combination of AVFMTCTX_*.
      * Set by libavformat.
      */
     int ctx_flags;
@@ -1462,7 +1462,7 @@ typedef struct AVFormatContext {
     int max_delay;
 
     /**
-     * Flags modifying the (de)muxer behaviour. A combination of AVFMT_FLAG_*.
+     * Flags modifying the (de)muxer behavior. A combination of AVFMT_FLAG_*.
      * Set by the user before avformat_open_input() / avformat_write_header().
      */
     int flags;
@@ -1791,7 +1791,7 @@ typedef struct AVFormatContext {
 
     /**
      * IO repositioned flag.
-     * This is set by avformat when the underlaying IO context read pointer
+     * This is set by avformat when the underlying IO context read pointer
      * is repositioned, for example when doing byte based seeking.
      * Demuxers can use the flag to detect such changes.
      */
@@ -1939,7 +1939,7 @@ typedef struct AVFormatContext {
     int max_streams;
 
     /**
-     * Skip duration calcuation in estimate_timings_from_pts.
+     * Skip duration calculation in estimate_timings_from_pts.
      * - encoding: unused
      * - decoding: set by user
      */
@@ -2590,7 +2590,7 @@ int av_write_frame(AVFormatContext *s, AVPacket *pkt);
  * av_write_frame() instead of this function.
  *
  * Using this function instead of av_write_frame() can give muxers advance
- * knowledge of future packets, improving e.g. the behaviour of the mp4
+ * knowledge of future packets, improving e.g. the behavior of the mp4
  * muxer for VFR content in fragmenting mode.
  *
  * @param s media file handle

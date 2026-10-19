@@ -80,7 +80,7 @@ public:
     qreal m_maxY;
     qreal m_minY;
 
-    // Serieses related data
+    // Series related data
     int m_seriesIndex;
     int m_seriesCount;
 };

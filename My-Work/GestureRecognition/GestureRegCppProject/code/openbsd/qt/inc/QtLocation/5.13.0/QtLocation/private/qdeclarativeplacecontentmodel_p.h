@@ -97,7 +97,7 @@ public:
         SupplierRole = Qt::UserRole,
         PlaceUserRole,
         AttributionRole,
-        UserRole //indicator for next conten type specific role
+        UserRole //indicator for next contain type specific role
     };
 
     bool canFetchMore(const QModelIndex &parent) const;

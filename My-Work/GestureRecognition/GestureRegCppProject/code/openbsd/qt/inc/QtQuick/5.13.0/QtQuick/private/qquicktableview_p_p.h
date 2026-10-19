@@ -215,7 +215,7 @@ public:
     QPointer<QQmlTableInstanceModel> tableModel = nullptr;
     QVariant modelVariant;
 
-    // When the applications assignes a new model or delegate to the view, we keep them
+    // When the applications assigns a new model or delegate to the view, we keep them
     // around until we're ready to take them into use (syncWithPendingChanges).
     QVariant assignedModel = QVariant(int(0));
     QQmlComponent *assignedDelegate = nullptr;

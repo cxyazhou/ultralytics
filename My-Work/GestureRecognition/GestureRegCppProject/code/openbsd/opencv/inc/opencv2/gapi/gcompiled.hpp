@@ -19,7 +19,7 @@ namespace cv {
 // This class represents a compiled computation.
 // In theory (and ideally), it can be used w/o the rest of APIs.
 // In theory (and ideally), it can be serialized/deserialized.
-// It can enable scenarious like deployment to an autonomous devince, FuSa, etc.
+// It can enable scenarios like deployment to an autonomous devince, FuSa, etc.
 //
 // Currently GCompiled assumes all GMats you used to pass data to G-API
 // are valid and not destroyed while you use a GCompiled object.

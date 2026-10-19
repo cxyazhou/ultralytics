@@ -641,7 +641,7 @@ circle around this pixel.
 AgastFeatureDetector::AGAST_5_8, AgastFeatureDetector::AGAST_7_12d,
 AgastFeatureDetector::AGAST_7_12s, AgastFeatureDetector::OAST_9_16
 
-For non-Intel platforms, there is a tree optimised variant of AGAST with same numerical results.
+For non-Intel platforms, there is a tree optimized variant of AGAST with same numerical results.
 The 32-bit binary tree tables were generated automatically from original code using perl script.
 The perl script and examples of tree generation are placed in features2d/doc folder.
 Detects corners using the AGAST algorithm by @cite mair2010_agast .
@@ -1215,7 +1215,7 @@ public:
     preferable choices for SIFT and SURF descriptors, NORM_HAMMING should be used with ORB, BRISK and
     BRIEF, NORM_HAMMING2 should be used with ORB when WTA_K==3 or 4 (see ORB::ORB constructor
     description).
-    @param crossCheck If it is false, this is will be default BFMatcher behaviour when it finds the k
+    @param crossCheck If it is false, this is will be default BFMatcher behavior when it finds the k
     nearest neighbors for each query descriptor. If crossCheck==true, then the knnMatch() method with
     k=1 will only return pairs (i,j) such that for i-th query descriptor the j-th descriptor in the
     matcher's collection is the nearest and vice versa, i.e. the BFMatcher will only return consistent

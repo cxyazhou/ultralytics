@@ -390,7 +390,7 @@ int QRegexParser<_Parser, _Table>::nextToken()
             //character, so we keep a regexCandidates map with the list of possible regexes
             //based on initial characters found so far.
             const QChar nextChar = m_buffer.at(m_loc);
-            //Populate the list if we haven't seeen this character before
+            //Populate the list if we haven't seen this character before
             if (!regexCandidates.contains(nextChar)) {
 #  if (QT_VERSION >= QT_VERSION_CHECK(5, 5, 0))
                 const QStringRef tmp = m_buffer.midRef(m_loc,1);

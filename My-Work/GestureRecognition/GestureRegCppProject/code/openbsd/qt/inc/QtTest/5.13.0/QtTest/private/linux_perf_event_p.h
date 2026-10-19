@@ -9,7 +9,7 @@
  *
  *    Started by: Thomas Gleixner and Ingo Molnar
  *
- * For licencing details see kernel-base/COPYING
+ * For licensing details see kernel-base/COPYING
  */
 #ifndef _UAPI_LINUX_PERF_EVENT_H
 #define _UAPI_LINUX_PERF_EVENT_H

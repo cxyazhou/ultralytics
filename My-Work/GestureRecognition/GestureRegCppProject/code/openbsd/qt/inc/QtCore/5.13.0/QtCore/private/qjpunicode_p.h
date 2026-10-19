@@ -101,9 +101,9 @@ public:
         Sun_JDK117                     = 0x0005,
         Microsoft_CP932                = 0x0006,
 
-        NEC_VDC                = 0x0100,                // NEC Vender Defined Char
+        NEC_VDC                = 0x0100,                // NEC Vendor Defined Char
         UDC                        = 0x0200,                // User Defined Char
-        IBM_VDC                = 0x0400                // IBM Vender Defined Char
+        IBM_VDC                = 0x0400                // IBM Vendor Defined Char
     };
     static QJpUnicodeConv *newConverter(int rule);
 

@@ -622,7 +622,7 @@ __CV_ENUM_FLAGS_BITWISE_AND_EQ   (EnumType, EnumType)                           
 __CV_ENUM_FLAGS_BITWISE_XOR_EQ   (EnumType, EnumType)                                                 \
 
 /****************************************************************************************\
-*                                    static analysys                                     *
+*                                    static analysis                                     *
 \****************************************************************************************/
 
 // In practice, some macro are not processed correctly (noreturn is not detected).

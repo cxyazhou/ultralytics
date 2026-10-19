@@ -446,10 +446,10 @@ inline void QStandardItemModel::appendRow(QStandardItem *aitem)
 inline void QStandardItemModel::insertRow(int arow, QStandardItem *aitem)
 { insertRow(arow, QList<QStandardItem*>() << aitem); }
 
-inline bool QStandardItemModel::insertRow(int arow, const QModelIndex &aparent)
-{ return QAbstractItemModel::insertRow(arow, aparent); }
-inline bool QStandardItemModel::insertColumn(int acolumn, const QModelIndex &aparent)
-{ return QAbstractItemModel::insertColumn(acolumn, aparent); }
+inline bool QStandardItemModel::insertRow(int arow, const QModelIndex &apparent)
+{ return QAbstractItemModel::insertRow(arow, apparent); }
+inline bool QStandardItemModel::insertColumn(int acolumn, const QModelIndex &apparent)
+{ return QAbstractItemModel::insertColumn(acolumn, apparent); }
 
 #ifndef QT_NO_DATASTREAM
 Q_GUI_EXPORT QDataStream &operator>>(QDataStream &in, QStandardItem &item);

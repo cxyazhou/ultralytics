@@ -134,7 +134,7 @@ namespace QPatternist
 
         virtual ~ExpressionIdentifier();
         /**
-         * @param expr the Expression to be tested. This is guranteed
+         * @param expr the Expression to be tested. This is guaranteed
          * to always be a non @c null, valid pointer.
          *
          * @returns @c true if @p expr matches as according to this ExpressionIdentifier,

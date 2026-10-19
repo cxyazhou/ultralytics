@@ -274,7 +274,7 @@ private:
  * Performs a hierarchical clustering of the points passed as argument and then takes a cut in the
  * the clustering tree to return a flat clustering.
  * @param[in] points Points to be clustered
- * @param centers The computed cluster centres. Matrix should be preallocated and centers.rows is the
+ * @param centers The computed cluster centers. Matrix should be preallocated and centers.rows is the
  *  number of clusters requested.
  * @param params Clustering parameters (The same as for cvflann::KMeansIndex)
  * @param d Distance to be used for clustering (eg: cvflann::L2)

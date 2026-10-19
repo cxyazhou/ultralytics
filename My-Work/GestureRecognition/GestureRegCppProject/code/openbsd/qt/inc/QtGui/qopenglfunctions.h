@@ -409,15 +409,15 @@ public:
     void glUniformMatrix4fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat* value);
     void glUseProgram(GLuint program);
     void glValidateProgram(GLuint program);
-    void glVertexAttrib1f(GLuint indx, GLfloat x);
-    void glVertexAttrib1fv(GLuint indx, const GLfloat* values);
-    void glVertexAttrib2f(GLuint indx, GLfloat x, GLfloat y);
-    void glVertexAttrib2fv(GLuint indx, const GLfloat* values);
-    void glVertexAttrib3f(GLuint indx, GLfloat x, GLfloat y, GLfloat z);
-    void glVertexAttrib3fv(GLuint indx, const GLfloat* values);
-    void glVertexAttrib4f(GLuint indx, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
-    void glVertexAttrib4fv(GLuint indx, const GLfloat* values);
-    void glVertexAttribPointer(GLuint indx, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* ptr);
+    void glVertexAttrib1f(GLuint index, GLfloat x);
+    void glVertexAttrib1fv(GLuint index, const GLfloat* values);
+    void glVertexAttrib2f(GLuint index, GLfloat x, GLfloat y);
+    void glVertexAttrib2fv(GLuint index, const GLfloat* values);
+    void glVertexAttrib3f(GLuint index, GLfloat x, GLfloat y, GLfloat z);
+    void glVertexAttrib3fv(GLuint index, const GLfloat* values);
+    void glVertexAttrib4f(GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
+    void glVertexAttrib4fv(GLuint index, const GLfloat* values);
+    void glVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* ptr);
 
 protected:
     QOpenGLFunctionsPrivate *d_ptr;
@@ -580,15 +580,15 @@ struct QOpenGLFunctionsPrivate
     F(void, UniformMatrix4fv, (GLint location, GLsizei count, GLboolean transpose, const GLfloat* value)) \
     F(void, UseProgram, (GLuint program)) \
     F(void, ValidateProgram, (GLuint program)) \
-    F(void, VertexAttrib1f, (GLuint indx, GLfloat x)) \
-    F(void, VertexAttrib1fv, (GLuint indx, const GLfloat* values)) \
-    F(void, VertexAttrib2f, (GLuint indx, GLfloat x, GLfloat y)) \
-    F(void, VertexAttrib2fv, (GLuint indx, const GLfloat* values)) \
-    F(void, VertexAttrib3f, (GLuint indx, GLfloat x, GLfloat y, GLfloat z)) \
-    F(void, VertexAttrib3fv, (GLuint indx, const GLfloat* values)) \
-    F(void, VertexAttrib4f, (GLuint indx, GLfloat x, GLfloat y, GLfloat z, GLfloat w)) \
-    F(void, VertexAttrib4fv, (GLuint indx, const GLfloat* values)) \
-    F(void, VertexAttribPointer, (GLuint indx, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* ptr)) \
+    F(void, VertexAttrib1f, (GLuint index, GLfloat x)) \
+    F(void, VertexAttrib1fv, (GLuint index, const GLfloat* values)) \
+    F(void, VertexAttrib2f, (GLuint index, GLfloat x, GLfloat y)) \
+    F(void, VertexAttrib2fv, (GLuint index, const GLfloat* values)) \
+    F(void, VertexAttrib3f, (GLuint index, GLfloat x, GLfloat y, GLfloat z)) \
+    F(void, VertexAttrib3fv, (GLuint index, const GLfloat* values)) \
+    F(void, VertexAttrib4f, (GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w)) \
+    F(void, VertexAttrib4fv, (GLuint index, const GLfloat* values)) \
+    F(void, VertexAttribPointer, (GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* ptr)) \
     F(void, ClearDepth, (GLdouble depth)) \
     F(void, DepthRange, (GLdouble zNear, GLdouble zFar)) \
 
@@ -2077,101 +2077,101 @@ inline void QOpenGLFunctions::glValidateProgram(GLuint program)
     Q_OPENGL_FUNCTIONS_DEBUG
 }
 
-inline void QOpenGLFunctions::glVertexAttrib1f(GLuint indx, GLfloat x)
+inline void QOpenGLFunctions::glVertexAttrib1f(GLuint index, GLfloat x)
 {
 #if defined(QT_OPENGL_ES_2) && defined(Q_OS_ANDROID)
-    ::glVertexAttrib1f(indx, x);
+    ::glVertexAttrib1f(index, x);
 #else
     Q_ASSERT(QOpenGLFunctions::isInitialized(d_ptr));
-    d_ptr->f.VertexAttrib1f(indx, x);
+    d_ptr->f.VertexAttrib1f(index, x);
 #endif
     Q_OPENGL_FUNCTIONS_DEBUG
 }
 
-inline void QOpenGLFunctions::glVertexAttrib1fv(GLuint indx, const GLfloat* values)
+inline void QOpenGLFunctions::glVertexAttrib1fv(GLuint index, const GLfloat* values)
 {
 #if defined(QT_OPENGL_ES_2) && defined(Q_OS_ANDROID)
-    ::glVertexAttrib1fv(indx, values);
+    ::glVertexAttrib1fv(index, values);
 #else
     Q_ASSERT(QOpenGLFunctions::isInitialized(d_ptr));
-    d_ptr->f.VertexAttrib1fv(indx, values);
+    d_ptr->f.VertexAttrib1fv(index, values);
 #endif
     Q_OPENGL_FUNCTIONS_DEBUG
 }
 
-inline void QOpenGLFunctions::glVertexAttrib2f(GLuint indx, GLfloat x, GLfloat y)
+inline void QOpenGLFunctions::glVertexAttrib2f(GLuint index, GLfloat x, GLfloat y)
 {
 #if defined(QT_OPENGL_ES_2) && defined(Q_OS_ANDROID)
-    ::glVertexAttrib2f(indx, x, y);
+    ::glVertexAttrib2f(index, x, y);
 #else
     Q_ASSERT(QOpenGLFunctions::isInitialized(d_ptr));
-    d_ptr->f.VertexAttrib2f(indx, x, y);
+    d_ptr->f.VertexAttrib2f(index, x, y);
 #endif
     Q_OPENGL_FUNCTIONS_DEBUG
 }
 
-inline void QOpenGLFunctions::glVertexAttrib2fv(GLuint indx, const GLfloat* values)
+inline void QOpenGLFunctions::glVertexAttrib2fv(GLuint index, const GLfloat* values)
 {
 #if defined(QT_OPENGL_ES_2) && defined(Q_OS_ANDROID)
-    ::glVertexAttrib2fv(indx, values);
+    ::glVertexAttrib2fv(index, values);
 #else
     Q_ASSERT(QOpenGLFunctions::isInitialized(d_ptr));
-    d_ptr->f.VertexAttrib2fv(indx, values);
+    d_ptr->f.VertexAttrib2fv(index, values);
 #endif
     Q_OPENGL_FUNCTIONS_DEBUG
 }
 
-inline void QOpenGLFunctions::glVertexAttrib3f(GLuint indx, GLfloat x, GLfloat y, GLfloat z)
+inline void QOpenGLFunctions::glVertexAttrib3f(GLuint index, GLfloat x, GLfloat y, GLfloat z)
 {
 #if defined(QT_OPENGL_ES_2) && defined(Q_OS_ANDROID)
-    ::glVertexAttrib3f(indx, x, y, z);
+    ::glVertexAttrib3f(index, x, y, z);
 #else
     Q_ASSERT(QOpenGLFunctions::isInitialized(d_ptr));
-    d_ptr->f.VertexAttrib3f(indx, x, y, z);
+    d_ptr->f.VertexAttrib3f(index, x, y, z);
 #endif
     Q_OPENGL_FUNCTIONS_DEBUG
 }
 
-inline void QOpenGLFunctions::glVertexAttrib3fv(GLuint indx, const GLfloat* values)
+inline void QOpenGLFunctions::glVertexAttrib3fv(GLuint index, const GLfloat* values)
 {
 #if defined(QT_OPENGL_ES_2) && defined(Q_OS_ANDROID)
-    ::glVertexAttrib3fv(indx, values);
+    ::glVertexAttrib3fv(index, values);
 #else
     Q_ASSERT(QOpenGLFunctions::isInitialized(d_ptr));
-    d_ptr->f.VertexAttrib3fv(indx, values);
+    d_ptr->f.VertexAttrib3fv(index, values);
 #endif
     Q_OPENGL_FUNCTIONS_DEBUG
 }
 
-inline void QOpenGLFunctions::glVertexAttrib4f(GLuint indx, GLfloat x, GLfloat y, GLfloat z, GLfloat w)
+inline void QOpenGLFunctions::glVertexAttrib4f(GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w)
 {
 #if defined(QT_OPENGL_ES_2) && defined(Q_OS_ANDROID)
-    ::glVertexAttrib4f(indx, x, y, z, w);
+    ::glVertexAttrib4f(index, x, y, z, w);
 #else
     Q_ASSERT(QOpenGLFunctions::isInitialized(d_ptr));
-    d_ptr->f.VertexAttrib4f(indx, x, y, z, w);
+    d_ptr->f.VertexAttrib4f(index, x, y, z, w);
 #endif
     Q_OPENGL_FUNCTIONS_DEBUG
 }
 
-inline void QOpenGLFunctions::glVertexAttrib4fv(GLuint indx, const GLfloat* values)
+inline void QOpenGLFunctions::glVertexAttrib4fv(GLuint index, const GLfloat* values)
 {
 #if defined(QT_OPENGL_ES_2) && defined(Q_OS_ANDROID)
-    ::glVertexAttrib4fv(indx, values);
+    ::glVertexAttrib4fv(index, values);
 #else
     Q_ASSERT(QOpenGLFunctions::isInitialized(d_ptr));
-    d_ptr->f.VertexAttrib4fv(indx, values);
+    d_ptr->f.VertexAttrib4fv(index, values);
 #endif
     Q_OPENGL_FUNCTIONS_DEBUG
 }
 
-inline void QOpenGLFunctions::glVertexAttribPointer(GLuint indx, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* ptr)
+inline void QOpenGLFunctions::glVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* ptr)
 {
 #if defined(QT_OPENGL_ES_2) && defined(Q_OS_ANDROID)
-    ::glVertexAttribPointer(indx, size, type, normalized, stride, ptr);
+    ::glVertexAttribPointer(index, size, type, normalized, stride, ptr);
 #else
     Q_ASSERT(QOpenGLFunctions::isInitialized(d_ptr));
-    d_ptr->f.VertexAttribPointer(indx, size, type, normalized, stride, ptr);
+    d_ptr->f.VertexAttribPointer(index, size, type, normalized, stride, ptr);
 #endif
     Q_OPENGL_FUNCTIONS_DEBUG
 }

@@ -89,7 +89,7 @@ namespace QPatternist
 
         private:
             /**
-             * A dictonary of all predefined schema types.
+             * A dictionary of all predefined schema types.
              */
             SchemaType::Hash               m_types;
 

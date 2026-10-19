@@ -75,7 +75,7 @@ struct Q_CORE_EXPORT QContiguousCacheData
 template <typename T>
 struct QContiguousCacheTypedData: private QContiguousCacheData
 {
-    // private inheritance to avoid aliasing warningss
+    // private inheritance to avoid aliasing warnings
     T array[1];
 
     static inline void freeData(QContiguousCacheTypedData *data) { QContiguousCacheData::freeData(data); }

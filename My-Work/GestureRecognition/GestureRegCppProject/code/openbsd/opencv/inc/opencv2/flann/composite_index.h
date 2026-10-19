@@ -66,8 +66,8 @@ struct CompositeIndexParams : public IndexParams
 
 /**
  * This index builds a kd-tree index and a k-means index and performs nearest
- * neighbour search both indexes. This gives a slight boost in search performance
- * as some of the neighbours that are missed by one index are found by the other.
+ * neighbor search both indexes. This gives a slight boost in search performance
+ * as some of the neighbors that are missed by one index are found by the other.
  */
 template <typename Distance>
 class CompositeIndex : public NNIndex<Distance>

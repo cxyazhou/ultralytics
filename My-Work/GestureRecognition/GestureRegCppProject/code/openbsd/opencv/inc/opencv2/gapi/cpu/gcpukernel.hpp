@@ -343,7 +343,7 @@ struct OCVSetupHelper<Impl, std::tuple<Ins...>>
 template<typename, typename, typename>
 struct OCVCallHelper;
 
-// FIXME: probably can be simplified with std::apply or analogue.
+// FIXME: probably can be simplified with std::apply or analog.
 template<typename Impl, typename... Ins, typename... Outs>
 struct OCVCallHelper<Impl, std::tuple<Ins...>, std::tuple<Outs...>>
 {
@@ -366,23 +366,23 @@ struct OCVCallHelper<Impl, std::tuple<Ins...>, std::tuple<Outs...>>
         }
     };
 
-    template<int... IIs, int... OIs>
-    static void call_impl(GCPUContext &ctx, detail::Seq<IIs...>, detail::Seq<OIs...>)
+    template<int... IIs, int... is>
+    static void call_impl(GCPUContext &ctx, detail::Seq<IIs...>, detail::Seq<is...>)
     {
         //Make sure that OpenCV kernels do not reallocate memory for output parameters
         //by comparing it's state (data ptr) before and after the call.
         //This is done by converting each output Mat into tracked_cv_mat object, and binding
         //them to parameters of ad-hoc function
         call_and_postprocess<decltype(get_in<Ins>::get(ctx, IIs))...>
-            ::call(get_in<Ins>::get(ctx, IIs)..., get_out<Outs>::get(ctx, OIs)...);
+            ::call(get_in<Ins>::get(ctx, IIs)..., get_out<Outs>::get(ctx, is)...);
     }
 
-    template<int... IIs, int... OIs>
+    template<int... IIs, int... is>
     static void call_impl(cv::GCPUContext &ctx, Impl& impl,
-                          detail::Seq<IIs...>, detail::Seq<OIs...>)
+                          detail::Seq<IIs...>, detail::Seq<is...>)
     {
         call_and_postprocess<decltype(get_in<Ins>::get(ctx, IIs))...>
-            ::call(impl, get_in<Ins>::get(ctx, IIs)..., get_out<Outs>::get(ctx, OIs)...);
+            ::call(impl, get_in<Ins>::get(ctx, IIs)..., get_out<Outs>::get(ctx, is)...);
     }
 
     static void call(GCPUContext &ctx)
@@ -422,12 +422,12 @@ struct OCVStCallHelper<Impl, std::tuple<Ins...>, std::tuple<Outs...>> :
         }
     };
 
-    template<int... IIs, int... OIs>
-    static void call_impl(GCPUContext &ctx, detail::Seq<IIs...>, detail::Seq<OIs...>)
+    template<int... IIs, int... is>
+    static void call_impl(GCPUContext &ctx, detail::Seq<IIs...>, detail::Seq<is...>)
     {
         auto& st = *ctx.state().get<std::shared_ptr<typename Impl::State>>();
         call_and_postprocess<decltype(get_in<Ins>::get(ctx, IIs))...>
-            ::call(st, get_in<Ins>::get(ctx, IIs)..., get_out<Outs>::get(ctx, OIs)...);
+            ::call(st, get_in<Ins>::get(ctx, IIs)..., get_out<Outs>::get(ctx, is)...);
     }
 
     static void call(GCPUContext &ctx)

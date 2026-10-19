@@ -342,7 +342,7 @@ namespace cv {
 namespace gapi {
 
 // Note: the below code _is_ part of STANDALONE build,
-// just to make our compiler code compileable.
+// just to make our compiler code compilable.
 
 // A type-erased form of network parameters.
 // Similar to how a type-erased GKernel is represented and used.

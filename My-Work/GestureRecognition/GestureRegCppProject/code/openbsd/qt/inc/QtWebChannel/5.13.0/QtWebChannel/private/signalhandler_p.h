@@ -108,7 +108,7 @@ public:
 
 private:
     /**
-     * Exctract the arguments of a signal call and pass them to the receiver.
+     * Extract the arguments of a signal call and pass them to the receiver.
      *
      * The @p argumentData is converted to a QVariantList and then passed to the receiver's
      * signalEmitted method.

@@ -80,7 +80,7 @@ public:
 
 /**
  * KNNSimpleResultSet does not ensure that the element it holds are unique.
- * Is used in those cases where the nearest neighbour algorithm used does not
+ * Is used in those cases where the nearest neighbor algorithm used does not
  * attempt to insert the same element multiple times.
  */
 template <typename DistanceType>
@@ -148,7 +148,7 @@ public:
 };
 
 /**
- * K-Nearest neighbour result set. Ensures that the elements inserted are unique
+ * K-Nearest neighbor result set. Ensures that the elements inserted are unique
  */
 template <typename DistanceType>
 class KNNResultSet : public ResultSet<DistanceType>
@@ -478,7 +478,7 @@ public:
 
 
     /** Check the status of the set
-     * @return alwys false
+     * @return always false
      */
     inline bool full() const CV_OVERRIDE
     {

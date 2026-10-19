@@ -221,9 +221,9 @@ CV_EXPORTS_W Ptr<BackgroundSubtractorMOG2>
     createBackgroundSubtractorMOG2(int history=500, double varThreshold=16,
                                    bool detectShadows=true);
 
-/** @brief K-nearest neighbours - based Background/Foreground Segmentation Algorithm.
+/** @brief K-nearest neighbors - based Background/Foreground Segmentation Algorithm.
 
-The class implements the K-nearest neighbours background subtraction described in @cite Zivkovic2006 .
+The class implements the K-nearest neighbors background subtraction described in @cite Zivkovic2006 .
 Very efficient if number of foreground pixels is low.
  */
 class CV_EXPORTS_W BackgroundSubtractorKNN : public BackgroundSubtractor
@@ -255,13 +255,13 @@ public:
     */
     CV_WRAP virtual void setDist2Threshold(double _dist2Threshold) = 0;
 
-    /** @brief Returns the number of neighbours, the k in the kNN.
+    /** @brief Returns the number of neighbors, the k in the kNN.
 
     K is the number of samples that need to be within dist2Threshold in order to decide that that
     pixel is matching the kNN background model.
      */
     CV_WRAP virtual int getkNNSamples() const = 0;
-    /** @brief Sets the k in the kNN. How many nearest neighbours need to match.
+    /** @brief Sets the k in the kNN. How many nearest neighbors need to match.
     */
     CV_WRAP virtual void setkNNSamples(int _nkNN) = 0;
 

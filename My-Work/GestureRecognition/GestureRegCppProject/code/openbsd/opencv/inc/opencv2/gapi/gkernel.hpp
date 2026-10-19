@@ -86,7 +86,7 @@ namespace detail
     } // anonymous namespace
 
     ////////////////////////////////////////////////////////////////////////////
-    // Helper classes which brings outputMeta() marshalling to kernel
+    // Helper classes which brings outputMeta() marshaling to kernel
     // implementations
     //
     // 1. MetaType establishes G#Type -> G#Meta mapping between G-API dynamic
@@ -123,23 +123,23 @@ namespace detail
     // 4. The MetaHelper itself: an entity which generates outMeta() call
     //    based on kernel signature, with arguments properly substituted.
     // 4.1 - case for multiple return values
-    // FIXME: probably can be simplified with std::apply or analogue.
+    // FIXME: probably can be simplified with std::apply or analog.
     template<typename, typename, typename>
     struct MetaHelper;
 
     template<typename K, typename... Ins, typename... Outs>
     struct MetaHelper<K, std::tuple<Ins...>, std::tuple<Outs...> >
     {
-        template<int... IIs, int... OIs>
+        template<int... IIs, int... is>
         static GMetaArgs getOutMeta_impl(const GMetaArgs &in_meta,
                                          const GArgs &in_args,
                                          detail::Seq<IIs...>,
-                                         detail::Seq<OIs...>)
+                                         detail::Seq<is...>)
         {
             // FIXME: decay?
             using R   = std::tuple<typename MetaType<Outs>::type...>;
             const R r = K::outMeta( get_in_meta<Ins>(in_meta, in_args, IIs)... );
-            return GMetaArgs{ GMetaArg(std::get<OIs>(r))... };
+            return GMetaArgs{ GMetaArg(std::get<is>(r))... };
         }
         // FIXME: help users identify how outMeta must look like (via default impl w/static_assert?)
 

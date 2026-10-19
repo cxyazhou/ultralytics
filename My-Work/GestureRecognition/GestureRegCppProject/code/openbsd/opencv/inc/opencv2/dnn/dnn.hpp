@@ -356,7 +356,7 @@ CV__DNN_INLINE_NS_BEGIN
         virtual void getScaleShift(Mat& scale, Mat& shift) const;
 
         /**
-         * @brief "Deattaches" all the layers, attached to particular layer.
+         * @brief "Detaches" all the layers, attached to particular layer.
          */
         virtual void unsetAttached();
 

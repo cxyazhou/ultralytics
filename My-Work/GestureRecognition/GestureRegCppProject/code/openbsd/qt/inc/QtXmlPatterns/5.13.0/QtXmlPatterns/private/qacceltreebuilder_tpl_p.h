@@ -210,7 +210,7 @@ void AccelTreeBuilder<FromDocument>::attribute(const QXmlName &name, const QStri
             const int oldSize = m_document->m_IDs.count();
             m_document->m_IDs.insert(id, currentParent());
             /* We don't run the value through m_attributeCompress here, because
-             * the likelyhood of it deing identical to another attribute is
+             * the likelihood of it deing identical to another attribute is
              * very small. */
             m_document->data.insert(m_preNumber, normalized);
 

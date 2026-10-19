@@ -77,7 +77,7 @@ namespace QTest
 {
     enum MouseAction { MousePress, MouseRelease, MouseClick, MouseDClick, MouseMove };
 
-    extern Q_TESTLIB_EXPORT Qt::MouseButton lastMouseButton; // ### unsued
+    extern Q_TESTLIB_EXPORT Qt::MouseButton lastMouseButton; // ### unused
     extern Q_TESTLIB_EXPORT int lastMouseTimestamp;
 
     // This value is used to emulate timestamps to avoid creating double clicks by mistake.
@@ -138,7 +138,7 @@ namespace QTest
             qtestMouseButtons.setFlag(button, true);
             qt_handleMouseEvent(w, pos, global, qtestMouseButtons, button, QEvent::MouseButtonPress,
                                 stateKey, ++lastMouseTimestamp);
-            lastMouseButton = button; // ### unsued
+            lastMouseButton = button; // ### unused
             if (action == MousePress)
                 break;
             Q_FALLTHROUGH();
@@ -147,7 +147,7 @@ namespace QTest
             qt_handleMouseEvent(w, pos, global, qtestMouseButtons, button, QEvent::MouseButtonRelease,
                                 stateKey, ++lastMouseTimestamp);
             lastMouseTimestamp += mouseDoubleClickInterval; // avoid double clicks being generated
-            lastMouseButton = Qt::NoButton; // ### unsued
+            lastMouseButton = Qt::NoButton; // ### unused
             break;
         case MouseMove:
             qt_handleMouseEvent(w, pos, global, qtestMouseButtons, Qt::NoButton, QEvent::MouseMove,

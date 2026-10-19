@@ -364,7 +364,7 @@ public:
 
     enum RelationFlag {
         Label         = 0x00000001,
-        Labelled      = 0x00000002,
+        Labeled      = 0x00000002,
         Controller    = 0x00000004,
         Controlled    = 0x00000008,
         AllRelations  = 0xffffffff
