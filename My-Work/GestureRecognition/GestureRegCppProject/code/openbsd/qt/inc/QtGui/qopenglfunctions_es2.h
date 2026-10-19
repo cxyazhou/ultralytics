@@ -192,15 +192,15 @@ public:
     void glUniformMatrix4fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat* value);
     void glUseProgram(GLuint program);
     void glValidateProgram(GLuint program);
-    void glVertexAttrib1f(GLuint indx, GLfloat x);
-    void glVertexAttrib1fv(GLuint indx, const GLfloat* values);
-    void glVertexAttrib2f(GLuint indx, GLfloat x, GLfloat y);
-    void glVertexAttrib2fv(GLuint indx, const GLfloat* values);
-    void glVertexAttrib3f(GLuint indx, GLfloat x, GLfloat y, GLfloat z);
-    void glVertexAttrib3fv(GLuint indx, const GLfloat* values);
-    void glVertexAttrib4f(GLuint indx, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
-    void glVertexAttrib4fv(GLuint indx, const GLfloat* values);
-    void glVertexAttribPointer(GLuint indx, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid* ptr);
+    void glVertexAttrib1f(GLuint index, GLfloat x);
+    void glVertexAttrib1fv(GLuint index, const GLfloat* values);
+    void glVertexAttrib2f(GLuint index, GLfloat x, GLfloat y);
+    void glVertexAttrib2fv(GLuint index, const GLfloat* values);
+    void glVertexAttrib3f(GLuint index, GLfloat x, GLfloat y, GLfloat z);
+    void glVertexAttrib3fv(GLuint index, const GLfloat* values);
+    void glVertexAttrib4f(GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
+    void glVertexAttrib4fv(GLuint index, const GLfloat* values);
+    void glVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid* ptr);
     void glViewport(GLint x, GLint y, GLsizei width, GLsizei height);
 
 private:
@@ -874,49 +874,49 @@ inline void QOpenGLFunctions_ES2::glValidateProgram(GLuint program)
     ::glValidateProgram(program);
 }
 
-inline void QOpenGLFunctions_ES2::glVertexAttrib1f(GLuint indx, GLfloat x)
+inline void QOpenGLFunctions_ES2::glVertexAttrib1f(GLuint index, GLfloat x)
 {
-    ::glVertexAttrib1f(indx, x);
+    ::glVertexAttrib1f(index, x);
 }
 
-inline void QOpenGLFunctions_ES2::glVertexAttrib1fv(GLuint indx, const GLfloat* values)
+inline void QOpenGLFunctions_ES2::glVertexAttrib1fv(GLuint index, const GLfloat* values)
 {
-    ::glVertexAttrib1fv(indx, values);
+    ::glVertexAttrib1fv(index, values);
 }
 
-inline void QOpenGLFunctions_ES2::glVertexAttrib2f(GLuint indx, GLfloat x, GLfloat y)
+inline void QOpenGLFunctions_ES2::glVertexAttrib2f(GLuint index, GLfloat x, GLfloat y)
 {
-    ::glVertexAttrib2f(indx, x, y);
+    ::glVertexAttrib2f(index, x, y);
 }
 
-inline void QOpenGLFunctions_ES2::glVertexAttrib2fv(GLuint indx, const GLfloat* values)
+inline void QOpenGLFunctions_ES2::glVertexAttrib2fv(GLuint index, const GLfloat* values)
 {
-    ::glVertexAttrib2fv(indx, values);
+    ::glVertexAttrib2fv(index, values);
 }
 
-inline void QOpenGLFunctions_ES2::glVertexAttrib3f(GLuint indx, GLfloat x, GLfloat y, GLfloat z)
+inline void QOpenGLFunctions_ES2::glVertexAttrib3f(GLuint index, GLfloat x, GLfloat y, GLfloat z)
 {
-    ::glVertexAttrib3f(indx, x, y, z);
+    ::glVertexAttrib3f(index, x, y, z);
 }
 
-inline void QOpenGLFunctions_ES2::glVertexAttrib3fv(GLuint indx, const GLfloat* values)
+inline void QOpenGLFunctions_ES2::glVertexAttrib3fv(GLuint index, const GLfloat* values)
 {
-    ::glVertexAttrib3fv(indx, values);
+    ::glVertexAttrib3fv(index, values);
 }
 
-inline void QOpenGLFunctions_ES2::glVertexAttrib4f(GLuint indx, GLfloat x, GLfloat y, GLfloat z, GLfloat w)
+inline void QOpenGLFunctions_ES2::glVertexAttrib4f(GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w)
 {
-    ::glVertexAttrib4f(indx, x, y, z, w);
+    ::glVertexAttrib4f(index, x, y, z, w);
 }
 
-inline void QOpenGLFunctions_ES2::glVertexAttrib4fv(GLuint indx, const GLfloat* values)
+inline void QOpenGLFunctions_ES2::glVertexAttrib4fv(GLuint index, const GLfloat* values)
 {
-    ::glVertexAttrib4fv(indx, values);
+    ::glVertexAttrib4fv(index, values);
 }
 
-inline void QOpenGLFunctions_ES2::glVertexAttribPointer(GLuint indx, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid* ptr)
+inline void QOpenGLFunctions_ES2::glVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid* ptr)
 {
-    ::glVertexAttribPointer(indx, size, type, normalized, stride, ptr);
+    ::glVertexAttribPointer(index, size, type, normalized, stride, ptr);
 }
 
 inline void QOpenGLFunctions_ES2::glViewport(GLint x, GLint y, GLsizei width, GLsizei height)

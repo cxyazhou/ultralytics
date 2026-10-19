@@ -114,7 +114,7 @@ public:
         BufferValue
     };
 
-    // UniformValue implicitely converts doubles to floats to ensure
+    // UniformValue implicitly converts doubles to floats to ensure
     // correct rendering behavior for the cases where Qt3D parameters created from
     // a double or QVariant(double) are used to fill uniform values that in reality
     // should be floats. This occur especially with QML where qreal might be double

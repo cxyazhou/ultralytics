@@ -91,12 +91,12 @@ struct GCompoundCallHelper;
 template<typename Impl, typename... Ins, typename... Outs>
 struct GCompoundCallHelper<Impl, std::tuple<Ins...>, std::tuple<Outs...> >
 {
-    template<int... IIs, int... OIs>
-    static void expand_impl(GCompoundContext &ctx, detail::Seq<IIs...>, detail::Seq<OIs...>)
+    template<int... IIs, int... is>
+    static void expand_impl(GCompoundContext &ctx, detail::Seq<IIs...>, detail::Seq<is...>)
     {
         auto result = Impl::expand(get_compound_in<Ins>::get(ctx, IIs)...);
         auto tuple_return = tuple_wrap_helper<decltype(result)>::get(std::move(result));
-        ctx.m_results = { cv::GArg(std::get<OIs>(tuple_return))... };
+        ctx.m_results = { cv::GArg(std::get<is>(tuple_return))... };
     }
 
     static void expand(GCompoundContext &ctx)

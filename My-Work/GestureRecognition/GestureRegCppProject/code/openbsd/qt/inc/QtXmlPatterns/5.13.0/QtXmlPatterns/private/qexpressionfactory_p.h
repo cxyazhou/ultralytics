@@ -108,7 +108,7 @@ namespace QPatternist
          * result is a type error, for example.
          *
          * @note An empty @p expr is an invalid XPath expression. It will be reported as such,
-         * but it is neverthless the caller's resonsibility to ensure that it's not that(since
+         * but it is nevertheless the caller's responsibility to ensure that it's not that(since
          * it is likely invalid already in the medium it was stored).
          */
         virtual Expression::Ptr createExpression(const QString &expr,

@@ -71,7 +71,7 @@ namespace QPatternist
      * needs to perform casting.
      *
      * Classes which need to perform casting can simply from this class and gain
-     * access to casting functinality wrapped in a convenient way. At the center of this
+     * access to casting functionality wrapped in a convenient way. At the center of this
      * class is the cast() function, which is used at runtime to perform the actual cast.
      *
      * The actual circumstances where casting is used, such as in the 'castable as'
@@ -141,7 +141,7 @@ namespace QPatternist
          * runtime on a case-per-case basis.
          *
          * @returns @c true if the requested casting combination is valid or might be valid.
-         * If it is guranteed to be invalid, @c false is returned.
+         * If it is guaranteed to be invalid, @c false is returned.
          */
         bool prepareCasting(const ReportContext::Ptr &context,
                             const ItemType::Ptr &sourceType);

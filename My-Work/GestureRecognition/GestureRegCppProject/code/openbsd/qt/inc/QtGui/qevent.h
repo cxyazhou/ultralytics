@@ -353,7 +353,7 @@ public:
 #endif
     Qt::KeyboardModifiers modifiers() const;
     inline QString text() const { return txt; }
-    inline bool isAutoRepeat() const { return autor; }
+    inline bool isAutoRepeat() const { return author; }
     inline int count() const { return int(c); }
 
     inline quint32 nativeScanCode() const { return nScanCode; }
@@ -383,7 +383,7 @@ protected:
     quint32 nVirtualKey;
     quint32 nModifiers;
     ushort c;
-    ushort autor:1;
+    ushort author:1;
     // ushort reserved:15;
 };
 

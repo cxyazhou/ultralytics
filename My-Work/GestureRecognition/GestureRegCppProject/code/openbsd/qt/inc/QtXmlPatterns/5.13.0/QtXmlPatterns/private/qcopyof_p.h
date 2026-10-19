@@ -72,7 +72,7 @@ namespace QPatternist
     {
     public:
         /**
-         * Creats a CopyOf where it is checked that the expression @p operand conforms
+         * Creates a CopyOf where it is checked that the expression @p operand conforms
          * to the type @p reqType.
          */
         CopyOf(const Expression::Ptr &operand,

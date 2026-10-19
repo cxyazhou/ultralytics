@@ -467,7 +467,7 @@ class QVariantDebugStream
     struct Filtered<T, /* IsAcceptedType = */ false> {
         Filtered(QDebug /* dbg */, QVariant::Private *)
         {
-            // It is not possible to construct not acccepted type, QVariantConstructor creates an invalid variant for them
+            // It is not possible to construct not accepted type, QVariantConstructor creates an invalid variant for them
             Q_ASSERT(false);
         }
     };

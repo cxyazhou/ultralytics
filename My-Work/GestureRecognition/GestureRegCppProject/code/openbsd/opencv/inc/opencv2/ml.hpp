@@ -426,7 +426,7 @@ public:
 };
 
 /****************************************************************************************\
-*                          K-Nearest Neighbour Classifier                                *
+*                          K-Nearest Neighbor Classifier                                *
 \****************************************************************************************/
 
 /** @brief The class implements K-Nearest Neighbors model

@@ -150,7 +150,7 @@ namespace QPatternist
 
         /**
          * QXmlStreamReader::isWhitespace() returns true for whitespace that is
-         * not expressed as character references, while XSL-T operatates ontop
+         * not expressed as character references, while XSL-T operates on top
          * of the XDM, which means we needs to return true for those too.
          *
          * @see <a href="http://www.w3.org/TR/xslt20/#data-model">4 Data Model</a>

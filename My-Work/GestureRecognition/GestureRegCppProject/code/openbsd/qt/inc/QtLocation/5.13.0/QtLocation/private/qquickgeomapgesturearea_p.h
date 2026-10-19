@@ -237,7 +237,7 @@ private:
     void updatePinch();
     void endPinch();
 
-    // Pan related code (regardles of number of touch points),
+    // Pan related code (regardless of number of touch points),
     // includes the flick based panning after letting go
     void panStateMachine();
     bool canStartPan();

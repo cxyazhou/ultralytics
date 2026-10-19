@@ -296,7 +296,7 @@ public:
 };
 
 // Temporarily make a context current if not already current or
-// shared with the current contex.  The previous context is made
+// shared with the current context.  The previous context is made
 // current when the object goes out of scope.
 class Q_OPENGL_EXPORT QGLShareContextScope
 {

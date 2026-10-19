@@ -420,7 +420,7 @@ inline QDebug qt_QMetaEnum_flagDebugOperator_helper(QDebug debug, const QFlags<T
 template<typename T>
 inline QDebug operator<<(QDebug debug, const QFlags<T> &flags)
 {
-    // We have to use an indirection otherwise specialisation of some other overload of the
+    // We have to use an indirection otherwise specialization of some other overload of the
     // operator<< the compiler would try to instantiate QFlags<T> for the std::enable_if
     return qt_QMetaEnum_flagDebugOperator_helper(debug, flags);
 }

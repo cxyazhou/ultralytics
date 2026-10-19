@@ -134,7 +134,7 @@ namespace QPatternist
              * Sets the @p value of the facet.
              *
              * Depending on the type of the facet the
-             * value can be a string, interger, double etc.
+             * value can be a string, integer, double etc.
              *
              * @note This method should be used for all types of facets
              *       except Pattern, Enumeration and Assertion.

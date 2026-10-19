@@ -119,7 +119,7 @@ namespace QPatternist
         virtual void item(const Item &item) = 0;
 
         /**
-         * Sends a text node with value @p value. Adjascent text nodes
+         * Sends a text node with value @p value. Adjacent text nodes
          * may be sent. There's no restrictions on @p value, beyond that it
          * must be valid XML characters. For instance, @p value may contain
          * only whitespace.
@@ -132,7 +132,7 @@ namespace QPatternist
          * This function may be called instead of characters() if, and only if,
          * @p value consists only of whitespace.
          *
-         * The caller gurantees that @p value, is not empty.
+         * The caller guarantees that @p value, is not empty.
          *
          * By whitespace is meant a sequence of characters that are either
          * spaces, tabs, or the two new line characters, in any order. In

@@ -122,7 +122,7 @@ public slots:
 protected:
     void contextMenuEvent(QContextMenuEvent *event);
 
-    // Overwrite for implementing additional behaviour when doing setZoom();
+    // Overwrite for implementing additional behavior when doing setZoom();
     virtual void applyZoom();
 
 private:
@@ -136,7 +136,7 @@ private:
 };
 
 /* The proxy widget used in  ZoomWidget. It  refuses to move away from 0,0,
- * This behaviour is required for Windows only. */
+ * This behavior is required for Windows only. */
 
 class  QDESIGNER_SHARED_EXPORT ZoomProxyWidget : public QGraphicsProxyWidget {
     Q_DISABLE_COPY(ZoomProxyWidget)

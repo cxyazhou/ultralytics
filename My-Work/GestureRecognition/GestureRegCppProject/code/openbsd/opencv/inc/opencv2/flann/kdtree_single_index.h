@@ -621,7 +621,7 @@ private:
     size_t dim_;
 
     /**
-     * Array of k-d trees used to find neighbours.
+     * Array of k-d trees used to find neighbors.
      */
     NodePtr root_node_;
 

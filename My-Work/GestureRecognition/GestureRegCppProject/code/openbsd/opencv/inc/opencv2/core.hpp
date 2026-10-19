@@ -426,7 +426,7 @@ For integer types when src2(I) is zero, dst(I) will also be zero.
 
 @note In case of floating point data there is no special defined behavior for zero src2(I) values.
 Regular floating-point division is used.
-Expect correct IEEE-754 behaviour for floating-point data (with NaN, Inf result values).
+Expect correct IEEE-754 behavior for floating-point data (with NaN, Inf result values).
 
 @note Saturation is not applied when the output array has the depth CV_32S. You may even get
 result of an incorrect sign in the case of overflow.
@@ -1860,7 +1860,7 @@ CV_EXPORTS_W bool solve(InputArray src1, InputArray src2,
 
 The function cv::sort sorts each matrix row or each matrix column in
 ascending or descending order. So you should pass two operation flags to
-get desired behaviour. If you want to sort matrix rows or columns
+get desired behavior. If you want to sort matrix rows or columns
 lexicographically, you can use STL std::sort generic function with the
 proper comparison predicate.
 
@@ -1875,7 +1875,7 @@ CV_EXPORTS_W void sort(InputArray src, OutputArray dst, int flags);
 
 The function cv::sortIdx sorts each matrix row or each matrix column in the
 ascending or descending order. So you should pass two operation flags to
-get desired behaviour. Instead of reordering the elements themselves, it
+get desired behavior. Instead of reordering the elements themselves, it
 stores the indices of sorted elements in the output array. For example:
 @code
     Mat A = Mat::eye(3,3,CV_32F), B;

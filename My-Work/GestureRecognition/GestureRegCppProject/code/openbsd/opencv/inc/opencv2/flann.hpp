@@ -117,7 +117,7 @@ cv::flann::L2 - Squared Euclidean distance functor, optimized version.
 cv::flann::L1 - Manhattan distance functor, optimized version.
 
 cv::flann::MinkowskiDistance -  The Minkowsky distance functor.
-This is highly optimised with loop unrolling.
+This is highly optimized with loop unrolling.
 The computation of squared root at the end is omitted for efficiency.
 
 cv::flann::MaxDistance - The max distance functor. It computes the
@@ -138,7 +138,7 @@ As the four bases A, C, G, T of the DNA (or A, G, C, U for RNA) can be coded on 
 it counts the bits pairs differences between two sequences using a lookup table implementation.
 
 cv::flann::DNAmming2 - %Adaptation of the Hamming distance functor to DNA comparison.
-Bases differences count are vectorised thanks to arithmetic operations using standard
+Bases differences count are vectorized thanks to arithmetic operations using standard
 registers (AVX2 and AVX-512 should come in a near future).
 
 cv::flann::HistIntersectionDistance - The histogram
@@ -441,7 +441,7 @@ public:
 
     CV_DEPRECATED Index_(const Mat& dataset, const ::cvflann::IndexParams& params)
     {
-        printf("[WARNING] The cv::flann::Index_<T> class is deperecated, use cv::flann::GenericIndex<Distance> instead\n");
+        printf("[WARNING] The cv::flann::Index_<T> class is deprecated, use cv::flann::GenericIndex<Distance> instead\n");
 
         CV_Assert(dataset.type() == CvType<ElementType>::type());
         CV_Assert(dataset.isContinuous());

@@ -91,7 +91,7 @@ namespace QPatternist
              * @see <a href="http://www.w3.org/TR/xpath-functions/#func-numeric-subtract">XQuery 1.0
              * and XPath 2.0 Functions and Operators, 6.2.2 op:numeric-subtract</a>
              */
-            Substract   = 4,
+            Subtract   = 4,
 
             /**
              * @see <a href="http://www.w3.org/TR/xpath-functions/#func-numeric-mod">XQuery 1.0

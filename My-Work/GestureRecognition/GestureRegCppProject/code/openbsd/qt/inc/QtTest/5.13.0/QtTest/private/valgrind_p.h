@@ -1075,7 +1075,7 @@ typedef
 
 /* Use these to write the name of your wrapper.  NOTE: duplicates
    VG_WRAP_FUNCTION_Z{U,Z} in pub_tool_redir.h.  NOTE also: inserts
-   the default behaviour equivalance class tag "0000" into the name.
+   the default behavior equivalence class tag "0000" into the name.
    See pub_tool_redir.h for details -- normally you don't need to
    think about this, though. */
 
@@ -1153,7 +1153,7 @@ typedef
 
 /* Macros to save and align the stack before making a function
    call and restore it afterwards as gcc may not keep the stack
-   pointer aligned if it doesn't realise calls are being made
+   pointer aligned if it doesn't realize calls are being made
    to other functions. */
 
 #define VALGRIND_ALIGN_STACK               \
@@ -1658,7 +1658,7 @@ typedef
 
 /* Macros to save and align the stack before making a function
    call and restore it afterwards as gcc may not keep the stack
-   pointer aligned if it doesn't realise calls are being made
+   pointer aligned if it doesn't realize calls are being made
    to other functions. */
 
 #define VALGRIND_ALIGN_STACK               \
@@ -1673,8 +1673,8 @@ typedef
 /* NB 9 Sept 07.  There is a nasty kludge here in all these CALL_FN_
    macros.  In order not to trash the stack redzone, we need to drop
    %rsp by 128 before the hidden call, and restore afterwards.  The
-   nastyness is that it is only by luck that the stack still appears
-   to be unwindable during the hidden call - since then the behaviour
+   nastiness is that it is only by luck that the stack still appears
+   to be unwindable during the hidden call - since then the behavior
    of any routine using this macro does not match what the CFI data
    says.  Sigh.
 
@@ -2164,7 +2164,7 @@ typedef
 
 /* Macros to save and align the stack before making a function
    call and restore it afterwards as gcc may not keep the stack
-   pointer aligned if it doesn't realise calls are being made
+   pointer aligned if it doesn't realize calls are being made
    to other functions. */
 
 #define VALGRIND_ALIGN_STACK               \
@@ -2643,7 +2643,7 @@ typedef
 
 /* Macros to save and align the stack before making a function
    call and restore it afterwards as gcc may not keep the stack
-   pointer aligned if it doesn't realise calls are being made
+   pointer aligned if it doesn't realize calls are being made
    to other functions. */
 
 #define VALGRIND_ALIGN_STACK               \
@@ -3199,7 +3199,7 @@ typedef
 
 /* Macros to save and align the stack before making a function
    call and restore it afterwards as gcc may not keep the stack
-   pointer aligned if it doesn't realise calls are being made
+   pointer aligned if it doesn't realize calls are being made
    to other functions. */
 
 #define VALGRIND_ALIGN_STACK               \
@@ -3750,7 +3750,7 @@ typedef
 
 /* Macros to save and align the stack before making a function
    call and restore it afterwards as gcc may not keep the stack
-   pointer aligned if it doesn't realise calls are being made
+   pointer aligned if it doesn't realize calls are being made
    to other functions. */
 
 /* This is a bit tricky.  We store the original stack pointer in r10
@@ -6194,7 +6194,7 @@ typedef
 
           /* Some requests used for Valgrind internal, such as
              self-test or self-hosting. */
-          /* Initialise IR injection */
+          /* Initialize IR injection */
           VG_USERREQ__VEX_INIT_FOR_IRI = 0x1901,
           /* Used by Inner Valgrind to inform Outer Valgrind where to
              find the list of inner guest threads */
@@ -6497,8 +6497,8 @@ VALGRIND_PRINTF_BACKTRACE(const char *format, ...)
     VALGRIND_DO_CLIENT_REQUEST_STMT(VG_USERREQ__CREATE_MEMPOOL,   \
                                     pool, rzB, is_zeroed, 0, 0)
 
-/* Create a memory pool with some flags specifying extended behaviour.
-   When flags is zero, the behaviour is identical to VALGRIND_CREATE_MEMPOOL.
+/* Create a memory pool with some flags specifying extended behavior.
+   When flags is zero, the behavior is identical to VALGRIND_CREATE_MEMPOOL.
    
    The flag VALGRIND_MEMPOOL_METAPOOL specifies that the pieces of memory 
    associated with the pool using VALGRIND_MEMPOOL_ALLOC  will be used
@@ -6622,7 +6622,7 @@ VALGRIND_PRINTF_BACKTRACE(const char *format, ...)
    If a connection is opened with GDB, the output will be sent
    according to the output mode set for vgdb.
    If no connection is opened, output will go to the log output.
-   Returns 1 if command not recognised, 0 otherwise. */
+   Returns 1 if command not recognized, 0 otherwise. */
 #define VALGRIND_MONITOR_COMMAND(command)                               \
    VALGRIND_DO_CLIENT_REQUEST_EXPR(0, VG_USERREQ__GDB_MONITOR_COMMAND, \
                                    command, 0, 0, 0, 0)

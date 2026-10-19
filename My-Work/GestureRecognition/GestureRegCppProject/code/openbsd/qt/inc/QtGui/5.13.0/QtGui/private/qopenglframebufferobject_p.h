@@ -70,7 +70,7 @@ public:
     {
 #ifndef QT_OPENGL_ES_2
         // There is nothing that says QOpenGLFramebufferObjectFormat needs a current
-        // context, so we need a fallback just to be safe, even though in pratice there
+        // context, so we need a fallback just to be safe, even though in practice there
         // will usually be a context current.
         QOpenGLContext *ctx = QOpenGLContext::currentContext();
         const bool isES = ctx ? ctx->isOpenGLES() : QOpenGLContext::openGLModuleType() != QOpenGLContext::LibGL;

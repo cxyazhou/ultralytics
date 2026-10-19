@@ -79,7 +79,7 @@ namespace QPatternist
     {
     public:
         /**
-         * Creats a TreatAs where it is checked that the expression @p operand conforms
+         * Creates a TreatAs where it is checked that the expression @p operand conforms
          * to the type @p reqType.
          */
         TreatAs(const Expression::Ptr &operand,

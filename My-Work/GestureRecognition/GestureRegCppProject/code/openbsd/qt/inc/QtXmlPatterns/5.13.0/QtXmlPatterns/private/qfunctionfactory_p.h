@@ -93,7 +93,7 @@ namespace QPatternist
          * @note This function should not issue any error unless it is absolutely
          * confident that the error cannot be fixed in another way. For example, in
          * some cases it might be that a function is available in another FunctionFactory
-         * and it would therefore be wrong to issue an error signalling that no function
+         * and it would therefore be wrong to issue an error signaling that no function
          * by that @p name exists, but leave that to the callee.
          * @param name the name of the function to create. In Clark syntax, this could
          * for example be {http://www.w3.org/2005/04/xpath-functions}lower-case

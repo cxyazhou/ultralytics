@@ -1333,7 +1333,7 @@ private:
      * binary vectors.
      * As some might have heard that KMeans on binary data doesn't make sense,
      * it's worth a little explanation why it actually fairly works. As
-     * with the Hierarchical Clustering algortihm, we seed several centers for the
+     * with the Hierarchical Clustering algorithm, we seed several centers for the
      * current node by picking some of its points. Then in a first pass each point
      * of the node is then related to its closest center. Now let's have a look at
      * the 5 central dimensions of the 9 following points:
@@ -1765,7 +1765,7 @@ private:
     /**
      * Cluster border index. This is used in the tree search phase when determining
      * the closest cluster to explore next. A zero value takes into account only
-     * the cluster centres, a value greater then zero also take into account the size
+     * the cluster centers, a value greater then zero also take into account the size
      * of the cluster.
      */
     float cb_index_;

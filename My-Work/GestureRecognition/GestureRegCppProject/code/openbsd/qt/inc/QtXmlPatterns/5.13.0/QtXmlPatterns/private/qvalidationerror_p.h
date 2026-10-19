@@ -58,7 +58,7 @@ QT_BEGIN_NAMESPACE
 namespace QPatternist
 {
     /**
-     * @short Used for signalling casting errors.
+     * @short Used for signaling casting errors.
      *
      * @author Frans Englich <frans.englich@nokia.com>
      * @ingroup Patternist_xdm

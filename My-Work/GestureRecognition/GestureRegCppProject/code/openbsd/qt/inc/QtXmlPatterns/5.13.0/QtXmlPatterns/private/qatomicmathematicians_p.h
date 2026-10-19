@@ -55,7 +55,7 @@
 
 /**
  * @file
- * @short Contains classes performing arithemetic operations between atomic values, such as
+ * @short Contains classes performing arithmetic operations between atomic values, such as
  * subtracting two dates.
  */
 

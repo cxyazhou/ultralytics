@@ -342,7 +342,7 @@ namespace QPatternist
          * By refactoring out the simple comparison below into a template
          * function, we avoid the warning "warning: comparison of unsigned expression < 0 is always false" with gcc
          * when the class is instantiated with TypeUnsignedLong. The warning is
-         * a false positive since we check wehther LimitUpwards is set before
+         * a false positive since we check whether LimitUpwards is set before
          * instantiating.
          *
          * This template function exists for no other reason. */
@@ -391,7 +391,7 @@ namespace QPatternist
              * reason get a linker error with GCC. Using this temporary
              * variable solves it. */
             const StorageType minimum = minInclusive;
-            // MSVC2010 complains that this is initialised but not referenced.
+            // MSVC2010 complains that this is initialized but not referenced.
             Q_UNUSED(minimum)
 
             if((limitsUsage & LimitUpwards) &&

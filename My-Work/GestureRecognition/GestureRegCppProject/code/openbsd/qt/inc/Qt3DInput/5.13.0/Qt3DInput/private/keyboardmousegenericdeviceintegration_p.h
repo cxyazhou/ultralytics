@@ -65,7 +65,7 @@ class KeyboardMouseGenericDeviceIntegration : public Qt3DInput::QInputDeviceInte
 {
     Q_OBJECT
 public:
-    explicit KeyboardMouseGenericDeviceIntegration(InputHandler *handleer);
+    explicit KeyboardMouseGenericDeviceIntegration(InputHandler *handler);
     ~KeyboardMouseGenericDeviceIntegration();
 
     QVector<Qt3DCore::QAspectJobPtr> jobsToExecute(qint64 time) final;

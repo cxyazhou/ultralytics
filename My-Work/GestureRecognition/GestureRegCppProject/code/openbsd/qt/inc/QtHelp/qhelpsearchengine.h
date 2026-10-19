@@ -60,7 +60,7 @@ class QHelpSearchResultWidget;
 class QHELP_EXPORT QHelpSearchQuery
 {
 public:
-    enum FieldName { DEFAULT = 0, FUZZY, WITHOUT, PHRASE, ALL, ATLEAST };
+    enum FieldName { DEFAULT = 0, FUZZY, WITHOUT, PHRASE, ALL, AT LEAST };
 
     QHelpSearchQuery()
         : fieldName(DEFAULT) { wordList.clear(); }

@@ -185,15 +185,15 @@ If threads == 0, OpenCV will disable threading optimizations and run all it's fu
 sequentially. Passing threads \< 0 will reset threads number to system default. This function must
 be called outside of parallel region.
 
-OpenCV will try to run its functions with specified threads number, but some behaviour differs from
+OpenCV will try to run its functions with specified threads number, but some behavior differs from
 framework:
 -   `TBB` - User-defined parallel constructions will run with the same threads number, if
     another is not specified. If later on user creates his own scheduler, OpenCV will use it.
--   `OpenMP` - No special defined behaviour.
+-   `OpenMP` - No special defined behavior.
 -   `Concurrency` - If threads == 1, OpenCV will disable threading optimizations and run its
     functions sequentially.
 -   `GCD` - Supports only values \<= 0.
--   `C=` - No special defined behaviour.
+-   `C=` - No special defined behavior.
 @param nthreads Number of threads used by OpenCV.
 @sa getNumThreads, getThreadNum
  */

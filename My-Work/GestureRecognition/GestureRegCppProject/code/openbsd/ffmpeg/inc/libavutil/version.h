@@ -72,7 +72,7 @@
 /**
  * @defgroup lavu_ver Version and Build diagnostics
  *
- * Macros and function useful to check at compiletime and at runtime
+ * Macros and function useful to check at compile time and at runtime
  * which version of libavutil is in use.
  *
  * @{

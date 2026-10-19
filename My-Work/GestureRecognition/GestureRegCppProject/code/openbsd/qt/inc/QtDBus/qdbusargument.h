@@ -85,7 +85,7 @@ public:
 
     void swap(QDBusArgument &other) Q_DECL_NOTHROW { qSwap(d, other.d); }
 
-    // used for marshalling (Qt -> D-BUS)
+    // used for marshaling (Qt -> D-BUS)
     QDBusArgument &operator<<(uchar arg);
     QDBusArgument &operator<<(bool arg);
     QDBusArgument &operator<<(short arg);

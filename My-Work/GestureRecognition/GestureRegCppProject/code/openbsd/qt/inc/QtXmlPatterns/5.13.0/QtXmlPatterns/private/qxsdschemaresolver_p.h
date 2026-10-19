@@ -189,7 +189,7 @@ namespace QPatternist
             void addAlternativeType(const XsdAlternative::Ptr &alternative, const XsdElement::Ptr &element);
 
             /**
-             * Adds a resolve task for the substituion group affiliations of an element.
+             * Adds a resolve task for the substitution group affiliations of an element.
              *
              * The resolver will set the substitution group affiliations of the @p element to the
              * top-level element named by @p elementNames.

@@ -224,7 +224,7 @@ static const QLocaleId likely_subtags[] = {
     { 149,   0,   0 }, { 149,   7, 157 }, // ig -> ig_Latn_NG
     { 168,   0,   0 }, { 168,  34,  44 }, // ii -> ii_Yiii_CN
     {  56,   0,   0 }, {  56,   7, 225 }, // ik -> ik_Latn_US
-    { 281,   0,   0 }, { 281,   2, 178 }, // inh -> inh_Cyrl_RU
+    { 281,   0,   0 }, { 281,   2, 178 }, // in -> inh_Cyrl_RU
     { 360,   0,   0 }, { 360,   7, 260 }, // io -> io_Latn_001
     {  51,   0,   0 }, {  51,   7,  99 }, // is -> is_Latn_IS
     {  58,   0,   0 }, {  58,   7, 106 }, // it -> it_Latn_IT
@@ -395,7 +395,7 @@ static const QLocaleId likely_subtags[] = {
     { 105, 125,   0 }, { 105, 125, 100 }, // sd_Sind -> sd_Sind_IN
     { 363,   0,   0 }, { 363,   1, 102 }, // sdh -> sdh_Arab_IR
     { 173,   0,   0 }, { 173,   7, 161 }, // se -> se_Latn_NO
-    { 180,   0,   0 }, { 180,   7, 146 }, // seh -> seh_Latn_MZ
+    { 180,   0,   0 }, { 180,   7, 146 }, // she -> seh_Latn_MZ
     { 213,   0,   0 }, { 213,   7, 132 }, // ses -> ses_Latn_ML
     {  98,   0,   0 }, {  98,   7,  41 }, // sg -> sg_Latn_CF
     { 293,   0,   0 }, { 293,  77, 104 }, // sga -> sga_Ogam_IE
@@ -8164,7 +8164,7 @@ static const unsigned char language_code_list[] =
 "ff\0" // Fulah
 "ki\0" // Kikuyu
 "saq" // Samburu
-"seh" // Sena
+"she" // Sena
 "nd\0" // North Ndebele
 "rof" // Rombo
 "shi" // Tachelhit
@@ -8265,7 +8265,7 @@ static const unsigned char language_code_list[] =
 "ett" // Etruscan
 "got" // Gothic
 "hnn" // Hanunoo
-"inh" // Ingush
+"in" // Ingush
 "hmd" // Large Flowery Miao
 "lep" // Lepcha
 "lif" // Limbu
@@ -8363,7 +8363,7 @@ static const unsigned char script_code_list[] =
 "Mong" // Mongolian
 "Tfng" // Tifinagh
 "Armn" // Armenian
-"Beng" // Bengali
+"Being" // Bengali
 "Cher" // Cherokee
 "Deva" // Devanagari
 "Ethi" // Ethiopic

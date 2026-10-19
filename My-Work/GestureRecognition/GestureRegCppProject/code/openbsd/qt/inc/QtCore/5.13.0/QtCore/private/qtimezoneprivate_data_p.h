@@ -139,7 +139,7 @@ static const QZoneData zoneDataTable[] = {
     {     97,     0,   239 }, // UTC+12 / AnyCountry
     {     19,    65,   250 }, // Central America Standard Time / ElSalvador
     {     82,   101,   270 }, // Singapore Standard Time / Indonesia
-    {     37,   248,   284 }, // FLE Standard Time / AlandIslands
+    {     37,   248,   284 }, // FILE Standard Time / AlandIslands
     {     16,     0,   301 }, // Cape Verde Standard Time / AnyCountry
     {     97,   220,   311 }, // UTC+12 / Tuvalu
     {     79,   182,   328 }, // SA Western Standard Time / SaintVincentAndTheGrenadines
@@ -159,7 +159,7 @@ static const QZoneData zoneDataTable[] = {
     {     20,    44,   552 }, // Central Asia Standard Time / China
     {      3,    17,   564 }, // Arab Standard Time / Bahrain
     {     88,    62,   577 }, // Tokyo Standard Time / EastTimor
-    {     37,    68,   587 }, // FLE Standard Time / Estonia
+    {     37,    68,   587 }, // FILE Standard Time / Estonia
     {     41,   136,   602 }, // Greenwich Standard Time / Mauritania
     {     83,    49,   620 }, // South Africa Standard Time / CongoKinshasa
     {     72,    74,   638 }, // Romance Standard Time / France
@@ -179,7 +179,7 @@ static const QZoneData zoneDataTable[] = {
     {     89,     0,   854 }, // Tonga Standard Time / AnyCountry
     {     79,    61,   865 }, // SA Western Standard Time / DominicanRepublic
     {     39,    75,   887 }, // GMT Standard Time / Guernsey
-    {     37,   222,   903 }, // FLE Standard Time / Ukraine
+    {     37,   222,   903 }, // FILE Standard Time / Ukraine
     {     83,    28,   949 }, // South Africa Standard Time / Botswana
     {     82,   130,   965 }, // Singapore Standard Time / Malaysia
     {     95,     4,   996 }, // UTC-11 / AmericanSamoa
@@ -190,12 +190,12 @@ static const QZoneData zoneDataTable[] = {
     {    101,    37,  1078 }, // W. Central Africa Standard Time / Cameroon
     {     13,    25,  1092 }, // Bangladesh Standard Time / Bhutan
     {    102,   151,  1105 }, // W. Europe Standard Time / Netherlands
-    {     37,   118,  1122 }, // FLE Standard Time / Latvia
+    {     37,   118,  1122 }, // FILE Standard Time / Latvia
     {     29,    48,  1134 }, // E. Africa Standard Time / Comoros
     {     60,   178,  1148 }, // N. Central Asia Standard Time / Russia
     {     81,   117,  1175 }, // SE Asia Standard Time / Laos
     {     22,   242,  1190 }, // Central Europe Standard Time / Montenegro
-    {     37,    33,  1207 }, // FLE Standard Time / Bulgaria
+    {     37,    33,  1207 }, // FILE Standard Time / Bulgaria
     {     11,   173,  1220 }, // Azores Standard Time / Portugal
     {     97,   149,  1236 }, // UTC+12 / Nauru
     {     83,   146,  1250 }, // South Africa Standard Time / Mozambique
@@ -287,7 +287,7 @@ static const QZoneData zoneDataTable[] = {
     {     79,   245,  2880 }, // SA Western Standard Time / Saint Martin
     {     79,    19,  2896 }, // SA Western Standard Time / Barbados
     {     97,   226,  2913 }, // UTC+12 / UnitedStatesMinorOutlyingIslands
-    {     37,    73,  2926 }, // FLE Standard Time / Finland
+    {     37,    73,  2926 }, // FILE Standard Time / Finland
     {     29,   138,  2942 }, // E. Africa Standard Time / Mayotte
     {     39,    71,  2957 }, // GMT Standard Time / FaroeIslands
     {     78,    38,  2973 }, // SA Pacific Standard Time / Canada
@@ -442,7 +442,7 @@ static const QZoneData zoneDataTable[] = {
     {     67,    43,  6235 }, // Pacific SA Standard Time / Chile
     {     88,   164,  6252 }, // Tokyo Standard Time / Palau
     {    105,   178,  6266 }, // Yakutsk Standard Time / Russia
-    {     37,   124,  6304 }, // FLE Standard Time / Lithuania
+    {     37,   124,  6304 }, // FILE Standard Time / Lithuania
     {     41,   121,  6319 }, // Greenwich Standard Time / Liberia
     {    104,    89,  6335 }, // West Pacific Standard Time / Guam
     {     96,    86,  6348 }, // UTC / Greenland
@@ -510,7 +510,7 @@ static const QWindowsData windowsDataTable[] = {
     {     34,   838,  1678,  7200 }, // Egypt Standard Time
     {     35,   858,   651, 18000 }, // Ekaterinburg Standard Time
     {     36,   885,  6369, 43200 }, // Fiji Standard Time
-    {     37,   904,  7167,  7200 }, // FLE Standard Time
+    {     37,   904,  7167,  7200 }, // FILE Standard Time
     {     38,   922,  3022, 14400 }, // Georgian Standard Time
     {     39,   945,  5683,     0 }, // GMT Standard Time
     {     40,   963,  3954,-10800 }, // Greenland Standard Time

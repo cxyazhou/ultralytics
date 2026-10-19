@@ -62,7 +62,7 @@ public:
     void removeSeries(QAbstractSeries *series);
     QList<QAbstractSeries *> series() const;
 
-    void addAxis(QAbstractAxis *axis,Qt::Alignment aligment);
+    void addAxis(QAbstractAxis *axis,Qt::Alignment alignment);
     void removeAxis(QAbstractAxis *axis);
     QList<QAbstractAxis*> axes() const;
 

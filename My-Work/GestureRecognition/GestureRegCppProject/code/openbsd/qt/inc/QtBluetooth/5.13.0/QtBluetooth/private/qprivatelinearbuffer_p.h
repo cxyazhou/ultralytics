@@ -51,7 +51,7 @@
 // We mean it.
 //
 
-// This is QIODevice's read buffer, optimised for read(), isEmpty() and getChar()
+// This is QIODevice's read buffer, optimized for read(), isEmpty() and getChar()
 class QPrivateLinearBuffer
 {
 public:

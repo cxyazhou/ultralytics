@@ -86,7 +86,7 @@ public:
     QMatrix4x4 calculateViewMatrix(const QPoint &mousePos, int zoom,
                                    int screenWidth, int screenHeight,
                                    bool showUnder = false);
-    // Calcluate light position based on rotation. Call after calling calculateViewMatrix to get
+    // Calculate light position based on rotation. Call after calling calculateViewMatrix to get
     // up-to-date position
     QVector3D calculateLightPosition(const QVector3D &lightPosition,
                                      GLfloat fixedRotation = 0.0f,

@@ -64,8 +64,8 @@
     through some texture coordinates from a vertex attribute array to a
     varying. These texture coordinates are used for mask position in text
     rendering and for the source coordinates in drawImage/drawPixmap. There's
-    also a "Simple" vertex shader for rendering a solid colour (used to render
-    into the stencil buffer where the actual colour value is discarded).
+    also a "Simple" vertex shader for rendering a solid color (used to render
+    into the stencil buffer where the actual color value is discarded).
 
     The position shaders for brushes look scary. This is because many of the
     calculations which logically belong in the fragment shader have been moved
@@ -110,7 +110,7 @@
     Fragment shaders are also specified as multiple (partial) shaders. The
     different fragment shaders represent the different stages in Qt's fragment
     pipeline. There are 1-3 stages in this pipeline: First stage is to get the
-    fragment's colour value. The next stage is to get the fragment's mask value
+    fragment's color value. The next stage is to get the fragment's mask value
     (coverage value for anti-aliasing) and the final stage is to blend the
     incoming fragment with the background (for composition modes not supported
     by GL).
@@ -136,7 +136,7 @@
         qglslLinearGradientBrushSrcFragShader
         qglslRadialGradientBrushSrcFragShader
         qglslConicalGradientBrushSrcFragShader
-    NOTE: It is assumed the colour returned by srcPixel() is pre-multiplied
+    NOTE: It is assumed the color returned by srcPixel() is pre-multiplied
 
     Masks are implementations of "qcolorp vec4 applyMask(qcolorp vec4 src)":
         qglslMaskFragmentShader
@@ -163,7 +163,7 @@
           all color components so it can be defined to colorp or lowp depending upon
           the implementation.
 
-    So there are differnt frament shader main functions, depending on the
+    So there are different fragment shader main functions, depending on the
     number & type of pipelines the fragment needs to go through.
 
     The choice of which main() fragment shader string to use depends on:

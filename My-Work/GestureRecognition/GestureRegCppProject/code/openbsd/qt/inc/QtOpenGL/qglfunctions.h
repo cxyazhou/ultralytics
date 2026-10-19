@@ -166,15 +166,15 @@ public:
     void glUniformMatrix4fv(GLint location, GLsizei count, GLboolean transpose, const GLfloat* value);
     void glUseProgram(GLuint program);
     void glValidateProgram(GLuint program);
-    void glVertexAttrib1f(GLuint indx, GLfloat x);
-    void glVertexAttrib1fv(GLuint indx, const GLfloat* values);
-    void glVertexAttrib2f(GLuint indx, GLfloat x, GLfloat y);
-    void glVertexAttrib2fv(GLuint indx, const GLfloat* values);
-    void glVertexAttrib3f(GLuint indx, GLfloat x, GLfloat y, GLfloat z);
-    void glVertexAttrib3fv(GLuint indx, const GLfloat* values);
-    void glVertexAttrib4f(GLuint indx, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
-    void glVertexAttrib4fv(GLuint indx, const GLfloat* values);
-    void glVertexAttribPointer(GLuint indx, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* ptr);
+    void glVertexAttrib1f(GLuint index, GLfloat x);
+    void glVertexAttrib1fv(GLuint index, const GLfloat* values);
+    void glVertexAttrib2f(GLuint index, GLfloat x, GLfloat y);
+    void glVertexAttrib2fv(GLuint index, const GLfloat* values);
+    void glVertexAttrib3f(GLuint index, GLfloat x, GLfloat y, GLfloat z);
+    void glVertexAttrib3fv(GLuint index, const GLfloat* values);
+    void glVertexAttrib4f(GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
+    void glVertexAttrib4fv(GLuint index, const GLfloat* values);
+    void glVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* ptr);
 
 private:
     QGLFunctionsPrivate *d_ptr;
@@ -719,58 +719,58 @@ inline void QGLFunctions::glValidateProgram(GLuint program)
     d_ptr->funcs->glValidateProgram(program);
 }
 
-inline void QGLFunctions::glVertexAttrib1f(GLuint indx, GLfloat x)
+inline void QGLFunctions::glVertexAttrib1f(GLuint index, GLfloat x)
 {
     Q_ASSERT(QGLFunctions::isInitialized(d_ptr));
-    d_ptr->funcs->glVertexAttrib1f(indx, x);
+    d_ptr->funcs->glVertexAttrib1f(index, x);
 }
 
-inline void QGLFunctions::glVertexAttrib1fv(GLuint indx, const GLfloat* values)
+inline void QGLFunctions::glVertexAttrib1fv(GLuint index, const GLfloat* values)
 {
     Q_ASSERT(QGLFunctions::isInitialized(d_ptr));
-    d_ptr->funcs->glVertexAttrib1fv(indx, values);
+    d_ptr->funcs->glVertexAttrib1fv(index, values);
 }
 
-inline void QGLFunctions::glVertexAttrib2f(GLuint indx, GLfloat x, GLfloat y)
+inline void QGLFunctions::glVertexAttrib2f(GLuint index, GLfloat x, GLfloat y)
 {
     Q_ASSERT(QGLFunctions::isInitialized(d_ptr));
-    d_ptr->funcs->glVertexAttrib2f(indx, x, y);
+    d_ptr->funcs->glVertexAttrib2f(index, x, y);
 }
 
-inline void QGLFunctions::glVertexAttrib2fv(GLuint indx, const GLfloat* values)
+inline void QGLFunctions::glVertexAttrib2fv(GLuint index, const GLfloat* values)
 {
     Q_ASSERT(QGLFunctions::isInitialized(d_ptr));
-    d_ptr->funcs->glVertexAttrib2fv(indx, values);
+    d_ptr->funcs->glVertexAttrib2fv(index, values);
 }
 
-inline void QGLFunctions::glVertexAttrib3f(GLuint indx, GLfloat x, GLfloat y, GLfloat z)
+inline void QGLFunctions::glVertexAttrib3f(GLuint index, GLfloat x, GLfloat y, GLfloat z)
 {
     Q_ASSERT(QGLFunctions::isInitialized(d_ptr));
-    d_ptr->funcs->glVertexAttrib3f(indx, x, y, z);
+    d_ptr->funcs->glVertexAttrib3f(index, x, y, z);
 }
 
-inline void QGLFunctions::glVertexAttrib3fv(GLuint indx, const GLfloat* values)
+inline void QGLFunctions::glVertexAttrib3fv(GLuint index, const GLfloat* values)
 {
     Q_ASSERT(QGLFunctions::isInitialized(d_ptr));
-    d_ptr->funcs->glVertexAttrib3fv(indx, values);
+    d_ptr->funcs->glVertexAttrib3fv(index, values);
 }
 
-inline void QGLFunctions::glVertexAttrib4f(GLuint indx, GLfloat x, GLfloat y, GLfloat z, GLfloat w)
+inline void QGLFunctions::glVertexAttrib4f(GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w)
 {
     Q_ASSERT(QGLFunctions::isInitialized(d_ptr));
-    d_ptr->funcs->glVertexAttrib4f(indx, x, y, z, w);
+    d_ptr->funcs->glVertexAttrib4f(index, x, y, z, w);
 }
 
-inline void QGLFunctions::glVertexAttrib4fv(GLuint indx, const GLfloat* values)
+inline void QGLFunctions::glVertexAttrib4fv(GLuint index, const GLfloat* values)
 {
     Q_ASSERT(QGLFunctions::isInitialized(d_ptr));
-    d_ptr->funcs->glVertexAttrib4fv(indx, values);
+    d_ptr->funcs->glVertexAttrib4fv(index, values);
 }
 
-inline void QGLFunctions::glVertexAttribPointer(GLuint indx, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* ptr)
+inline void QGLFunctions::glVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void* ptr)
 {
     Q_ASSERT(QGLFunctions::isInitialized(d_ptr));
-    d_ptr->funcs->glVertexAttribPointer(indx, size, type, normalized, stride, ptr);
+    d_ptr->funcs->glVertexAttribPointer(index, size, type, normalized, stride, ptr);
 }
 
 #ifndef GL_ACTIVE_ATTRIBUTE_MAX_LENGTH

@@ -73,8 +73,8 @@ namespace QPatternist
          * Creates a predicate expression that filters the items gained
          * from evaluating @p sourceExpression through the filter @p predicateExpression.
          *
-         * This function performs type analyzis on the passed expressions, and may
-         * return more specialized expressions depending on the analyzis.
+         * This function performs type analysis on the passed expressions, and may
+         * return more specialized expressions depending on the analysis.
          *
          * If @p predicateExpression is an invalid predicate, an error is issued
          * via the @p context.

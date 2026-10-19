@@ -98,7 +98,7 @@ public:
     virtual void setIncludeHints(const QStringList &includeHints) = 0;
 
     virtual ResourceFileSaveMode resourceFileSaveMode() const = 0;
-    virtual void setResourceFileSaveMode(ResourceFileSaveMode behaviour) = 0;
+    virtual void setResourceFileSaveMode(ResourceFileSaveMode behavior) = 0;
 
     virtual QtResourceSet *resourceSet() const =  0;
     virtual void setResourceSet(QtResourceSet *resourceSet) = 0;

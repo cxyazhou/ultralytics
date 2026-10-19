@@ -73,7 +73,7 @@ QT_BEGIN_NAMESPACE
 void qt_to_latin1_unchecked(uchar *dst, const ushort *uc, qsizetype len);
 
 /*
-  This defines a binary data structure for Json data. The data structure is optimised for fast reading
+  This defines a binary data structure for Json data. The data structure is optimized for fast reading
   and minimum allocations. The whole data structure can be mmap'ed and used directly.
 
   In most cases the binary structure is not as space efficient as a utf8 encoded text representation, but

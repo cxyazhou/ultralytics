@@ -66,7 +66,7 @@
 
 namespace cvflann {
 
-/* Nearest neighbour index algorithms */
+/* Nearest neighbor index algorithms */
 enum flann_algorithm_t
 {
     FLANN_INDEX_LINEAR = 0,

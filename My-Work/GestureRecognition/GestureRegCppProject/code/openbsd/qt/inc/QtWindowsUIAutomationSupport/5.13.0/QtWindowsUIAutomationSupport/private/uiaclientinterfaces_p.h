@@ -51,7 +51,7 @@
 // We mean it.
 //
 
-#include <unknwn.h>
+#include <unknown.h>
 
 #ifndef __IUIAutomationElement_INTERFACE_DEFINED__
 

@@ -100,7 +100,7 @@ namespace detail
         static cv::detail::OpaqueRef wrap_out  (      T &t) { return detail::OpaqueRef(t); }
     };
 
-    // Tests if Trait for type T requires extra marshalling ("custom wrap") or not.
+    // Tests if Trait for type T requires extra marshaling ("custom wrap") or not.
     // If Traits<T> has wrap_value() defined, it does.
     template<class T> struct has_custom_wrap
     {
@@ -132,7 +132,7 @@ namespace detail
     template<>           struct GTypeOf<cv::gapi::wip::IStreamSource::Ptr> { using type = cv::GMat;};
     template<class T> using g_type_of_t = typename GTypeOf<T>::type;
 
-    // Marshalling helper for G-types and its Host types. Helps G-API
+    // Marshaling helper for G-types and its Host types. Helps G-API
     // to store G types in internal generic containers for further
     // processing. Implements the following callbacks:
     //

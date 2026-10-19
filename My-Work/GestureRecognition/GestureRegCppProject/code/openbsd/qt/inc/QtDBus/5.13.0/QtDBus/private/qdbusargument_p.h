@@ -96,7 +96,7 @@ public:
     QAtomicInt ref;
     int capabilities;
     enum Direction {
-        Marshalling,
+        Marshaling,
         Demarshalling
     } direction;
 };
@@ -105,7 +105,7 @@ class QDBusMarshaller: public QDBusArgumentPrivate
 {
 public:
     QDBusMarshaller(int flags) : QDBusArgumentPrivate(flags), parent(0), ba(0), closeCode(0), ok(true), skipSignature(false)
-    { direction = Marshalling; }
+    { direction = Marshaling; }
     ~QDBusMarshaller();
 
     QString currentSignature();

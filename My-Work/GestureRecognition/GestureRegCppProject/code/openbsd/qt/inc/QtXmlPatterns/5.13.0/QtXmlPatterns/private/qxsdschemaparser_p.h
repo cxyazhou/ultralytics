@@ -578,7 +578,7 @@ namespace QPatternist
             void parseUnknown();
 
             /**
-             * Returnes an source location for the current position.
+             * Returns an source location for the current position.
              */
             QSourceLocation currentSourceLocation() const;
 

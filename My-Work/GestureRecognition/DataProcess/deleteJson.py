@@ -1,14 +1,14 @@
-import os
 import glob
+import os
 
 
 def delete_json_files_silently(directory):
     """
     静默删除指定目录及其子目录中所有JSON文件
     :param directory: 目标目录路径
-    :return: 删除的文件数量
+    :return: 删除的文件数量.
     """
-    json_files = glob.glob(os.path.join(directory, '**', '*.json'), recursive=True)
+    json_files = glob.glob(os.path.join(directory, "**", "*.json"), recursive=True)
 
     if not json_files:
         return 0  # 没有找到JSON文件
@@ -18,7 +18,7 @@ def delete_json_files_silently(directory):
         try:
             os.remove(file_path)
             deleted_count += 1
-        except Exception as e:
+        except Exception:
             # 静默失败，不显示错误信息
             pass
 

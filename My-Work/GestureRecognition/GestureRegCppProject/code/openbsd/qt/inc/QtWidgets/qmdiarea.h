@@ -107,7 +107,7 @@ public:
     void setActivationOrder(WindowOrder order);
 
     void setOption(AreaOption option, bool on = true);
-    bool testOption(AreaOption opton) const;
+    bool testOption(AreaOption option) const;
 
     void setViewMode(ViewMode mode);
     ViewMode viewMode() const;

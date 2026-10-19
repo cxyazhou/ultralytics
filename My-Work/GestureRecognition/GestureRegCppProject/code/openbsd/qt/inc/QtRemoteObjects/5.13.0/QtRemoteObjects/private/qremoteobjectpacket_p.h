@@ -122,7 +122,7 @@ public:
 inline QDebug operator<<(QDebug dbg, const QRO_ &info)
 {
     dbg.nospace() << "QRO_(name: " << info.name << ", typeName: " << info.typeName << ", type: " << info.type
-                  << ", valid: " << (info.isNull ? "true" : "false") << ", paremeters: {" << info.parameters <<")"
+                  << ", valid: " << (info.isNull ? "true" : "false") << ", parameters: {" << info.parameters <<")"
                   << (info.classDefinition.isEmpty() ? " no definitions)" : " with definitions)");
     return dbg.space();
 }

@@ -43,13 +43,13 @@ struct TransHelper;
 template <typename K, typename... Ins, typename Out>
 struct TransHelper<K, std::tuple<Ins...>, Out>
 {
-    template <typename Callable, int... IIs, int... OIs>
-    static GComputation invoke(Callable f, Seq<IIs...>, Seq<OIs...>)
+    template <typename Callable, int... IIs, int... is>
+    static GComputation invoke(Callable f, Seq<IIs...>, Seq<is...>)
     {
         const std::tuple<Ins...> ins;
         const auto r = tuple_wrap_helper<Out>::get(f(std::get<IIs>(ins)...));
         return GComputation(cv::GIn(std::get<IIs>(ins)...),
-                            cv::GOut(std::get<OIs>(r)...));
+                            cv::GOut(std::get<is>(r)...));
     }
 
     static GComputation get_pattern()

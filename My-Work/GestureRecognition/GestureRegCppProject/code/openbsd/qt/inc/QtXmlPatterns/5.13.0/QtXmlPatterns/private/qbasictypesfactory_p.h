@@ -104,7 +104,7 @@ namespace QPatternist
 
     private:
         /**
-         * A dictonary of builtin primitive and derived primitives.
+         * A dictionary of builtin primitive and derived primitives.
          */
         SchemaType::Hash m_types;
     };

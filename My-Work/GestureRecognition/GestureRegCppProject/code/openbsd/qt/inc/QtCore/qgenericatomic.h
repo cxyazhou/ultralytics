@@ -129,7 +129,7 @@ template <typename BaseClass> struct QGenericAtomicOps
 
 #if 0
     // These functions have no default implementation
-    // Archictectures must implement them
+    // Architectures must implement them
     static inline Q_DECL_CONSTEXPR bool isTestAndSetNative() Q_DECL_NOTHROW;
     static inline Q_DECL_CONSTEXPR bool isTestAndSetWaitFree() Q_DECL_NOTHROW;
     template <typename T, typename X> static inline

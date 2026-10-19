@@ -74,7 +74,7 @@ class Q_CHARTS_EXPORT QAbstractAxis : public QObject
     Q_PROPERTY(QFont titleFont READ titleFont WRITE setTitleFont NOTIFY titleFontChanged)
     //orientation
     Q_PROPERTY(Qt::Orientation orientation READ orientation)
-    //aligment
+    //alignment
     Q_PROPERTY(Qt::Alignment alignment READ alignment)
     Q_PROPERTY(bool reverse READ isReverse WRITE setReverse NOTIFY reverseChanged)
 

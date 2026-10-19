@@ -559,7 +559,7 @@ int av_hwframe_map(AVFrame *dst, const AVFrame *src, int flags);
 
 
 /**
- * Create and initialise an AVHWFramesContext as a mapping of another existing
+ * Create and initialize an AVHWFramesContext as a mapping of another existing
  * AVHWFramesContext on a different device.
  *
  * av_hwframe_ctx_init() should not be called after this.

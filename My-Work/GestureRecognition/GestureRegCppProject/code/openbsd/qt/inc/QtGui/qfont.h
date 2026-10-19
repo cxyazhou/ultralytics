@@ -250,7 +250,7 @@ public:
     void setRawMode(bool);
 #endif
 
-    // dupicated from QFontInfo
+    // duplicated from QFontInfo
     bool exactMatch() const;
 
     QFont &operator=(const QFont &);

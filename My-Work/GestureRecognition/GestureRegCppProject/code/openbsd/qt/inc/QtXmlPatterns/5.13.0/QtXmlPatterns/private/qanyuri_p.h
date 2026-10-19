@@ -91,7 +91,7 @@ namespace QPatternist
         static AnyURI::Ptr fromValue(const QUrl &uri);
 
         /**
-         * @short Treates @p value as a lexical representation of @c xs:anyURI
+         * @short Treats @p value as a lexical representation of @c xs:anyURI
          * but returns the value instance as a QUrl.
          *
          * If @p value is not a valid lexical representation of @c xs:anyURI,

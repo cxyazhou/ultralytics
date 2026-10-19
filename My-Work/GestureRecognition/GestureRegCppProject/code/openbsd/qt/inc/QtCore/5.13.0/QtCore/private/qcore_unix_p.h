@@ -236,7 +236,7 @@ static inline int qt_safe_pipe(int pipefd[2], int flags = 0)
 #endif // Q_OS_VXWORKS
 
 // don't call dup or fcntl(F_DUPFD)
-static inline int qt_safe_dup(int oldfd, int atleast = 0, int flags = FD_CLOEXEC)
+static inline int qt_safe_dup(int oldfd, int at least = 0, int flags = FD_CLOEXEC)
 {
     Q_ASSERT(flags == FD_CLOEXEC || flags == 0);
 
@@ -244,10 +244,10 @@ static inline int qt_safe_dup(int oldfd, int atleast = 0, int flags = FD_CLOEXEC
     int cmd = F_DUPFD;
     if (flags & FD_CLOEXEC)
         cmd = F_DUPFD_CLOEXEC;
-    return ::fcntl(oldfd, cmd, atleast);
+    return ::fcntl(oldfd, cmd, at least);
 #else
     // use F_DUPFD
-    int ret = ::fcntl(oldfd, F_DUPFD, atleast);
+    int ret = ::fcntl(oldfd, F_DUPFD, at least);
 
     if (flags && ret != -1)
         ::fcntl(ret, F_SETFD, flags);

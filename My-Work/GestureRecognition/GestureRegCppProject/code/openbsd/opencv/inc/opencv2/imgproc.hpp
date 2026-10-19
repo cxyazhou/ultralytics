@@ -2200,7 +2200,7 @@ structuring element is used. Kernel can be created using #getStructuringElement
 @param anchor position of the anchor within the element; default value (-1, -1) means that the
 anchor is at the element center.
 @param iterations number of times dilation is applied.
-@param borderType pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not suported.
+@param borderType pixel extrapolation method, see #BorderTypes. #BORDER_WRAP is not supported.
 @param borderValue border value in case of a constant border
 @sa  erode, morphologyEx, getStructuringElement
  */
@@ -3484,7 +3484,7 @@ repainted domain.
 connectivity value of 8 means that the eight nearest neighbor pixels (those that share a corner)
 will be considered. The next 8 bits (8-16) contain a value between 1 and 255 with which to fill
 the mask (the default value is 1). For example, 4 | ( 255 \<\< 8 ) will consider 4 nearest
-neighbours and fill the mask with a value of 255. The following additional options occupy higher
+neighbors and fill the mask with a value of 255. The following additional options occupy higher
 bits and therefore may be further combined with the connectivity and mask fill values using
 bit-wise or (|), see #FloodFillFlags.
 
@@ -3729,7 +3729,7 @@ is \f$W \times H\f$ and templ is \f$w \times h\f$ , then result is \f$(W-w+1) \t
             of channels as template or only one channel, which is then used for all template and
             image channels. If the data type is #CV_8U, the mask is interpreted as a binary mask,
             meaning only elements where mask is nonzero are used and are kept unchanged independent
-            of the actual mask value (weight equals 1). For data tpye #CV_32F, the mask values are
+            of the actual mask value (weight equals 1). For data type #CV_32F, the mask values are
             used as weights. The exact formulas are documented in #TemplateMatchModes.
  */
 CV_EXPORTS_W void matchTemplate( InputArray image, InputArray templ,
