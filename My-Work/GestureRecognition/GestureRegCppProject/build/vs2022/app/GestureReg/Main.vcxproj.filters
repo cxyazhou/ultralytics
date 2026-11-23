@@ -20,7 +20,7 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\code\Main\main.cpp">
+    <ClCompile Include="..\..\..\..\code\app\GestureReg\main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

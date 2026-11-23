@@ -1,239 +1,294 @@
-#include <string.h>
-#include <atlconv.h>
-#include <fstream>
-
 #include "GuiMain.h"
-#include "CPPBase.h"
 
-#include "GetAudioInterface.h"
-#include "MediaPlayer.h"
+#include <opencv2/opencv.hpp>
+#include <opencv2/imgproc.hpp>
+
+#include <cstring>
+#include <fstream>
+#include <chrono>
+
 #include "GetImageInterface.h"
-
-#include "opencv2/opencv.hpp"
-#include "opencv2/highgui/highgui_c.h"
-
 #include "OnnxDet.h"
 
 using namespace cv;
 
 #pragma warning(disable:4996)
 
-GuiMainThread::GuiMainThread(QObject* parent, GuiMain* gui)
-	:QThread(parent)
+std::unique_ptr<IImageSource> CreateImageSource()
 {
-	m_gui = NULL;
+    // 用你原来的 GetImage 库实现 IImageSource 接口
+    class GetImageSource : public IImageSource {
+        GetImage* impl = nullptr;        
+        GET_IMG_IMG stImg = {0};
+    public:
+        int Init(const std::string& url) override {
+            impl = new GetImage();
+            return impl->Init(GET_IMG_MODE_CAM, url.c_str());
+        }
+        int GetFrame(RawImage& out) override {
+            memset(&stImg, 0, sizeof(stImg));
+            int ret = impl->Work(&stImg);
+            if (ret != 0) return ret;
+            out.width = stImg.width;
+            out.height = stImg.height;
+            out.data = (unsigned char*)stImg.vir[0];
+            return 0;
+        }
+        void Close() override {
+            if (impl) { delete impl; impl = nullptr; }
+        }
+        ~GetImageSource() override { Close(); }
+    };
 
-	if (gui == NULL)
-		return;
-
-	m_gui = gui;
-
-	start();
+    return std::unique_ptr<IImageSource>(new GetImageSource());
 }
 
-GuiMainThread::~GuiMainThread()
-{
-}
-
-void GuiMainThread::run()
-{
-    int serverState = 0;
-	while (1)
-	{
-		//程序退出时终止线程
-		if (m_gui->GetThreadState() == THREAD_STATE_E_PrepareStop)
-		{
-			m_gui->SetThreadState(THREAD_STATE_E_Stop);
-			return;
-		}
-
-		QThread::msleep(1000);
-	}
-}
-
+// ============================================================
+//  单例
+// ============================================================
 GuiMain* GuiMain::instance()
 {
-	static GuiMain* _ins = NULL;
-	if ( _ins == NULL )
-	{
-		_ins = new GuiMain();
-	}
-
-	return _ins;
+    static GuiMain* _ins = nullptr;
+    if (_ins == nullptr)
+        _ins = new GuiMain();
+    return _ins;
 }
 
+// ============================================================
+//  构造
+// ============================================================
 GuiMain::GuiMain(QWidget* parent)
-	: QMainWindow(parent)
+    : QMainWindow(parent)
 {
-    char path[1024] = {0};
-    char processname[1024] = {0};
-    ICPPFile::GetExecutablePath(path, processname, sizeof(path));
-    QString rcc = path;
-    rcc += "GuiMain.rcc";
-    QResource::registerResource(rcc);
-
     ui.setupUi(this);
-    
-    //启用控件的放下操作
+
     setAcceptDrops(true);
 
-    //去掉标题栏
-//  this->setWindowFlags(Qt::FramelessWindowHint);
-
-    //窗口移到中间
-    QDesktopWidget *desktop = QApplication::desktop();
+    // 窗口居中
+    QDesktopWidget* desktop = QApplication::desktop();
     int currentScreenIndex = desktop->screenNumber(this);
-    QList<QScreen *> screen_list = QGuiApplication::screens();
-    if(currentScreenIndex < screen_list.count()) {
-        QScreen *tem = screen_list[currentScreenIndex];
-        QRect screen_rect  = tem->geometry();
-
-        //获取到软件窗口所在屏幕的 宽 高 尺寸
-        int screen_width = screen_rect.width();
-        int screen_height = screen_rect.height();//减去 任务栏高度
-
-        //移动窗口到 居中
-        this->move((screen_width - this->width()) / 2,  (screen_height - this->height()) / 2);
+    QList<QScreen*> screen_list = QGuiApplication::screens();
+    if (currentScreenIndex < screen_list.count()) {
+        QRect screen_rect = screen_list[currentScreenIndex]->geometry();
+        this->move((screen_rect.width() - this->width()) / 2,
+            (screen_rect.height() - this->height()) / 2);
     }
-    
-    connect(this, SIGNAL(sigLabelShowImg(QImage*)), this, SLOT(LabelShowImg(QImage*)), Qt::BlockingQueuedConnection);
 
-	m_thread_cap = NULL;
-	m_thread_worker = NULL;
-	m_getImg = NULL;
-    m_imgShowDataBGR = (unsigned char*)CPPMalloc0(1920 * 1080 * 3 * sizeof(char));
-    m_imgShowDataRGB = (unsigned char*)CPPMalloc0(1920 * 1080 * 3 * sizeof(char));
+    connect(this, SIGNAL(sigLabelShowImg(QImage*)),
+        this, SLOT(LabelShowImg(QImage*)),
+        Qt::BlockingQueuedConnection);
 
-    m_imgFlag = 0;
-    m_imgCapWidth = 352;
-    m_imgCapHeight = 288;
-    m_imgCapDataBGR = (unsigned char*)CPPMalloc0(m_imgCapWidth * m_imgCapHeight * 3 * sizeof(char));
+    // 缓冲
+    m_imgShowDataBGR = (unsigned char*)malloc(1920 * 1080 * 3);
+    m_imgShowDataRGB = (unsigned char*)malloc(1920 * 1080 * 3);
+    m_imgCapDataBGR = (unsigned char*)malloc(m_imgCapWidth * m_imgCapHeight * 3);
 
-    m_handDet = NULL;
+    // 检测器
     m_handDet = new OnnxDet;
-	int ret = m_handDet->Init();
-    if(ret != 0)
-    {
-        CPPDel(m_handDet);
+    if (m_handDet->Init() != 0) {
+        delete m_handDet;
+        m_handDet = nullptr;
     }
 
-	StartThread();
-    
-    MediaPlayer::instance()->start();
+    StartThreads();
 }
 
 GuiMain::~GuiMain()
-{    
-    CPPFree(m_imgShowDataBGR);
-    CPPFree(m_imgShowDataRGB);
-    CPPFree(m_imgCapDataBGR);
-    StopThread();
-    if(m_handDet)
-    {
+{
+    StopThreads();
+
+    if (m_handDet) {
         m_handDet->UnInit();
+        delete m_handDet;
+        m_handDet = nullptr;
     }
-    CPPDel(m_handDet);
+
+    if (m_imgSource) {
+        m_imgSource->Close();
+        m_imgSource.reset();
+    }
+
+    free(m_imgShowDataBGR);
+    free(m_imgShowDataRGB);
+    free(m_imgCapDataBGR);
 }
 
-void GuiMain::StartThread()
+// ============================================================
+//  线程启动 / 停止
+// ============================================================
+void GuiMain::StartThreads()
 {
-	m_thread_state = THREAD_STATE_E_Start;
-	m_thread = new GuiMainThread(NULL, this);
+    m_capRunning = true;
+    m_capThread = std::thread(&GuiMain::CapThreadProc, this);
+
+    m_detRunning = true;
+    m_detThread = std::thread(&GuiMain::DetThreadProc, this);
 }
 
-void GuiMain::StopThread()
+void GuiMain::StopThreads()
 {
-	if (m_thread)
-	{
-		//设置准备停止状态
-		m_thread_state = THREAD_STATE_E_PrepareStop;
-		//一直等到停止
-		while (1)
-		{
-			//printf("wait show img thread stop\n");
-			if (m_thread_state == THREAD_STATE_E_Stop)
-				break;
-			QThread::msleep(100);
-		}
-		QThread::msleep(50);
-		delete m_thread;
-		m_thread = NULL;
-	}
+    // 停采集
+    m_capRunning = false;
+    if (m_capThread.joinable()) m_capThread.join();
+
+    // 停检测
+    m_detRunning = false;
+    m_frameCv.notify_all();
+    if (m_detThread.joinable()) m_detThread.join();
 }
 
+void GuiMain::StartCapThread()
+{
+    // 采集线程已在 StartThreads 启动，这里只负责初始化图像源
+    // 若需动态重启采集线程，可在这里 join 后重建
+    if (m_capThread.joinable()) return;
+    m_capRunning = true;
+    m_capThread = std::thread(&GuiMain::CapThreadProc, this);
+}
+
+void GuiMain::StopCapThread()
+{
+    m_capRunning = false;
+    if (m_capThread.joinable()) m_capThread.join();
+}
+
+// ============================================================
+//  采集线程
+// ============================================================
+void GuiMain::CapThreadProc()
+{
+    while (m_capRunning)
+    {
+        auto t0 = std::chrono::steady_clock::now();
+
+        if (!m_imgSource) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            continue;
+        }
+
+        RawImage frame;
+        if (m_imgSource->GetFrame(frame) != 0 || !frame.data) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+            continue;
+        }
+
+        // 缩放为检测输入尺寸
+        Mat orc(frame.height, frame.width, CV_8UC3, frame.data);
+        Mat dst(m_imgCapHeight, m_imgCapWidth, CV_8UC3, m_imgCapDataBGR);
+        cv::resize(orc, dst, Size(m_imgCapWidth, m_imgCapHeight), 0, 0, INTER_AREA);
+
+        // 通知检测线程：有新帧
+        {
+            std::lock_guard<std::mutex> lk(m_frameMtx);
+            m_hasFrame = true;
+        }
+        m_frameCv.notify_one();
+
+        // 控制采集频率（约 10ms，即 ~100fps 上限）
+        auto cost = std::chrono::duration_cast<std::chrono::milliseconds>(
+            std::chrono::steady_clock::now() - t0).count();
+        if (cost < 10)
+            std::this_thread::sleep_for(std::chrono::milliseconds(10 - cost));
+    }
+}
+
+// ============================================================
+//  检测线程
+// ============================================================
+void GuiMain::DetThreadProc()
+{
+    while (m_detRunning)
+    {
+        // ---------- 等待新帧 ----------
+        {
+            std::unique_lock<std::mutex> lk(m_frameMtx);
+            m_frameCv.wait_for(lk, std::chrono::milliseconds(100),
+                [this] { return m_hasFrame || !m_detRunning; });
+            if (!m_detRunning) break;
+            if (!m_hasFrame) continue;   // 超时
+            m_hasFrame = false;
+        }
+
+        // ---------- 取一帧 ----------
+        Mat orc(m_imgCapHeight, m_imgCapWidth, CV_8UC3, m_imgCapDataBGR);
+        Mat frame = orc.clone();   // 复制，避免采集线程改写
+
+        // ---------- 推理 ----------
+        if (m_handDet)
+        {
+            auto t0 = std::chrono::steady_clock::now();
+
+            std::vector<OnnxDetRst> rst;
+            m_handDet->ProcessImage(frame, rst);
+            m_handDet->drawRect(frame, rst);
+
+            auto cost = std::chrono::duration_cast<std::chrono::milliseconds>(
+                std::chrono::steady_clock::now() - t0).count();
+            // printf("det timeuse: %lld ms\n", (long long)cost);
+        }
+
+        // ---------- 显示 ----------
+        int labelw = ui.m_img_label->width();
+        int labelh = ui.m_img_label->height();
+        if (labelw <= 0 || labelh <= 0) continue;
+
+        Mat imgShowDataBGR(labelh, labelw, CV_8UC3, m_imgShowDataBGR);
+        cv::resize(frame, imgShowDataBGR, Size(labelw, labelh), 0, 0, INTER_AREA);
+
+        Mat imgShowDataRGB(labelh, labelw, CV_8UC3, m_imgShowDataRGB);
+        cvtColor(imgShowDataBGR, imgShowDataRGB, COLOR_BGR2RGB);
+
+        QImage showimage((uchar*)imgShowDataRGB.data,
+            imgShowDataRGB.cols,
+            imgShowDataRGB.rows,
+            imgShowDataRGB.cols * imgShowDataRGB.channels(),
+            QImage::Format_RGB888);
+
+        emit sigLabelShowImg(&showimage);
+    }
+}
+
+// ============================================================
+//  UI 槽函数
+// ============================================================
 void GuiMain::on_m_register_lav_clicked()
 {
-	char path[1024] = { 0 };
-	char processname[1024] = { 0 };
-	ICPPFile::GetExecutablePath(path, processname, sizeof(path));
-
-	CCPPString LAV = "\"";
-	LAV += path;
-	LAV += "LAV/register.bat";
-	LAV += "\"";
-	system(LAV.GetBuffer());
-
-    return;
+    // 保留原逻辑，如果用不到可以删
+    system("LAV/register.bat");
 }
 
 void GuiMain::on_m_start_det_clicked()
 {
-	void* cast = this;
-    
-//	if (m_thread_worker != NULL)
-//	{
-//		m_thread_worker->Detach((CCPPObject*)cast, (CPPTHREADAPI)&GuiMain::ThreadProc);
-//	}
+    std::string user = ui.m_user->text().toStdString();
+    std::string passwd = ui.m_passwd->text().toStdString();
+    std::string ip = ui.m_ip->text().toStdString();
 
-	if (m_thread_worker == NULL)
-	{
-		m_thread_worker = new CCPPThreadWorker(2, "smart");
-        m_thread_worker->Attach((CCPPObject*)cast, (CPPTHREADAPI)&GuiMain::ThreadProc);
-	}
-    
-	if (m_thread_cap != NULL)
-	{
-		m_thread_cap->Detach((CCPPObject*)cast, (CPPTHREADAPI)&GuiMain::CapThreadProc);
-	}
+    std::string url = "rtsp://" + user + ":" + passwd + "@" + ip
+        + ":554/mode=real&idc=1&ids=2";
 
-	if (m_thread_cap == NULL)
-	{
-		m_thread_cap = new CCPPThreadWorker(2, "smart");
-	}
+    // 关闭旧的图像源
+    if (m_imgSource) {
+        m_imgSource->Close();
+        m_imgSource.reset();
+    }
 
-	CCPPString user = ui.m_user->text().toStdString().c_str();
-	CCPPString passwd = ui.m_passwd->text().toStdString().c_str();
-	CCPPString ip = ui.m_ip->text().toStdString().c_str();
+    // 创建新的图像源（这里用你的实现替换）
+    m_imgSource = CreateImageSource();   // ← 工厂函数，见下方说明
+    if (!m_imgSource) {
+        QMessageBox::warning(this, "Error", "Create image source failed");
+        return;
+    }
 
-	CCPPString url = "rtsp://";
-	url += user;
-	url += ":";
-	url += passwd;
-	url += "@";
-	url += ip;
-	url += ":554/mode=real&idc=1&ids=2";
+    printf("url:%s\n", url.c_str());
+    if (m_imgSource->Init(url) != 0) {
+        QMessageBox::warning(this, "Error", "Init image source failed");
+        m_imgSource->Close();
+        m_imgSource.reset();
+        return;
+    }
 
-	GetImage* img = (GetImage*)m_getImg;
-	if (img != NULL)
-	{
-		delete img;
-		img = NULL;
-		m_getImg = NULL;
-	}
-
-	GetImage* getImage = new GetImage();
-	int ret = getImage->Init(GET_IMG_MODE_CAM, url.GetBuffer());
-	if (ret != 0)
-	{
-		delete getImage;
-		getImage = NULL;
-		return;
-	}
-	m_getImg = (void*)getImage;
-
-	m_thread_cap->Attach((CCPPObject*)cast, (CPPTHREADAPI)&GuiMain::CapThreadProc);
-	
-	return;
+    // 若采集线程已停止，重新启动
+    StartCapThread();
 }
 
 void GuiMain::LabelShowImg(QImage* img)
@@ -243,119 +298,12 @@ void GuiMain::LabelShowImg(QImage* img)
 
 void GuiMain::closeEvent(QCloseEvent* event)
 {
-	if (1)
-	{
-        void* cast = this;
-		if (m_thread_worker != NULL)
-		{
-            //会卡住
-//			m_thread_worker->Detach((CCPPObject*)cast, (CPPTHREADAPI)&GuiMain::ThreadProc);
-//          CPPDel(m_thread_worker);
-		}
-        
-		if (m_thread_cap != NULL)
-		{
-			m_thread_cap->Detach((CCPPObject*)cast, (CPPTHREADAPI)&GuiMain::CapThreadProc);
-            CPPDel(m_thread_cap);
-		}
+    StopThreads();
 
-		event->accept();
-	}
-	else
-	{
-		event->ignore();
-	}
-}
-
-int GuiMain::CapThreadProc(CCPPMessageT* msg, uint timestamp, uint& timeout)
-{
-    GetImage* img = (GetImage*)m_getImg;
-    if (img == NULL)
-    {
-        timeout = 1000;
-        return 0;
+    if (m_imgSource) {
+        m_imgSource->Close();
+        m_imgSource.reset();
     }
 
-	GET_IMG_IMG stImg;
-	memset(&stImg, 0, sizeof(GET_IMG_IMG));
-
-	int ret = img->Work(&stImg);
-    if (ret != 0)
-    {
-        printf("img work err\n");
-        timeout = 1000;
-        return 0;
-    }
-
-    if(m_imgFlag)
-    {
-        timeout = 10;
-        return 0;
-    }
-
-    Mat orc(stImg.height, stImg.width, CV_8UC3, (char*)stImg.vir[0]);
-    Mat dst(m_imgCapHeight, m_imgCapWidth, CV_8UC3, (char*)m_imgCapDataBGR);
-    cv::resize(orc, dst, Size(m_imgCapWidth, m_imgCapHeight), (0, 0), (0, 0), INTER_AREA);
-
-    m_imgFlag = 1;
-
-    timeout = 10;
-    return 0;
-}
-
-int GuiMain::ThreadProc(CCPPMessageT* msg, uint timestamp, uint& timeout)
-{
-    if(m_imgFlag == 0)
-    {
-        timeout = 10;
-        return 0;
-    }
-    
-    //orc bbbbb ggggg rrrrr
-    Mat orc(m_imgCapHeight, m_imgCapWidth, CV_8UC3, (char*)m_imgCapDataBGR);
-
-    if(m_handDet)
-    {
-        uint64 detS = CCPPTime::GetClockTimeMS();
-        std::vector<OnnxDetRst> rst;
-        m_handDet->ProcessImage(orc, rst);
-        m_handDet->drawRect(orc, rst);
-        uint64 detE = CCPPTime::GetClockTimeMS();
-//      printf("det timeuse:%lld\n", detE -detS);
-
-        for (const auto& d : rst)
-        {
-            PlayMedia(d.class_id);
-            break;
-        }
-    }
-    
-    int labelw = ui.m_img_label->width();
-    int labelh = ui.m_img_label->height();
-    
-    //缩放为界面大小的bgr
-    Mat imgShowDataBGR(labelh, labelw, CV_8UC3, m_imgShowDataBGR);
-    cv::resize(orc, imgShowDataBGR, Size(labelw, labelh), (0, 0), (0, 0), INTER_AREA);
-
-    Mat imgShowDataRGB(labelh, labelw, CV_8UC3, m_imgShowDataRGB);
-    cvtColor(imgShowDataBGR, imgShowDataRGB, CV_BGR2RGB);
-
-    QImage showimage = QImage((uchar*)imgShowDataRGB.data, imgShowDataRGB.cols, imgShowDataRGB.rows, imgShowDataRGB.cols * imgShowDataRGB.channels(), QImage::Format_RGB888);
-
-    emit sigLabelShowImg(&showimage);
-
-    m_imgFlag = 0;
-
-    timeout = 10;
-    return 0;
-}
-
-void GuiMain::PlayMedia(int class_id)
-{
-    CCPPString fileName;
-    fileName.Append("music/%d.mp3", class_id);
-    fileName.Dump();
-    MediaPlayer::instance()->playOneFileIfEndMutex(fileName.GetBuffer());
-
-    return ;
+    event->accept();
 }

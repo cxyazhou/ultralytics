@@ -153,7 +153,7 @@ $(SolutionDir)..\..\code\openbsd\qt\lib\$(platform)\Release\rcc.exe -binary $(So
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\code\modules\$(ProjectName)\inc;$(SolutionDir)..\..\code\modules\IvaTrack\inc;$(SolutionDir)..\..\code\modules\CPPBase\inc;$(SolutionDir)..\..\code\modules\ConfigManager\inc;$(SolutionDir)..\..\code\modules\GetAudio\inc;$(SolutionDir)..\..\code\modules\MediaPlayer\inc;$(SolutionDir)..\..\code\modules\json\inc;$(SolutionDir)..\..\code\modules\OnnxDet\inc;$(SolutionDir)..\..\code\modules\GetImage\inc;$(SolutionDir)..\..\code\openbsd\qt\inc;$(SolutionDir)..\..\code\openbsd\opencv\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\code\modules\$(ProjectName)\inc;$(SolutionDir)..\..\code\modules\OnnxDet\inc;$(SolutionDir)..\..\code\modules\GetImage\inc;$(SolutionDir)..\..\code\openbsd\qt\inc;$(SolutionDir)..\..\code\openbsd\opencv\inc</AdditionalIncludeDirectories>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>

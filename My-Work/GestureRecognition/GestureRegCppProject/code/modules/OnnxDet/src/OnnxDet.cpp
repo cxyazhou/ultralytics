@@ -5,16 +5,20 @@
 using namespace cv;
 using namespace std;
 
+extern char g_exe_path[];
+
+uint64_t GetClockTimeMS() {
+    return std::chrono::duration_cast<std::chrono::milliseconds>(
+        std::chrono::steady_clock::now().time_since_epoch()).count();
+}
+
 OnnxDet::OnnxDet()
 {
-    m_thread_worker = NULL;
-    m_process_flag = 0;
-    m_stop = 0;
+    m_stop = false;
+    m_has_task = false;
+    m_done = false;
     m_width = 320;
     m_height = 320;
-    
-    memset(&m_track, 0, sizeof(TRACK_WORK));
-
     m_obj_det_cnt = 0;
 }
 
@@ -27,23 +31,29 @@ int OnnxDet::Init()
 {
     CreatTrackHandle(m_width, m_height);
     
-    void* cast = this;
-    m_thread_worker = new CCPPThreadWorker(2, "smart");
-	m_thread_worker->Attach((CCPPObject*)cast, (CPPTHREADAPI)&OnnxDet::ThreadProc);
-    
+    // 复位状态
+    m_stop = false;
+    m_has_task = false;
+    m_done = false;
+
+    // 启动线程（无参版本，干净）
+    m_thread = std::thread(&OnnxDet::ThreadProc, this);
+
     return 0;
 }
 
 int OnnxDet::UnInit()
 {
-    m_stop = 1;
-	if (m_thread_worker != NULL)
-	{
-        void* cast = this;
-		m_thread_worker->Detach((CCPPObject*)cast, (CPPTHREADAPI)&OnnxDet::ThreadProc);
-		CPPDel(m_thread_worker);
-	}
-    
+    {
+        std::lock_guard<std::mutex> lk(m_mtx);
+        m_stop = true;
+    }
+    m_cv.notify_all();                 // 唤醒可能正在等待的线程
+
+    if (m_thread.joinable()) {
+        m_thread.join();               // 等线程真正结束
+    }
+
     return 0;
 }
 
@@ -228,7 +238,7 @@ PaddingInfo OnnxDet::ResizePadding(const cv::Mat& src, cv::Mat& dst, const cv::S
     int target_h = target_size.height;
 
     // 计算缩放比例
-    float scale = CPPMIN(static_cast<float>(target_w) / orig_w,
+    float scale = MIN(static_cast<float>(target_w) / orig_w,
         static_cast<float>(target_h) / orig_h);
 
     // 计算新尺寸
@@ -280,10 +290,10 @@ cv::Rect2f OnnxDet::ResizePaddingMapRect(const cv::Rect& bbox, const cv::Size& o
     float ymax = (bbox.y + bbox.height - top) / scale;
 
     // 确保坐标在图像范围内
-    xmin = CPPMAX(0.0f, CPPMIN(xmin, static_cast<float>(orig_w)));
-    ymin = CPPMAX(0.0f, CPPMIN(ymin, static_cast<float>(orig_h)));
-    xmax = CPPMAX(0.0f, CPPMIN(xmax, static_cast<float>(orig_w)));
-    ymax = CPPMAX(0.0f, CPPMIN(ymax, static_cast<float>(orig_h)));
+    xmin = MAX(0.0f, MIN(xmin, static_cast<float>(orig_w)));
+    ymin = MAX(0.0f, MIN(ymin, static_cast<float>(orig_h)));
+    xmax = MAX(0.0f, MIN(xmax, static_cast<float>(orig_w)));
+    ymax = MAX(0.0f, MIN(ymax, static_cast<float>(orig_h)));
 
     // 返回边界框 (使用浮点精度保持准确性)
     return cv::Rect2f(xmin, ymin, xmax - xmin, ymax - ymin);
@@ -314,19 +324,21 @@ std::vector<float> OnnxDet::PreProcessImage(const cv::Mat& image)
 
 int OnnxDet::ProcessImage(cv::Mat& image, std::vector<OnnxDetRst>& rst)
 {
-    m_det_img = image;
-    m_process_flag = 1;
-    while(1)
     {
-        if(m_process_flag == 0)
-        {
-            break;
-        }
-        CPPSleepMS(40);
+        std::lock_guard<std::mutex> lk(m_mtx);
+        m_det_img = image.clone();
+        m_has_task = true;
+        m_done = false;
+    }
+    m_cv.notify_one();                 // 唤醒工作线程
+
+    {
+        std::unique_lock<std::mutex> lk(m_mtx);
+        // 等结果就绪（或线程被停止）
+        m_cv.wait(lk, [this] { return m_done.load() || m_stop.load(); });
+        rst = m_rst;
     }
 
-    rst = m_rst;
-    
     return 0;
 }
 
@@ -383,147 +395,15 @@ void OnnxDet::drawRect(cv::Mat& image, std::vector<OnnxDetRst>& rst)
 
 void OnnxDet::CreatTrackHandle(int w, int h)
 {
-    if(m_track.pvIVAFilter != NULL)
-    {
-        if(m_track.iva_mem_tab.base != NULL)
-        {
-            free(m_track.iva_mem_tab.base);
-            m_track.iva_mem_tab.base = NULL;
-        }
-        m_track.pvIVAFilter = NULL;
-    }
-    
-    IVA_CREATE_PARAM create_param = {0};
-    create_param.image_w = w;
-    create_param.image_h = h;
-    create_param.bgs_downsample = 1;
-    
-    IVA_VIDEO_FRAME *frame   = &m_track.iva_frame;
-    IVA_MEM_TAB     *mem_tab = &m_track.iva_mem_tab;
-    
-    // 获取iva需要的内存大小
-    frame->video_header.image_width  = w;
-    frame->video_header.image_height = h;
-    frame->video_header.stride       = w;
-    frame->yuv_frame.y               = NULL;
-    frame->yuv_frame.u               = NULL;
-    frame->yuv_frame.v               = NULL;
-    frame->video_header.frame_rate   = 25;
-    frame->video_header.format       = IVA_I420;
-    
-    int ret = QVIVA_GetMemSizeV2(&create_param, mem_tab);
-    if(QV_IVA_LIB_S_OK != ret)
-    {
-        printf("QVIVA_GetMemSizeV2 is failed!(0x%x)\n", ret);
-        return ;
-    }
-    
-    printf("com iva filter mem size:%d\n", mem_tab->size);
-    
-    mem_tab->base = malloc(mem_tab->size);
-    if(NULL == mem_tab->base)
-    {
-        printf("malloc err.\n");
-        return ;
-    }
-    
-    // 创建
-    ret = QVIVA_CreateV2(&create_param, mem_tab, &m_track.pvIVAFilter);
-    if(QV_IVA_LIB_S_OK != ret)
-    {
-        printf("QVIVA_CreateV2 is failed!(0x%x)\n", ret);
-        free(mem_tab->base);
-        return ;
-    }
-    
-    //设置ivatrack参数
-    IVA_LIB_PARAM iva_param;
-    memset(&iva_param, 0, sizeof(IVA_LIB_PARAM));
-    iva_param.param_key = IVA_SUPPRESS_STATIC;
-    iva_param.param_val = 0;
-    ret = QVIVA_SetConfig(m_track.pvIVAFilter,IVA_CFG_SINGLE_PARAM,(void*)&iva_param,sizeof(IVA_LIB_PARAM));
-    if(QV_IVA_LIB_S_OK != ret)
-    {
-        printf("QVIVA_SetConfig is failed!(0x%x)\n", ret);
-    }
-    
     return ;
 }
 
 void OnnxDet::Track(cv::Mat& image, std::vector<OnnxDetRst>& stObj)
 {
-    if(m_track.pvIVAFilter == NULL)
-    {
-        return ;
-    }
-    
-    IVA_BLOB   *blob = NULL;
-    IVA_TARGET *target = NULL;
-    
-    //输入检测器检测结果
-    int x1, x2, y1, y2;
-    blob = m_track.blob_list.blob;
-    memset(&m_track.blob_list, 0, sizeof(BLOB_LIST));
-    for (const auto& d : stObj)
-    {
-        if(m_track.blob_list.blob_num >= MAX_BLOB_NUM)
-        {
-            break;
-        }
-        
-        blob[m_track.blob_list.blob_num].conf = d.confidence;
-    
-        blob[m_track.blob_list.blob_num].cx = d.bbox.x + (d.bbox.width / 2);
-        blob[m_track.blob_list.blob_num].cy = d.bbox.y + (d.bbox.height / 2);
-        blob[m_track.blob_list.blob_num].rw = d.bbox.width / 2;
-        blob[m_track.blob_list.blob_num].rh = d.bbox.height / 2;
-        
-        blob[m_track.blob_list.blob_num].type = d.class_id;
-        m_track.blob_list.blob_num++;
-    }
-
-    unsigned char* data = image.ptr<uchar>(0);
-    
-    m_track.iva_frame.video_header.stride = image.cols;
-    m_track.iva_frame.yuv_frame.y = data;
-    m_track.iva_frame.yuv_frame.u = data + image.rows * image.cols;
-    m_track.iva_frame.yuv_frame.v = data + image.rows * image.cols * 2;
-    m_track.iva_frame.video_header.time_stamp = CCPPTime::GetClockTimeMS();
-   
-    //基于检测框的智能处理
-    int ret = QVIVA_ProcessV2(m_track.pvIVAFilter, &m_track.iva_frame,
-    (void*)(&m_track.blob_list),
-    sizeof(BLOB_LIST), (void*)(&m_track.stIVAOut),sizeof(IVA_OUT_INFO));            
-    if(ret != QV_IVA_LIB_S_OK)
-    {
-        printf("QVIVA_ProcessV2 err:%d\n", ret);
-        return ;
-    }
-    
-    std::vector<OnnxDetRst> outputObjs;
-    
-    target = m_track.stIVAOut.target_list.target;
-    for(int idx = 0; idx < m_track.stIVAOut.target_list.target_num; idx++)
-    {
-        OnnxDetRst d;
-        d.class_id = target->type;
-        d.confidence = target->conf;
-    
-        cv::Rect2f detected_bbox(target->rect.x*image.cols, target->rect.y*image.rows, target->rect.width*image.cols, target->rect.height*image.rows);
-    
-        d.bbox = detected_bbox;
-    
-        outputObjs.push_back(d);
-        
-        target++;
-    }
-
-    stObj = outputObjs;
-
     return ;
 }
 
-int OnnxDet::ThreadProc(CCPPMessageT* msg, uint timestamp, uint& timeout)
+int OnnxDet::ThreadProc()
 {
     // 初始化ONNX Runtime环境
     Ort::Env env(ORT_LOGGING_LEVEL_WARNING, "ONNX_DETECTION");
@@ -532,8 +412,18 @@ int OnnxDet::ThreadProc(CCPPMessageT* msg, uint timestamp, uint& timeout)
     session_options.SetGraphOptimizationLevel(GraphOptimizationLevel::ORT_ENABLE_ALL);
 
     // 加载ONNX模型
-    const wchar_t* model_path = L"GestureReg.onnx";
-    Ort::Session session(env, model_path, session_options);
+    wchar_t  modelPath[256] = { 0 };
+    _snwprintf_s(modelPath, 256, _TRUNCATE, L"%hs/model/GestureReg.onnx", g_exe_path);
+    const wchar_t* model_path = modelPath;
+
+    Ort::Session session{ nullptr };
+    try {
+        session = Ort::Session(env, model_path, session_options);
+    }
+    catch (const Ort::Exception& e) {
+        std::cerr << "Load model failed: " << e.what() << std::endl;
+        return -1;
+    }
 
     // 获取模型输入信息
     Ort::AllocatorWithDefaultOptions allocator;
@@ -549,10 +439,10 @@ int OnnxDet::ThreadProc(CCPPMessageT* msg, uint timestamp, uint& timeout)
         input_shape[0] = 1;  // 设置batch size为1
     }
 
-    const int batch_size = input_shape[0];
-    const int channels = input_shape[1];
-    const int input_height = input_shape[2];
-    const int input_width = input_shape[3];
+    const int batch_size = static_cast<int>(input_shape[0]);
+    const int channels = static_cast<int>(input_shape[1]);
+    const int input_height = static_cast<int>(input_shape[2]);
+    const int input_width = static_cast<int>(input_shape[3]);
 
     std::cout << "Model input shape: "
         << batch_size << "x" << channels << "x"
@@ -578,143 +468,134 @@ int OnnxDet::ThreadProc(CCPPMessageT* msg, uint timestamp, uint& timeout)
         return -1;
     }
 
-    while(1)
+    Ort::MemoryInfo memory_info =
+        Ort::MemoryInfo::CreateCpu(OrtArenaAllocator, OrtMemTypeDefault);
+
+    // ---------- 2. 主循环 ----------
+    while (true)
     {
-        if(m_stop)
+        cv::Mat img;
         {
-            break;
+            std::unique_lock<std::mutex> lk(m_mtx);
+
+            // 等待：有任务 或 要停止；最多等 40ms 超时
+            m_cv.wait_for(lk, std::chrono::milliseconds(40),
+                [this] { return m_has_task.load() || m_stop.load(); });
+
+            if (m_stop.load()) break;      // 退出
+
+            if (!m_has_task.load()) {
+                continue;                  // 超时且无任务
+            }
+
+            img = m_det_img.clone();       // 取出任务数据
+            m_has_task = false;
+            m_done = false;
         }
-        if(m_process_flag == 1)
-        {
-            // 保存原始图像尺寸用于后处理
-            cv::Size orig_size(m_det_img.cols, m_det_img.rows);
-            
-            cv::Mat padded_img;
-            PaddingInfo pad_info = ResizePadding(m_det_img, padded_img, cv::Size(m_width, m_height));
-            
-            // 保存填充后的图像
+
+        // ---------- 3. 锁外做耗时推理 ----------
+        cv::Size orig_size(img.cols, img.rows);
+
+        cv::Mat padded_img;
+        PaddingInfo pad_info = ResizePadding(img, padded_img, cv::Size(m_width, m_height));
+
+        // 保存填充后的图像
 //          cv::imwrite("padded.jpg", padded_img);
 
             // 颜色团块目标检测
 //          detObjs(padded_img, orig_size, pad_info);
-            
+
             // 手动预处理图像
-            std::vector<float> input_tensor_values = PreProcessImage(padded_img);
-            
-            // 创建输入Tensor
-            Ort::MemoryInfo memory_info = Ort::MemoryInfo::CreateCpu(
-                OrtArenaAllocator,
-                OrtMemTypeDefault
-            );
-            
-            Ort::Value input_tensor = Ort::Value::CreateTensor<float>(
-                memory_info,
-                input_tensor_values.data(),
-                input_tensor_values.size(),
-                input_shape.data(),
-                input_shape.size()
-            );
+        std::vector<float> input_tensor_values = PreProcessImage(padded_img);
 
-            uint64 startRunTime = CCPPTime::GetClockTimeMS();
-            // 执行推理
-            auto output_tensors = session.Run(
-                Ort::RunOptions{ nullptr },
-                input_names,
-                &input_tensor,
-                1,
-                output_names,
-                1
-            );
-            uint64 endRunTime = CCPPTime::GetClockTimeMS();
-//          printf("Run timeuse : %lld\n", endRunTime - startRunTime);
-            
-            if (output_tensors.empty()) {
-                std::cerr << "Error: No output tensors" << std::endl;
-                return -1;
-            }
-            
-            Ort::Value& output = output_tensors.front();
-            float* output_data = output.GetTensorMutableData<float>();
-            
-            // 解析输出结果 (形状: [1, 50, 6])
-            const int num_detections = output_shape[1];  // 50个检测框
-//          std::cout << "Model output contains " << num_detections << " detections" << std::endl;
-            
-            std::vector<OnnxDetRst> detections;
-            for (int i = 0; i < num_detections; ++i) {
-                // 每6个值表示一个检测结果
-                const float* det = output_data + i * 6;
-            
-                // 假设输出格式为: [x1, y1, x2, y2, confidence, class_id]
-                // 注意：具体顺序可能需要根据模型调整
-                float confidence = det[4];
-            
-                // 应用置信度阈值
-                if (confidence < 0.6) continue;
-            
-                OnnxDetRst d;
-                d.class_id = static_cast<int>(det[5]);
-                d.confidence = confidence;
-            
-                cv::Rect2f detected_bbox(det[0], det[1], det[2] - det[0], det[3] - det[1]);
-//              cv::Rect2f orig_bbox = ResizePaddingMapRect(detected_bbox, orig_size, pad_info);
-            
-                d.bbox = detected_bbox;
-            
-                detections.push_back(d);
-            
-                // 打印检测信息
-                std::cout << "Detection " << i << ": "
-                    << "class=" << d.class_id << ", "
-                    << "conf=" << std::fixed << std::setprecision(2) << d.confidence << ", "
-                    << "bbox=[" << d.bbox.x << ", " << d.bbox.y << ", "
-                    << d.bbox.width << ", " << d.bbox.height << "]" << std::endl;
-            }
-            
-//          std::cout << "Valid detections: " << detections.size() << std::endl;
-            
-            Track(padded_img, detections);
-            
-            std::vector<OnnxDetRst> outputObjs;
-            for (const auto& d : detections)
-            {
-                OnnxDetRst obj = d;
-                obj.bbox = ResizePaddingMapRect(d.bbox, orig_size, pad_info);
-                outputObjs.push_back(obj);
-            }
+        Ort::Value input_tensor = Ort::Value::CreateTensor<float>(
+            memory_info,
+            input_tensor_values.data(),
+            input_tensor_values.size(),
+            input_shape.data(),
+            input_shape.size()
+        );
 
-            m_rst = outputObjs;
-            
-            m_process_flag = 0;
+        auto t0 = std::chrono::steady_clock::now();
+
+        std::vector<Ort::Value> output_tensors;
+        try {
+            output_tensors = session.Run(Ort::RunOptions{ nullptr },
+                input_names, &input_tensor, 1,
+                output_names, 1);
         }
-        else
+        catch (const Ort::Exception& e) {
+            std::cerr << "Inference failed: " << e.what() << std::endl;
+            continue;
+        }
+
+        auto cost_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
+            std::chrono::steady_clock::now() - t0).count();
+        // std::cout << "Run timeuse : " << cost_ms << " ms\n";
+
+        if (output_tensors.empty()) {
+            std::cerr << "Error: No output tensors" << std::endl;
+            continue;
+        }
+
+        float* output_data = output_tensors.front().GetTensorMutableData<float>();
+
+        // 解析输出结果 (形状: [1, 50, 6])
+        const int num_detections = static_cast<int>(output_shape[1]);  // 50个检测框
+        //          std::cout << "Model output contains " << num_detections << " detections" << std::endl;
+
+        std::vector<OnnxDetRst> detections;
+        for (int i = 0; i < num_detections; ++i) {
+            // 每6个值表示一个检测结果
+            const float* det = output_data + i * 6;
+
+            // 假设输出格式为: [x1, y1, x2, y2, confidence, class_id]
+            // 注意：具体顺序可能需要根据模型调整
+            float confidence = det[4];
+
+            // 应用置信度阈值
+            if (confidence < 0.6f) continue;
+
+            OnnxDetRst d;
+            d.class_id = static_cast<int>(det[5]);
+            d.confidence = confidence;
+
+            cv::Rect2f detected_bbox(det[0], det[1], det[2] - det[0], det[3] - det[1]);
+            //              cv::Rect2f orig_bbox = ResizePaddingMapRect(detected_bbox, orig_size, pad_info);
+
+            d.bbox = detected_bbox;
+
+            detections.push_back(d);
+
+            // 打印检测信息
+            std::cout << "Detection " << i << ": "
+                << "class=" << d.class_id << ", "
+                << "conf=" << std::fixed << std::setprecision(2) << d.confidence << ", "
+                << "bbox=[" << d.bbox.x << ", " << d.bbox.y << ", "
+                << d.bbox.width << ", " << d.bbox.height << "]" << std::endl;
+        }
+
+        //          std::cout << "Valid detections: " << detections.size() << std::endl;
+
+        Track(padded_img, detections);
+
+        std::vector<OnnxDetRst> outputObjs;
+        outputObjs.reserve(detections.size());
+        for (const auto& d : detections)
         {
-            CPPSleepMS(40);
+            OnnxDetRst obj = d;
+            obj.bbox = ResizePaddingMapRect(d.bbox, orig_size, pad_info);
+            outputObjs.push_back(obj);
         }
+
+        // ---------- 4. 写结果并通知 ----------
+        {
+            std::lock_guard<std::mutex> lk(m_mtx);
+            m_rst = std::move(outputObjs);
+            m_done = true;
+        }
+        m_cv.notify_all();
     }
 
-    timeout = 10;
-    
     return 0;
 }
-
-/*
-  0: two_up_inverted
-  1: call
-  2: dislike
-  3: fist
-  4: four
-  5: like
-  6: mute
-  7: ok
-  8: one
-  9: palm
-  10: peace
-  11: peace_inverted
-  12: rock
-  13: stop
-  14: stop_inverted
-  15: three
-  16: three2
-  17: two_up
-*/

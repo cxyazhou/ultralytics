@@ -1,102 +1,105 @@
 #pragma once
 
 #include <QtCore/qthread.h>
-#include <QtCore/qfile.h>
 #include <QtCore/qdebug.h>
-#include <QtCore/QVariant>
-
-#include <QtGui/QMouseEvent>
 #include <QtGui/QImage>
-
-#include <QtWidgets/qmessagebox.h>
-#include <QtWidgets/QPushButton>
-#include <QtWidgets/qfiledialog.h>
-#include <QtWidgets/QAction>
-#include <QtWidgets/QApplication>
-#include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QHeaderView>
+#include <QtGui/QCloseEvent>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
-#include <QtWidgets/QStatusBar>
-#include <QtWidgets/QWidget>
 #include <QtWidgets/QLabel>
-#include <QtWidgets/QtWidgets>
-#include <QtWidgets/qfiledialog.h>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QDesktopWidget>
+#include <QtWidgets/QMessageBox>
+#include <QtGui/QScreen>
+#include <QtGui/QGuiApplication>
+
+#include <thread>
+#include <atomic>
+#include <mutex>
+#include <condition_variable>
+#include <memory>
+#include <string>
+#include <vector>
 
 #include "ui_GuiMain.h"
-#include "CPPBase.h"
 
-typedef enum enThreadState
-{
-	THREAD_STATE_E_Start = 0,
-	THREAD_STATE_E_PrepareStop,
-	THREAD_STATE_E_Stop
-}THREAD_STATE_E;
-
-class GuiMain;
-class GuiMainThread :public QThread
-{
-	Q_OBJECT
-public:
-	GuiMainThread(QObject* parent, GuiMain* gui);
-	~GuiMainThread();
-
-	void run();//线程入口函数（工作线程的主函数）
-
-private:
-	GuiMain* m_gui;
+// ---------- 图像源抽象接口（替代 GetImageInterface） ----------
+struct RawImage {
+    int width = 0;
+    int height = 0;
+    unsigned char* data = nullptr;   // BGR
 };
 
+class IImageSource {
+public:
+    virtual ~IImageSource() = default;
+    virtual int  Init(const std::string& url) = 0;
+    virtual int  GetFrame(RawImage& out) = 0;   // 0=成功
+    virtual void Close() = 0;
+};
+
+// ---------- 音频/动作播放占位（替代 PlayMedia） ----------
+void PlayMedia(int class_id);
+
 class OnnxDet;
-class GuiMain : public QMainWindow, public CCPPObject
+
+class GuiMain : public QMainWindow
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
     static GuiMain* instance();
-    
-	GuiMain(QWidget* parent = Q_NULLPTR);
-	~GuiMain();
 
-	THREAD_STATE_E	GetThreadState() { return m_thread_state; };
-	int				SetThreadState(THREAD_STATE_E state) { return m_thread_state = state; };
-	void			StartThread();
-	void			StopThread();
+    GuiMain(QWidget* parent = nullptr);
+    ~GuiMain();
 
-    void            PlayMedia(int class_id);
+    void StartThreads();
+    void StopThreads();
 
 protected:
-	void closeEvent(QCloseEvent* event);                //关闭按钮触发
-
-private:
-	int ThreadProc(CCPPMessageT* msg, uint timestamp, uint& timeout);
-	int CapThreadProc(CCPPMessageT* msg, uint timestamp, uint& timeout);
+    void closeEvent(QCloseEvent* event) override;
 
 signals:
-	void sigLabelShowImg(QImage*);
+    void sigLabelShowImg(QImage*);
 
 private slots:
-	void on_m_register_lav_clicked();
-	void on_m_start_det_clicked();
-	void LabelShowImg(QImage* img);
+    void on_m_register_lav_clicked();
+    void on_m_start_det_clicked();
+    void LabelShowImg(QImage* img);
 
 private:
-	Ui::GuiMainClass        ui;
-    
-	THREAD_STATE_E			m_thread_state;
-	GuiMainThread*	        m_thread;
+    // 线程主函数（替代 ThreadProc / CapThreadProc）
+    void DetThreadProc();
+    void CapThreadProc();
 
-	CCPPThreadWorker*       m_thread_cap;
-	CCPPThreadWorker*       m_thread_worker;
-	void*                   m_getImg;
-	unsigned char*          m_imgShowDataBGR;
-	unsigned char*          m_imgShowDataRGB;
+    void StartCapThread();
+    void StopCapThread();
 
-    int                     m_imgFlag;
-    int                     m_imgCapWidth;
-    int                     m_imgCapHeight;
-	unsigned char*          m_imgCapDataBGR;
+private:
+    Ui::GuiMainClass ui;
 
-    OnnxDet*                m_handDet;
+    // ---- 采集线程 ----
+    std::thread             m_capThread;
+    std::atomic<bool>       m_capRunning{ false };
+
+    // ---- 检测线程 ----
+    std::thread             m_detThread;
+    std::atomic<bool>       m_detRunning{ false };
+
+    // ---- 采集图像 → 检测 之间的同步 ----
+    std::mutex              m_frameMtx;
+    std::condition_variable m_frameCv;
+    bool                    m_hasFrame = false;      // 有未处理的新帧
+
+    // ---- 采集与显示缓冲 ----
+    std::unique_ptr<IImageSource> m_imgSource;
+
+    unsigned char* m_imgShowDataBGR = nullptr;
+    unsigned char* m_imgShowDataRGB = nullptr;
+
+    int                     m_imgCapWidth = 352;
+    int                     m_imgCapHeight = 288;
+    unsigned char* m_imgCapDataBGR = nullptr;
+
+    // ---- 检测器 ----
+    OnnxDet* m_handDet = nullptr;
 };
-

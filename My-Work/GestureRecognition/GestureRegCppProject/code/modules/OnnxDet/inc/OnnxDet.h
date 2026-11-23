@@ -1,15 +1,19 @@
 #ifndef __ONNX_DET_H__
 #define __ONNX_DET_H__
 
-#include <iostream>
 #include <vector>
-#include <cmath>
-#include <algorithm>
-#include <iomanip>
+#include <string>
+#include <thread>
+#include <atomic>
+#include <mutex>
+#include <condition_variable>
+#include <cstdint>
 
 #include "opencv2/opencv.hpp"
-#include "CPPBase.h"
-#include "iva_lib.h"
+
+// 用标准类型替代 uint / uint64
+using uint = unsigned int;
+using uint64 = unsigned long long;
 
 struct OnnxDetRst
 {
@@ -28,17 +32,7 @@ struct PaddingInfo
     int     bottom;
 };
 
-typedef struct _TRACK_WORK_
-{
-	void*		            pvIVAFilter;					 /*iva处理模块指针*/
-	IVA_OUT_INFO	        stIVAOut;						 /*iva模块输出信息*/
-	IVA_MEM_TAB 	        iva_mem_tab;					 /*算法库内存管理器*/
-	IVA_VIDEO_FRAME         iva_frame;						 /*输入图像*/
-	BLOB_LIST               blob_list;                       /*基于检测框的团块链表*/
-    IVA_RULE_LIST           ivaRuleList;                     /*规则结构体*/
-}TRACK_WORK;
-
-class OnnxDet : public CCPPObject
+class OnnxDet
 {
 public:
 	OnnxDet();
@@ -59,20 +53,23 @@ public:
     int detObjs(cv::Mat& src, cv::Size orig_size, PaddingInfo& paddingInfo);
 
 private:
-    int ThreadProc(CCPPMessageT* msg, uint timestamp, uint& timeout);
+    int ThreadProc();
 
 private:
+    // ---- 线程与同步 ----
+    std::thread             m_thread;
+    std::atomic<bool>       m_stop{ false };          // 停止标志
+    std::atomic<bool>       m_has_task{ false };      // 是否有待处理任务
+    std::atomic<bool>       m_done{ false };          // 结果是否就绪
+    std::mutex              m_mtx;
+    std::condition_variable m_cv;
+
     int                     m_width;
     int                     m_height;
-	CCPPThreadWorker*       m_thread_worker;
+    unsigned int            m_obj_det_cnt;
+
     cv::Mat                 m_det_img;
     std::vector<OnnxDetRst> m_rst;
-    int                     m_process_flag;
-    int                     m_stop;
-
-    TRACK_WORK              m_track;
-
-    unsigned int            m_obj_det_cnt;
     std::vector<cv::Rect>   m_obj_rst;
 };
 

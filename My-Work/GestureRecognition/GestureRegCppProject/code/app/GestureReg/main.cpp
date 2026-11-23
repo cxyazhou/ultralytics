@@ -14,28 +14,10 @@
 #pragma comment(lib, "Comdlg32.lib")
 
 #pragma comment(lib, "GuiMain.lib")
-
-#pragma comment(lib, "IvaTrack.lib")
 #pragma comment(lib, "OnnxDet.lib")
-#pragma comment(lib, "MediaPlayer.lib")
-#pragma comment(lib, "GetAudio.lib")
 #pragma comment(lib, "GetImage.lib")
-#pragma comment(lib, "AudioProcess.lib")
-#pragma comment(lib, "ConfigManager.lib")
-#pragma comment(lib, "json.lib")
-#pragma comment(lib, "CPPBase.lib")
 
 #pragma comment(lib, "onnxruntime.lib")
-
-#pragma comment(lib, "libvlc.lib")
-#pragma comment(lib, "libvlccore.lib")
-
-#pragma comment(lib, "libcrypto.lib")
-#pragma comment(lib, "libssl.lib")
-
-#pragma comment(lib, "portaudio.lib")
-
-#pragma comment(lib, "zlib.lib")
 
 #ifndef _DEBUG
 #pragma comment(lib, "Qt5Core.lib")
@@ -121,26 +103,18 @@
 
 #endif //defined(WIN32) | defined(WIN64)
 
-#include "ConfigManager.h"
+#include <QtCore/QFileInfo>
 #include "GuiMain.h"
+
+char g_exe_path[128] = { 0 };
 
 int main(int argc, char* argv[])
 {
-#if defined(WIN32) | defined(WIN64)
-    SetConsoleOutputCP(CP_UTF8);
-    SetConsoleCP(CP_UTF8);
-#endif
-
-    char path[1024] = { 0 };
-    char processname[1024] = { 0 };
-    ICPPFile::GetExecutablePath(path, processname, sizeof(path));
-    printf("path:%s name:%s\n", path, processname);
-    CCPPString configDir(path);
-    configDir += "Config";
-    CConfigManager::instance()->initialize(APP_APP, configDir.GetBuffer());
-        
 	QApplication app(argc, argv);
         
+	QString path = QCoreApplication::applicationDirPath();
+	memcpy(g_exe_path, path.toStdString().c_str(), strlen(path.toStdString().c_str()));
+
 	GuiMain* v = GuiMain::instance();
 	if (NULL != v)
 	{

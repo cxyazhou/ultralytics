@@ -82,7 +82,7 @@
     <OutDir>$(SolutionDir)\app\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)\app\$(ProjectName)\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)\app\GestureReg\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -204,7 +204,7 @@ Copy /D "$(Solutiondir)..\..\code\openbsd\onnxruntime\lib\$(Platform)\Release\*.
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\code\modules\CPPBase\inc;$(SolutionDir)..\..\code\modules\IvaTrack\inc;$(SolutionDir)..\..\code\modules\ConfigManager\inc;$(SolutionDir)..\..\code\modules\json\inc;$(SolutionDir)..\..\code\modules\MediaPlayer\inc;$(SolutionDir)..\..\code\modules\GuiMain\inc;$(SolutionDir)..\..\code\openbsd\qt\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\code\modules\GuiMain\inc;$(SolutionDir)..\..\code\openbsd\qt\inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -243,6 +243,6 @@ Copy /D "$(Solutiondir)..\..\code\openbsd\onnxruntime\lib\$(Platform)\Release\*.
     <ResourceCompile Include="logo.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\code\Main\main.cpp" />
+    <ClCompile Include="..\..\..\..\code\app\GestureReg\main.cpp" />
   </ItemGroup>
 </Project>
